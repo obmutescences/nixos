@@ -1,0 +1,167 @@
+{
+	"$schema": "https://raw.githubusercontent.com/jandedobbeleer/oh-my-posh/main/themes/schema.json",
+	"blocks": [
+		{
+			"alignment": "left",
+			"segments": [
+				{
+					"foreground": "#F08080",
+					"leading_diamond": "\u256d\u2500",
+					"style": "diamond",
+					"template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
+					"type": "os"
+				},
+				{
+					"foreground": "#23CDCD",
+					"properties": {
+						"home_icon": " ~",
+						"style": "full"
+					},
+					"style": "plain",
+					"template": " \uf07c {{ .Path }} ",
+					"type": "path"
+				},
+				{
+					"foreground": "#9ACE65",
+					"powerline_symbol": "\ue0b0",
+					"properties": {
+						"branch_icon": "\uf126 ",
+						"fetch_stash_count": true,
+						"fetch_status": true,
+						"fetch_upstream_icon": true
+					},
+					"style": "plain",
+					"template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+					"type": "git"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"alignment": "right",
+			"segments": [
+				{
+					"foreground": "#689f63",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"fetch_version": true
+					},
+					"style": "plain",
+					"template": " {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} \ue718 ",
+					"type": "node"
+				},
+				{
+					"foreground": "#00acd7",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"fetch_version": true
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \ue627 ",
+					"type": "go"
+				},
+				{
+					"foreground": "#FFDE57",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"display_mode": "files",
+						"fetch_virtual_env": false
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \ue235 ",
+					"type": "python"
+				},
+				{
+					"foreground": "#CC6600",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"display_mode": "files",
+						"fetch_version": true
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \ue7a8 ",
+					"type": "rust"
+				},
+				{
+					"foreground": "#FEAC19",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"display_mode": "files",
+						"fetch_version": false
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} \uf0e7",
+					"type": "azfunc"
+				},
+				{
+					"foreground": "#ffff66",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"style": "plain",
+					"template": " \uf0ad ",
+					"type": "root"
+				},
+				{
+					"foreground": "#c4a000",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"style": "plain",
+					"template": " {{ .FormattedMs }} \uf252 ",
+					"type": "executiontime"
+				},
+				{
+					"foreground": "#AEEA00",
+					"invert_powerline": true,
+					"powerline_symbol": "\ue0b2",
+					"properties": {
+						"always_enabled": true
+					},
+					"style": "plain",
+					"template": " {{ if gt .Code 0 }}{{ .Meaning }}{{ else }}\u2714{{ end }} ",
+					"type": "exit"
+				},
+				{
+					"foreground": "#AEEA00",
+					"invert_powerline": true,
+					"style": "diamond",
+					"template": " {{ .CurrentDate | date .Format }} \uf017 ",
+					"trailing_diamond": "\u2500\u256e",
+					"type": "time"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"alignment": "left",
+			"newline": true,
+			"segments": [
+				{
+					"foreground": "#AEEA00",
+					"style": "plain",
+					"template": "\u2570\u2500 \u27a4",
+					"type": "text"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"segments": [
+				{
+					"foreground": "#AEEA00",
+					"style": "plain",
+					"template": "\u2500\u256f",
+					"type": "text"
+				}
+			],
+			"type": "rprompt"
+		}
+	],
+	"console_title_template": "{{ .Shell }} in {{ .Folder }}",
+	"final_space": true,
+	"version": 2
+}
