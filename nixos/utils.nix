@@ -97,7 +97,9 @@ in {
     libsForQt5.qtsvg # for sddm theme svg icons
     libsForQt5.qt5.qtwayland # wayland support for qt5
 	adwaita-qt6
+	adwaita-qt
 	adwaita-icon-theme
+	nwg-look
   ];
 
   services.logind.extraConfig = ''

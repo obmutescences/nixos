@@ -164,13 +164,19 @@ in {
       };
 
       windowrulev2 =
-        [ "float, tag:modal" "pin, tag:modal" "center, tag:modal"  "opacity 0.67 0.67,class:.*"];
+        [ 
+		"float, tag:modal" 
+		"pin, tag:modal" 
+		"center, tag:modal"  
+		"opacity 0.67 0.67,class:.*"
+		"opacity 0.99 0.99,class:^(neovide)$"
+		];
 
       layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
 
       input = {
         kb_layout = "us";
-        follow_mouse = 0;
+        follow_mouse = 1;
 		force_no_accel = 1;
         sensitivity = 1;
         repeat_delay = 200;

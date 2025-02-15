@@ -11,6 +11,7 @@
     ../../home/programs/thunar
     ../../home/programs/lazygit
     ../../home/programs/flameshot
+	../../home/programs/neovide
 
     # Scripts
     ../../home/scripts # All scripts
@@ -26,6 +27,7 @@
     ../../home/system/udiskie
     ../../home/system/clipman
     ../../home/system/fctix5
+	../../themes/gtk.nix
 
     #./secrets # CHANGEME: You should probably remove this line, this is where I store my secrets
   ];

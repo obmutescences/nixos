@@ -36,6 +36,7 @@
 	  "ALT, C, scroller:alignwindow, c"
 	  "ALT, F, togglefloating"
 	  "$mod CTRL, P, exec, ${pkgs.flameshot}/bin/flameshot gui"
+	  "$mod, N, exec, ${pkgs.neovide}/bin/neovide"
     ] ++ (builtins.concatLists (builtins.genList (i:
       let ws = i + 1;
       in [
