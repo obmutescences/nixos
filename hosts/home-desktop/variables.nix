@@ -16,7 +16,7 @@
 
     git = {
       username = "zerone";
-      email = "112569860+anotherhadi@users.noreply.github.com";
+      email = "913108060@qq.com";
     };
 
     autoUpgrade = false;
