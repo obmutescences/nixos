@@ -43,6 +43,17 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+	plugins = [
+		(pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
+            src = pkgs.fetchFromGitHub {
+              owner = "dawsers";
+              repo = "hyprscroller";
+              rev = "4769be4ba71dcf52bce6fa63c820228d01b0f436";
+              hash = "sha256-SnVsSRDltmFKjTvJo3hecYqhoKzwlbVc/Vy57F5+j5Y=";
+        };
+		})
+		pkgs.hyprlandPlugins.hyprscroller
+	];
     xwayland.enable = true;
     systemd.enable = true;
     package = inputs.hyprland.packages."${pkgs.system}".hyprland;
@@ -87,12 +98,12 @@ in {
         "SDL_VIDEODRIVER,wayland"
         "CLUTTER_BACKEND,wayland"
 
-	"GLFW_IM_MODULE,fcitx"
-	"GTK_IM_MODULE,fcitx"
-	"INPUT_METHOD,fcitx"
-	"XMODIFIERS,@im=fcitx"
-	"IMSETTINGS_MODULE,fcitx"
-	"QT_IM_MODULE,fcitx"
+		"GLFW_IM_MODULE,fcitx"
+		"GTK_IM_MODULE,fcitx"
+		"INPUT_METHOD,fcitx"
+		"XMODIFIERS,@im=fcitx"
+		"IMSETTINGS_MODULE,fcitx"
+		"QT_IM_MODULE,fcitx"
 
       ];
 
@@ -106,7 +117,8 @@ in {
         gaps_out = gaps-out;
         border_size = border-size;
         border_part_of_window = true;
-        layout = "dwindle";
+        # layout = "dwindle";
+		layout = "scroller";
       };
 
       decoration = {
@@ -119,11 +131,11 @@ in {
         blur = { 
 	    enabled = true;
 	    size = 5;
-            passes = 3;
+        passes = 3;
 	    vibrancy = 0.7;
-            new_optimizations = true;
-            ignore_opacity = true;
-            xray = false;
+        new_optimizations = true;
+        ignore_opacity = true;
+        xray = false;
 		popups = true;
 		popups_ignorealpha = 0.4;
 		input_methods = true;
@@ -156,15 +168,13 @@ in {
 
       input = {
         kb_layout = "us";
-
         follow_mouse = 1;
-	force_no_accel = 1;
+		force_no_accel = 1;
         sensitivity = 1;
         repeat_delay = 200;
         repeat_rate = 80;
 
       };
-
     };
   };
   systemd.user.targets.hyprland-session.Unit.Wants =

@@ -55,7 +55,6 @@ in {
 	gnumake
 	fzf
 	unzip
-	git
 	telegram-desktop
   ];
 

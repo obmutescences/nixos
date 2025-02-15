@@ -12,12 +12,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #nixvim = {
-      # FIXME: temporary until fixed
-    #  url =
-    #    "github:nix-community/nixvim/719fa865425ea0740085f23f4fa5c442e99a37d6";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,8 +27,6 @@
     stylix.url = "github:danth/stylix";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";
-    # zen-browser.url =
-    #   "git+https://git.sr.ht/~canasta/zen-browser-flake/"; # updated flake
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
