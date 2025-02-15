@@ -56,6 +56,7 @@ in {
 	fzf
 	unzip
 	git
+	telegram-desktop
   ];
 
   services.logind.extraConfig = ''

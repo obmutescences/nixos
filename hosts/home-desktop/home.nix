@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
 
   imports = [
     ./variables.nix
@@ -10,7 +10,7 @@
     ../../home/programs/git
     ../../home/programs/thunar
     ../../home/programs/lazygit
-    ../../home/programs/zen
+    # ../../home/programs/zen
 
     # Scripts
     ../../home/scripts # All scripts
@@ -57,6 +57,7 @@
       btop
 
       firefox
+	  inputs.zen-browser.packages."${system}".default
 
       # Temp
       mpv
