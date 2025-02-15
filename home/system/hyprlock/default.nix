@@ -2,8 +2,8 @@
 { config, lib, ... }:
 let
   foreground = "rgba(216, 222, 233, 0.70)";
-  imageStr = toString config.stylix.image;
-  font = config.stylix.fonts.serif.name;
+  # imageStr = toString config.stylix.image;
+  font = config.var.theme.font;
 in {
   programs.hyprlock = {
     enable = true;
@@ -17,12 +17,12 @@ in {
       # BACKGROUND
       background = {
         monitor = "";
-        path = imageStr;
-        blur_passes = 0;
+        path = "/home/zerone/Pictures/Wallpapers/summer.jpg";
+        blur_passes = 3;
         contrast = 0.8916;
         brightness = 0.7172;
         vibrancy = 0.1696;
-        vibrancy_darkness = 0.0;
+        vibrancy_darkness = 0.2;
       };
 
       label = [
@@ -40,7 +40,7 @@ in {
         # Time
         {
           monitor = "";
-          text = ''cmd[update:1000] echo "<span>$(date +"%I:%M")</span>"'';
+          text = ''cmd[update:1000] echo "<span>$(date +"%H:%M")</span>"'';
           color = foreground;
           font_size = 160;
           font_family = "steelfish outline regular";

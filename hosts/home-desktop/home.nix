@@ -10,7 +10,7 @@
     ../../home/programs/git
     ../../home/programs/thunar
     ../../home/programs/lazygit
-    # ../../home/programs/zen
+    ../../home/programs/flameshot
 
     # Scripts
     ../../home/scripts # All scripts
@@ -23,7 +23,6 @@
     ../../home/system/hyprpaper
     ../../home/system/wofi
     ../../home/system/zathura
-    ../../home/system/mime
     ../../home/system/udiskie
     ../../home/system/clipman
     ../../home/system/fctix5

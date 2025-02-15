@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprspace = { url = "github:KZDKM/Hyprspace"; };
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+	hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.47.2&submodules=1";
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     stylix.url = "github:danth/stylix";

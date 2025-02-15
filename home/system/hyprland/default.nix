@@ -52,7 +52,6 @@ in {
               hash = "sha256-SnVsSRDltmFKjTvJo3hecYqhoKzwlbVc/Vy57F5+j5Y=";
         };
 		})
-		pkgs.hyprlandPlugins.hyprscroller
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -83,11 +82,11 @@ in {
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_QPA_PLATFORM=wayland,xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        # "GTK_THEME,FlatColor:dark"
+        # "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "GTK_THEME,FlatColor:dark"
         # "GTK2_RC_FILES,/home/hadi/.local/share/themes/FlatColor/gtk-2.0/gtkrc"
-        "__GL_GSYNC_ALLOWED,0"
-        "__GL_VRR_ALLOWED,0"
+        # "__GL_GSYNC_ALLOWED,0"
+        # "__GL_VRR_ALLOWED,0"
         "DISABLE_QT5_COMPAT,0"
         "DIRENV_LOG_FORMAT,"
         "WLR_DRM_NO_ATOMIC,1"
@@ -97,6 +96,9 @@ in {
         "XDG_SESSION_TYPE,wayland"
         "SDL_VIDEODRIVER,wayland"
         "CLUTTER_BACKEND,wayland"
+		"QT_QPA_PLATFORMTHEME,qt6ct"
+		"GDK_BACKEND,wayland,x11,*"
+		"GDK_SCALE,1"
 
 		"GLFW_IM_MODULE,fcitx"
 		"GTK_IM_MODULE,fcitx"
@@ -168,7 +170,7 @@ in {
 
       input = {
         kb_layout = "us";
-        follow_mouse = 1;
+        follow_mouse = 0;
 		force_no_accel = 1;
         sensitivity = 1;
         repeat_delay = 200;

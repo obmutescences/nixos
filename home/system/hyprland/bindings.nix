@@ -30,6 +30,12 @@
       "$shiftMod,E, exec, ${pkgs.wofi-emoji}/bin/wofi-emoji" # Emoji picker with wofi
       "$mod,F2, exec, night-shift" # Toggle night shift
       "$mod,F3, exec, night-shift" # Toggle night shift
+	  "$mod, home, scroller:movefocus, begin"
+	  "$mod, end, scroller:movefocus, end"
+	  "ALT, Tab, movefocus, r"
+	  "ALT, C, scroller:alignwindow, c"
+	  "ALT, F, togglefloating"
+	  "$mod CTRL, P, exec, ${pkgs.flameshot}/bin/flameshot gui"
     ] ++ (builtins.concatLists (builtins.genList (i:
       let ws = i + 1;
       in [

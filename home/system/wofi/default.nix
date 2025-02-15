@@ -5,9 +5,9 @@ let
   background = "#${config.lib.stylix.colors.base00}";
   background-alt = "#${config.lib.stylix.colors.base01}";
   foreground = "#${config.lib.stylix.colors.base05}";
-  font = config.stylix.fonts.serif.name;
+  font = config.var.theme.font;
   rounding = config.var.theme.rounding;
-  font-size = config.stylix.fonts.sizes.popups;
+  font-size = config.var.theme.fontSize;
 in {
 
   home.packages = with pkgs; [ wofi-emoji ];
@@ -23,7 +23,7 @@ in {
       normal_window = true;
       layer = "top";
       term = "foot";
-      height = "305px";
+      height = "605px";
       orientation = "vertical";
       halign = "fill";
       line_wrap = "off";
