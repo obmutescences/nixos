@@ -12,7 +12,7 @@ in {
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    historySubstringSearch.enable = true;
+    historySubstringSearch.enable = false;
 
     initExtraFirst = ''
       bindkey -e
@@ -35,6 +35,8 @@ in {
       bindkey -M emacs '\es' sesh-sessions
       bindkey -M vicmd '\es' sesh-sessions
       bindkey -M viins '\es' sesh-sessions
+	  # 在自动补全时忽略大小写
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
     '';
 
     history = {
@@ -76,12 +78,6 @@ in {
       open = "${pkgs.xdg-utils}/bin/xdg-open";
       icat = "${pkgs.kitty}/bin/kitty +kitten icat";
       ssh = "kitty +kitten ssh";
-
-      wireguard-import = "nmcli connection import type wireguard file";
-
-      notes =
-        "nvim ~/nextcloud/notes/index.md --cmd 'cd ~/nextcloud/notes' -c ':Telescope find_files'";
-      note = "notes";
 
       # git
       # g = "lazygit";

@@ -7,6 +7,8 @@
     tumbler
     thunar-archive-plugin
     thunar-volman
+	exo
+    mousepad
   ];
 
   home.file.".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''

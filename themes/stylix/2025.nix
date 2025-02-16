@@ -48,7 +48,7 @@
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
-      size = 24;
+      size = 30;
     };
 
     fonts = {
@@ -77,12 +77,13 @@
     };
 
     polarity = "dark";
-    image = pkgs.fetchurl {
-      url =
-        "https://github.com/anotherhadi/nixy-wallpapers/blob/main/wallpapers/"
-        + "3.png" + "?raw=true";
-      sha256 = "sha256-fT2ah18IAxoy3hzlLl9SkqhchzfVvZneUrZWzntMo40=";
-    };
+	image = /home/zerone/Pictures/Wallpapers/desktop.jpg;
+    # image = pkgs.fetchurl {
+    #   url =
+    #     "https://github.com/anotherhadi/nixy-wallpapers/blob/main/wallpapers/"
+    #     + "3.png" + "?raw=true";
+    #   sha256 = "sha256-fT2ah18IAxoy3hzlLl9SkqhchzfVvZneUrZWzntMo40=";
+    # };
 
   };
 

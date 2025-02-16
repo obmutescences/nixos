@@ -12,6 +12,7 @@
     ../../home/programs/lazygit
     ../../home/programs/flameshot
 	../../home/programs/neovide
+	../../home/programs/atuin
 
     # Scripts
     ../../home/scripts # All scripts

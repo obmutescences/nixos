@@ -100,6 +100,10 @@ in {
 	adwaita-qt
 	adwaita-icon-theme
 	nwg-look
+	wechat-uos
+	spotify
+	rustup
+	bucklespring-libinput
   ];
 
   services.logind.extraConfig = ''
