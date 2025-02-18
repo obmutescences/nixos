@@ -52,33 +52,33 @@ in {
     override = {
       "theme.font.name" = "${font}";
       "theme.font.size" = "${fontSize}px";
-      # "theme.bar.outer_spacing" =
-      #   "${if floating && transparent then "0" else "8"}px";
+      "theme.bar.outer_spacing" =
+        "${if floating && transparent then "0" else "8"}px";
       "theme.bar.buttons.y_margins" =
         "${if floating && transparent then "0" else "8"}px";
       "theme.bar.buttons.spacing" = "0.3em";
       "theme.bar.buttons.radius" = "${
           if transparent then toString rounding else toString (rounding - 8)
         }px";
-      # "theme.bar.floating" = "${if floating then "true" else "false"}";
+      "theme.bar.floating" = "${if floating then "true" else "false"}";
       "theme.bar.buttons.padding_x" = "0.8rem";
       "theme.bar.buttons.padding_y" = "0.4rem";
       "theme.bar.buttons.workspaces.hover" = "${accent-alt}";
       "theme.bar.buttons.workspaces.active" = "${accent}";
       "theme.bar.buttons.workspaces.available" = "${accent-alt}";
       "theme.bar.buttons.workspaces.occupied" = "${accent-alt}";
-      # "theme.bar.margin_top" =
-      #   "${if position == "top" then toString (gaps-in * 2) else "0"}px";
-      # "theme.bar.margin_bottom" =
-      #   "${if position == "top" then "0" else toString (gaps-in * 2)}px";
-      # "theme.bar.margin_sides" = "${toString gaps-out}px";
+      "theme.bar.margin_top" =
+        "${if position == "top" then toString (gaps-in * 2) else "0"}px";
+      "theme.bar.margin_bottom" =
+        "${if position == "top" then "0" else toString (gaps-in * 2)}px";
+      "theme.bar.margin_sides" = "${toString gaps-out}px";
       "theme.bar.border_radius" = "${toString rounding}px";
 	  "theme.bar.transparent" = true;
 	  "theme.bar.opacity" = 100;
-	  "theme.bar.floating" = false;
 	  "theme.bar.buttons.opacity" = 90;
 	  "theme.bar.buttons.background_opacity" = 90;
 	  "theme.bar.buttons.background_hover_opacity" = 75;
+	  "theme.bar.shadow" = "0px 0px 0px 0px #16161e";
 	  "theme.bar.menus.opacity" = 90;
       "bar.launcher.icon" = "";
       "bar.workspaces.show_numbered" = false;
@@ -147,10 +147,9 @@ in {
       "theme.bar.menus.tooltip.text" = "${foreground}";
       "theme.bar.menus.dropdownmenu.background" = "${background-alt}";
       "theme.bar.menus.dropdownmenu.text" = "${foreground}";
-      # "theme.bar.background" = "${background
-      #   + (if transparentButtons && transparent then "00" else "")}";
-	  # "theme.bar.background" = "#2b3339";
-	  "theme.bar.background" = "transparent";
+      "theme.bar.background" = "${background
+        + (if transparentButtons && transparent then "00" else "")}";
+	  # "theme.bar.background" = "transparent";
       "theme.bar.buttons.style" = "default";
       "theme.bar.buttons.monochrome" = true;
       "theme.bar.buttons.text" = "${foreground}";

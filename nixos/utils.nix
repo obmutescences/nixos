@@ -27,6 +27,10 @@ in {
   programs.dconf.enable = true;
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+	  # 在此添加 `rye` 所需的动态库
+	];
 
   services = {
     dbus.enable = true;
@@ -108,6 +112,7 @@ in {
 	rustup
 	bucklespring-libinput
 	busybox
+	pkg-config
   ];
 
   services.logind.extraConfig = ''

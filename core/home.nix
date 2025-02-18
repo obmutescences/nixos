@@ -47,6 +47,7 @@
       figlet
       just
       neovim
+	  rye
 
       # Utils
       zip
