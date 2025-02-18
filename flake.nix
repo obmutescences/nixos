@@ -21,7 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprspace = { url = "github:KZDKM/Hyprspace"; };
-	hyprland.url = "git+https://github.com/hyprwm/hyprland?ref=refs/tags/v0.47.2&submodules=1";
+	# hyprland
+    hyprland = {
+      url = "github:hyprwm/hyprland";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     stylix.url = "github:danth/stylix";
@@ -32,23 +36,36 @@
 
   outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations = {
-      zerone = # CHANGEME: This should match the 'hostname' in your variables.nix file
+      zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
             {
               nixpkgs.overlays =
                 [ inputs.hyprpanel.overlay inputs.nur.overlays.default ];
               _module.args = { inherit inputs; };
             }
-            # inputs.nixos-hardware.nixosModules.omen-16-n0005ne # CHANGEME: check https://github.com/NixOS/nixos-hardware
+            inputs.home-manager.nixosModules.home-manager
+            inputs.stylix.nixosModules.stylix
+            ./hosts/sy-company/configuration.nix # CHANGEME: change the path to match your host folder
+          ];
+        };
+      zerone-home = # CHANGEME: This should match the 'hostname' in your variables.nix file
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+		  specialArgs = { inherit inputs; }; # this is the important part
+          modules = [
+            {
+              nixpkgs.overlays =
+                [ inputs.hyprpanel.overlay inputs.nur.overlays.default ];
+              _module.args = { inherit inputs; };
+            }
             inputs.home-manager.nixosModules.home-manager
             inputs.stylix.nixosModules.stylix
             ./hosts/home-desktop/configuration.nix # CHANGEME: change the path to match your host folder
-	    # inputs.daeuniverse.nixosModules.dae
           ];
         };
-
     };
   };
 }

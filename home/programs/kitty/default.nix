@@ -7,7 +7,7 @@
 	  "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
     };
 	font.name = "Comic Code";
-	font.size = 14;
+	font.size = 12;
     settings = {
       scrollback_lines = 10000;
       initial_window_width = 1200;

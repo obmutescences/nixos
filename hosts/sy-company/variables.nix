@@ -2,7 +2,7 @@
   imports = [ ../../nixos/variables-config.nix ];
 
   config.var = {
-    hostname = "zerone-home";
+    hostname = "zerone-company";
     username = "zerone";
     configDirectory = "/home/" + config.var.username
       + "/.config/nixos"; # The path of the nixos configuration directory

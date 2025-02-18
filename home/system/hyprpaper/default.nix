@@ -9,6 +9,7 @@
       splash_offset = 2.0;
 	  preload = [ "/home/zerone/Pictures/Wallpapers/desktop.jpg" ];
 	  wallpaper = [
+		"DP-1,/home/zerone/Pictures/Wallpapers/desktop.jpg"
 		"DP-5,/home/zerone/Pictures/Wallpapers/desktop.jpg"
 		];
     };

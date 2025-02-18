@@ -17,6 +17,10 @@ in {
     ./polkitagent.nix
     # ./hyprspace.nix 
   ];
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   home.packages = with pkgs; [
     qt5.qtwayland
@@ -48,14 +52,17 @@ in {
             src = pkgs.fetchFromGitHub {
               owner = "dawsers";
               repo = "hyprscroller";
-              rev = "4769be4ba71dcf52bce6fa63c820228d01b0f436";
+              rev = "686bf83316be96cbaed980b63ad43514cf0dce3c";
               hash = "sha256-SnVsSRDltmFKjTvJo3hecYqhoKzwlbVc/Vy57F5+j5Y=";
         };
 		})
 	];
     xwayland.enable = true;
     systemd.enable = true;
-    package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+	package = pkgs.hyprland;
+	# package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = {
       "$mod" = "SUPER";
@@ -69,6 +76,7 @@ in {
 
       monitor = [
         "DP-5,3840x2160@143.99,auto,1"
+        "DP-1,2560x1440@180.00,auto,1"
       ];
 
       env = [
@@ -166,14 +174,30 @@ in {
 
       windowrulev2 =
         [ 
-		"float, tag:modal" 
-		"pin, tag:modal" 
-		"center, tag:modal"  
 		"opacity 0.67 0.67,class:.*"
 		"opacity 0.99 0.99,class:^(neovide)$"
+		"float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
+		"float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
+		"float,class:^(firefox)$,title:^(Picture-in-Picture)$"
+		"float,class:^(firefox)$,title:^(Library)$"
+		"float,class:^(kitty)$,title:^(top)$"
+		"float,class:^(kitty)$,title:^(btop)$"
+		"float,class:^(kitty)$,title:^(htop)$"
+		"float,class:^(vlc)$"
+		"float,class:^(kvantummanager)$"
+		"float,class:^(qt5ct)$"
+		"float,class:^(qt6ct)$"
+		"float,class:^(nwg-look)$"
+		"float,class:^(org.kde.ark)$"
+		"float,class:^(org.pulseaudio.pavucontrol)$"
+		"float,class:^(blueman-manager)$"
+		"float,class:^(.blueman-manager-wrapped)$"
+		"float,class:^(nm-applet)$"
+		"float,class:^(nm-connection-editor)$"
+		"float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
 		];
 
-      layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
+      # layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
 
       input = {
         kb_layout = "us";

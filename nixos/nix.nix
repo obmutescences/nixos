@@ -16,10 +16,8 @@ in {
 	  trusted-users = ["zerone"];
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      # substituters = [ "https://hyprland.cachix.org" ];
-      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
+      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store"];
       trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
     gc = {
