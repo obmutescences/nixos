@@ -25,6 +25,9 @@ in {
 
   services.libinput.enable = true;
   programs.dconf.enable = true;
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   services = {
     dbus.enable = true;
     gvfs.enable = true;
