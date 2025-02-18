@@ -1,6 +1,7 @@
 { config, ... }: {
   imports = [
     # ../../nixos/nvidia.nix
+	./net.nix
 
 	# core
 	../../core/nixos.nix

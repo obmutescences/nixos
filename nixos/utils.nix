@@ -107,6 +107,7 @@ in {
 	spotify
 	rustup
 	bucklespring-libinput
+	busybox
   ];
 
   services.logind.extraConfig = ''
