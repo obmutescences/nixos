@@ -4,6 +4,7 @@
     keybindings = {
       # Reset existing mappings
       "ctrl+tab" = "next_tab";
+	  "cmd+t" = "new_tab";
 	  "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
     };
 	font.name = "Comic Code";

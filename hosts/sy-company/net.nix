@@ -1,6 +1,7 @@
 {
+	networking.dhcpcd.enable = false;
+	networking.useDHCP = false;
 	networking.interfaces.enp37s0 = {
-	  useDHCP = false;
 	  ipv4.addresses = [{
 		address = "192.168.10.10";  # 设置静态 IP 地址
 		prefixLength = 24;          # 子网掩码 (通常是 24 位)

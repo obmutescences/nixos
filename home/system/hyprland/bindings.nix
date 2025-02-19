@@ -12,7 +12,7 @@
       # "$mod,TAB, overview:toggle" # Overview
 
       "$mod,Q, killactive," # Close window
-      "$mod,T, togglefloating," # Toggle Floating
+      "$ALT,T, togglefloating," # Toggle Floating
       "$mod,W, exec, hyprctl dispatch fullscreen 1" # Toggle Fullscreen
       "$mod,left, movefocus, l" # Move focus left
       "$mod,right, movefocus, r" # Move focus Right
