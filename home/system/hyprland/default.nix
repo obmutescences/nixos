@@ -15,7 +15,6 @@ in {
     ./animations.nix
     ./bindings.nix
     ./polkitagent.nix
-    # ./hyprspace.nix 
   ];
   nix.settings = {
     substituters = ["https://hyprland.cachix.org"];
@@ -67,6 +66,7 @@ in {
     settings = {
       "$mod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
+	  "$browser" = "zen";
 
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -118,10 +118,6 @@ in {
 
       ];
 
-      cursor = {
-        no_hardware_cursors = true;
-      };
-
       general = {
         resize_on_border = true;
         gaps_in = gaps-in;
@@ -157,19 +153,15 @@ in {
 
       master = {
         new_status = true;
-        allow_small_split = true;
-        mfact = 0.5;
       };
 
       gestures = { workspace_swipe = true; };
 
       misc = {
-        vfr = true;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        disable_autoreload = true;
-        focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
+		vrr = 0;
+		force_default_wallpaper = 0;
       };
 
       windowrulev2 =
