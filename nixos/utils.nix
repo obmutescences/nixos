@@ -123,6 +123,9 @@ in {
 	busybox
 	# mysql backup tools
 	mydumper
+
+	# net proxy
+	flclash
   ];
 
   services.logind.extraConfig = ''

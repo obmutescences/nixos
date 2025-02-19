@@ -70,7 +70,7 @@ in {
 
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-		"clash-nyanpasu"
+		"FlClash"
 		"buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100"
       ];
 
