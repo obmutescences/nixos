@@ -127,6 +127,9 @@ in {
 
 	# net proxy
 	flclash
+
+	# mysql cli tools
+	mycli
   ];
 
   services.logind.extraConfig = ''

@@ -20,7 +20,7 @@
     	"fadeShadow, 1, 10, default"
     	"fadeDim, 1, 10, default"
     	"fadeLayers, 1, 10, default"
-    	"workspaces, 1, 10, overshot, slidevert"
+    	"workspaces, 1, 8, overshot, slidevert"
     	"border, 1, 1, liner"
     	"borderangle, 1, 30, liner, once"
       ];
