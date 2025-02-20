@@ -94,6 +94,7 @@ in {
 	gnumake
 	fzf
 	unzip
+	cmake
 
 	# sddm thememe
     sddm-candy

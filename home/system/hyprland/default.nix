@@ -52,7 +52,15 @@ in {
               owner = "dawsers";
               repo = "hyprscroller";
               rev = "686bf83316be96cbaed980b63ad43514cf0dce3c";
-              hash = "sha256-SnVsSRDltmFKjTvJo3hecYqhoKzwlbVc/Vy57F5+j5Y=";
+              hash = "sha256-PBWQxO15VbM4oh8wAe1nibugNbgSITXQbOC59162JTo=";
+        };
+		})
+		(pkgs.hyprlandPlugins.hyprfocus.overrideAttrs {
+            src = pkgs.fetchFromGitHub {
+              owner = "daxisunder";
+              repo = "hyprfocus";
+			  rev = "227378fe742034c87a36fdb0681083da49bd6c99";
+			  hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
         };
 		})
 	];
@@ -189,6 +197,8 @@ in {
 		"float,class:^(nm-applet)$"
 		"float,class:^(nm-connection-editor)$"
 		"float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+		"float,class:^(flameshot)$"
+		"pin,class:^(flameshot)$"
 		];
 
       # layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
@@ -202,6 +212,36 @@ in {
         repeat_rate = 80;
 
       };
+	  "plugin:hyprfocus" = {
+		enabled = true;
+		keyboard_focus_animation = "shrink";
+		mouse_focus_animation = "shrink";
+		animate_floating = false;
+		animate_workspacechange = true;
+		focus_animation = "shrink";
+		bezier = [
+		  "bezIn, 0.5,0.0,1.0,0.5"
+		  "bezOut, 0.0,0.5,0.5,1.0"
+		  "overshot, 0.05, 0.9, 0.1, 1.05"
+		  "smoothOut, 0.36, 0, 0.66, -0.56"
+		  "smoothIn, 0.25, 1, 0.5, 1"
+		  "realsmooth, 0.28,0.29,.69,1.08"
+        ];
+		flash = {
+			flash_opacity = 0.7;
+			in_bezier = "realsmooth";
+			in_speed = 0.5;
+			out_bezier = "realsmooth";
+			out_speed = 3;
+		};
+		shrink = {
+			shrink_percentage = 0.75;
+			in_bezier = "realsmooth";
+			in_speed = "6.5";
+			out_bezier = "realsmooth";
+			out_speed = "6.0";
+		};
+	  };
     };
   };
   systemd.user.targets.hyprland-session.Unit.Wants =

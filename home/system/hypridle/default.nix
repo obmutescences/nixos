@@ -17,10 +17,10 @@
           on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
 
-        {
-          timeout = 1800;
-          on-timeout = "systemctl suspend";
-        }
+        # {
+          # timeout = 1800;
+          # on-timeout = "systemctl suspend";
+        # }
       ];
     };
   };

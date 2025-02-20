@@ -19,10 +19,11 @@
       "$mod,up, movefocus, u" # Move focus Up
       "$mod,down, movefocus, d" # Move focus Down
 
-      "$mod,PRINT, exec, screenshot region" # Screenshot region
-      ",PRINT, exec, screenshot monitor" # Screenshot monitor
+      # "$mod,PRINT, exec, screenshot region" # Screenshot region
+      # ",PRINT, exec, screenshot monitor" # Screenshot monitor
       "$shiftMod,PRINT, exec, screenshot window" # Screenshot window
-      "ALT,PRINT, exec, screenshot region swappy" # Screenshot region then edit
+      "$mod, P ,exec, screenshot region swappy" # Screenshot region then edit
+	  "$mod CTRL, P, exec, flameshot gui"
 
       "$shiftMod,T, exec, hyprpanel-toggle" # Toggle hyprpanel
       "$shiftMod,S, exec, ${pkgs.qutebrowser}/bin/qutebrowser :open $(wofi --show dmenu -L 1 -p ' Search on internet')" # Search on internet with wofi
