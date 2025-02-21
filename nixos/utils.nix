@@ -130,6 +130,9 @@ in {
 
 	# mysql cli tools
 	mycli
+	
+	# wallerpaper
+	inputs.swww.packages.${pkgs.system}.swww
   ];
 
   services.logind.extraConfig = ''

@@ -32,6 +32,7 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
+	swww.url = "github:LGFae/swww";
   };
 
   outputs = inputs@{ nixpkgs, ... }: {

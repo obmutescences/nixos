@@ -76,7 +76,7 @@ let
           "󰖔 Night-shift"
           " Nixy"
           "󰈊 Hyprpicker"
-          "󰖂 Toggle VPN"
+          "󰸉 Next-Wallpaper"
         )
 
         selected=$(printf '%s\n' "''${options[@]}" | wofi -p " Quickmenu" --dmenu)
@@ -96,8 +96,8 @@ let
           "Hyprpicker")
             sleep 0.2 && ${pkgs.hyprpicker}/bin/hyprpicker -a
             ;;
-          "Toggle VPN")
-            openvpn-toggle
+          "Next-Wallpaper")
+            next-wallpaper
             ;;
         esac
       fi

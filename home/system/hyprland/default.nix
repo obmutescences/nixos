@@ -80,6 +80,7 @@ in {
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 		"FlClash"
 		"buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100"
+		"swww-daemon"
       ];
 
       monitor = [
