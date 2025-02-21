@@ -81,6 +81,7 @@ in {
 		"FlClash"
 		"buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100"
 		"swww-daemon"
+		"set-wallpaper"
       ];
 
       monitor = [

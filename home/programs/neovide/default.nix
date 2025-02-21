@@ -1,7 +1,6 @@
-
 {
   programs.neovide = {
-    enable = true;
+	enable = true;
 	settings = {
 		vsync = true;
 		no-multigrid = false;
@@ -17,6 +16,6 @@
 			};
 			# normal = ["Comic Code"];
 		 };
-   };
+    };
   };
 }

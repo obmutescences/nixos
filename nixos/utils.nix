@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs,... }:
 let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
