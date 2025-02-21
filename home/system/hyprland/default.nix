@@ -150,9 +150,9 @@ in {
         ignore_opacity = true;
         xray = false;
 		popups = true;
-		popups_ignorealpha = 0.4;
+		popups_ignorealpha = 0.5;
 		input_methods = true;
-		input_methods_ignorealpha = 0.3;
+		input_methods_ignorealpha = 0.5;
 		special = true;
 	};
       };
