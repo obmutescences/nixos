@@ -95,7 +95,6 @@ in {
 	fzf
 	unzip
 	cmake
-
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
@@ -104,18 +103,15 @@ in {
     libsForQt5.qt5.qtgraphicaleffects # for sddm theme effects
     libsForQt5.qtsvg # for sddm theme svg icons
     libsForQt5.qt5.qtwayland # wayland support for qt5
-
 	# qt
 	adwaita-qt6
 	adwaita-qt
 	adwaita-icon-theme
 	# gtk
 	nwg-look
-	
 	# chat
 	wechat-uos
 	telegram-desktop
-
 	spotify
 	rustup
 	# keyboard sound
@@ -124,15 +120,14 @@ in {
 	busybox
 	# mysql backup tools
 	mydumper
-
 	# net proxy
 	flclash
-
 	# mysql cli tools
 	mycli
-	
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
+	# office
+	libreoffice
   ];
 
   services.logind.extraConfig = ''
