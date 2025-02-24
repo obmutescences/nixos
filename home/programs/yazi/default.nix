@@ -7,15 +7,10 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    settings = {
-      manager = {
-        show_hidden = true;
-        sort_dir_first = true;
-      };
-    };
+	shellWrapperName = "ya";
   };
 
-  xdg.configFile."yazi/theme.toml".source = "./theme.toml";
-  xdg.configFile."yazi/yazi.toml".source = "./yazi.toml";
-  xdg.configFile."yazi/keymap.toml".source = "./keymap.toml";
+  xdg.configFile."yazi/theme.toml".source = ./theme.toml;
+  xdg.configFile."yazi/yazi.toml".source = ./yazi.toml;
+  xdg.configFile."yazi/keymap.toml".source = ./keymap.toml;
 }

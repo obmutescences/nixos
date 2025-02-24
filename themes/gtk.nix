@@ -46,7 +46,7 @@ in {
           };
         };
         iconTheme = {
-		  name = "Dracula-Icon-Theme";
+		  name = "Dracula";
 		  package = pkgs.dracula-icon-theme;
         };
         gtk3.extraConfig = {
