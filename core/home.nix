@@ -11,6 +11,7 @@
     ../home/programs/flameshot
 	../home/programs/neovide
 	../home/programs/atuin
+	../home/programs/alacritty
 
     # Scripts
     ../home/scripts # All scripts
