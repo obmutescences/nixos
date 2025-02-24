@@ -12,6 +12,7 @@
 	../home/programs/neovide
 	../home/programs/atuin
 	../home/programs/alacritty
+	../home/programs/yazi
 
     # Scripts
     ../home/scripts # All scripts
