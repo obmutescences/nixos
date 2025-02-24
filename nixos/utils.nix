@@ -128,6 +128,12 @@ in {
 	inputs.swww.packages.${pkgs.system}.swww
 	# office
 	libreoffice
+
+	# neovim need
+	tree-sitter
+	prettierd
+	stylua
+	lldb_20
   ];
 
   services.logind.extraConfig = ''
