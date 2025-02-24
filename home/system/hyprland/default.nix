@@ -191,7 +191,7 @@ in {
 		"float,class:^(nm-connection-editor)$"
 		"float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
 		"float,class:^(flameshot)$"
-		"float,class:^(alacritty)$"
+		"float,class:^(Alacritty)$"
 		"pin,class:^(flameshot)$"
 		];
 
