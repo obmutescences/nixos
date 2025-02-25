@@ -6,7 +6,7 @@
 	disableTxChecksumIpGeneric = false;
     # configFile = "/etc/dae/config.dae";
     # 其他参数...
-	config = builtins.readFile ./config1.dae;
+	config = builtins.readFile ./config.dae;
     assets = with pkgs; [
       v2ray-geoip
       v2ray-domain-list-community
