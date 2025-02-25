@@ -22,7 +22,8 @@
 		# "$mod,PRINT, exec, screenshot region" # Screenshot region
 		# ",PRINT, exec, screenshot monitor" # Screenshot monitor
 		"$shiftMod,PRINT, exec, screenshot window" # Screenshot window
-		"$mod, P ,exec, screenshot region swappy" # Screenshot region then edit
+		# "$mod, P ,exec, screenshot region swappy" # Screenshot region then edit
+		"$mod, P, exec, flameshot gui -r | wl-copy -t image/png"
 		"$mod CTRL, P, exec, flameshot gui"
 
 		"$shiftMod,T, exec, hyprpanel-toggle" # Toggle hyprpanel
@@ -36,7 +37,6 @@
 		"ALT, Tab, movefocus, r"
 		"ALT, C, scroller:alignwindow, c"
 		"ALT, F, togglefloating"
-		"$mod CTRL, P, exec, ${pkgs.flameshot}/bin/flameshot gui"
 		"$mod, N, exec, ${pkgs.neovide}/bin/neovide"
 
 		# wallpapers
