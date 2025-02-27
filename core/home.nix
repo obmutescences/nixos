@@ -13,6 +13,7 @@
 	../home/programs/atuin
 	../home/programs/alacritty
 	../home/programs/yazi
+	../home/programs/nh
 
     # Scripts
     ../home/scripts # All scripts
