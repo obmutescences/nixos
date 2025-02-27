@@ -20,7 +20,7 @@
     };
 
     autoUpgrade = false;
-    autoGarbageCollector = true;
+    autoGarbageCollector = false;
 
     # Choose your theme variables here
     theme = import ../../themes/var/2025.nix;
