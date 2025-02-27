@@ -37,6 +37,10 @@ in {
       bindkey -M viins '\es' sesh-sessions
 	  # 在自动补全时忽略大小写
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+	  # 读取密钥环境变量
+	  if [ -f "$HOME/.env.secret" ]; then
+		 source "$HOME/.env.secret"
+	  fi
     '';
 
     history = {
