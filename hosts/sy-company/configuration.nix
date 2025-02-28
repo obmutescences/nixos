@@ -2,6 +2,7 @@
   imports = [
     # ../../nixos/nvidia.nix
 	./net.nix
+	./pkg.nix
 
 	# core
 	../../core/nixos.nix
