@@ -13,7 +13,6 @@
 	../home/programs/atuin
 	../home/programs/alacritty
 	../home/programs/yazi
-	../home/programs/nh
 
     # Scripts
     ../home/scripts # All scripts
@@ -61,6 +60,7 @@
       pfetch
       pandoc
       btop
+	  delta
 
       firefox
 	  inputs.zen-browser.packages."${system}".default

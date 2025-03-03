@@ -5,6 +5,7 @@ let
 in {
   programs.git = {
     enable = true;
+	lfs.enable = true;
     userName = username;
     userEmail = email;
     ignores = [
@@ -22,7 +23,18 @@ in {
     extraConfig = {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
-      color.ui = "1";
+	  pull.rebase = true;
+      # color.ui = "1";
+	  delta = {
+		enable = true;
+		options = {
+			diff-so-fancy = true;
+			line-numbers = true;
+			true-color = "always";
+			# features => named groups of settings, used to keep related settings organized
+			# features = "";
+		};
+	  };
     };
     aliases = {
       essa = "push --force";
