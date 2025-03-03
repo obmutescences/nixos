@@ -82,6 +82,8 @@ in {
       open = "${pkgs.xdg-utils}/bin/xdg-open";
       icat = "${pkgs.kitty}/bin/kitty +kitten icat";
       ssh = "kitty +kitten ssh";
+	  du = "dust";
+	  ping = "gping";
 
       # git
       # g = "lazygit";
