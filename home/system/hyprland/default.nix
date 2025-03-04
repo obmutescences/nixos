@@ -51,7 +51,7 @@ in {
             src = pkgs.fetchFromGitHub {
               owner = "dawsers";
               repo = "hyprscroller";
-              rev = "686bf83316be96cbaed980b63ad43514cf0dce3c";
+              rev = "d8eb5e81eceea1226d5ef7a8556513177e4dd93";
               hash = "sha256-PBWQxO15VbM4oh8wAe1nibugNbgSITXQbOC59162JTo=";
         };
 		})
@@ -99,7 +99,7 @@ in {
         "NIXOS_OZONE_WL,1"
         "XDG_SESSION_DESKTOP,Hyprland"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-        "QT_QPA_PLATFORM,wayland"
+        "QT_QPA_PLATFORM,wayland;xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "SDL_VIDEODRIVER,wayland"
 		"CLUTTER_BACKEND,wayland"
