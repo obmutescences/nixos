@@ -14,6 +14,7 @@
 		"$mod,Q, killactive," # Close window
 		"$ALT,T, togglefloating," # Toggle Floating
 		"$mod,W, exec, hyprctl dispatch fullscreen 1" # Toggle Fullscreen
+		"$mod,V, scroller:fitsize, active"
 		"$mod,left, movefocus, l" # Move focus left
 		"$mod,right, movefocus, r" # Move focus Right
 		"$mod,up, movefocus, u" # Move focus Up
@@ -43,10 +44,13 @@
 		"$mod ALT, right, exec, next-wallpaper"
 		"$mod ALT, left, exec, prev-wallpaper"
 
-		"$mod SHIFT, right, resizeactive, 30 0"
-		"$mod SHIFT, left, resizeactive, -30 0"
-		"$mod SHIFT, up, resizeactive, 0 -30"
-		"$mod SHIFT, down, resizeactive, 0 30"
+		"$mod, bracketleft, scroller:setmode, row"
+		"$mod, bracketright, scroller:setmode, col"
+
+		"$mod SHIFT, right, resizeactive, 100 0"
+		"$mod SHIFT, left, resizeactive, -100 0"
+		"$mod SHIFT, up, resizeactive, 0 -100"
+		"$mod SHIFT, down, resizeactive, 0 100"
 
 		"$mod SHIFT, 1, movetoworkspace, 1"
 		"$mod SHIFT, 2, movetoworkspace, 2"
