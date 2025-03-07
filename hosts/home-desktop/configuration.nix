@@ -5,6 +5,9 @@
 	# core
 	../../core/nixos.nix
 
+	# pkg
+	./pkg.nix
+
     ./hardware-configuration.nix
     ./variables.nix
   ];
