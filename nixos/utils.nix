@@ -136,6 +136,9 @@ in {
 	prettierd
 	stylua
 	lldb_20
+
+	# music
+	spotube
   ];
 
   services.logind.extraConfig = ''

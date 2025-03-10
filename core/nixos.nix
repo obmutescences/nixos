@@ -16,6 +16,7 @@
     ../nixos/variables-config.nix
     ../nixos/docker.nix
 	../home/system/dae/default.nix
+	./fhs.nix
 
     # Choose your theme here
     ../themes/stylix/2025.nix
