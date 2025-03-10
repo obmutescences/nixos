@@ -52,6 +52,7 @@
       neovim
 	  rye
 	  python313Packages.ipython
+	  python313Packages.pylatexenc
 
       # Utils
       zip
