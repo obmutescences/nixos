@@ -51,8 +51,8 @@ in {
             src = pkgs.fetchFromGitHub {
               owner = "dawsers";
               repo = "hyprscroller";
-              rev = "d8eb5e81eceea1226d5ef7a8556513177e4dd93";
-              hash = "sha256-PBWQxO15VbM4oh8wAe1nibugNbgSITXQbOC59162JTo=";
+              rev = "de8e4bf8c419d849b053299d67bd554ac3f5c231";
+              hash = "sha256-NZPCWWJuBF8xhg27puq9sHmEs1cxyPkiNpNCoHwqGcc=";
         };
 		})
 		(pkgs.hyprlandPlugins.hyprfocus.overrideAttrs {
