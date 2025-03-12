@@ -139,6 +139,8 @@ in {
 
 	# music
 	spotube
+	# cli http request
+	xh
   ];
 
   services.logind.extraConfig = ''
