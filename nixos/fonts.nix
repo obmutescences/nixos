@@ -7,6 +7,8 @@
 	  noto-fonts-cjk-sans
 	  nerd-fonts.monaspace
 	  comic-mono
+	  ubuntu-sans
+	  ubuntu-sans-mono
       inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd
     ];
 
