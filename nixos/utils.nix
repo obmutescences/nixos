@@ -141,6 +141,8 @@ in {
 	spotube
 	# cli http request
 	xh
+	# manager docker in term
+	oxker
   ];
 
   services.logind.extraConfig = ''
