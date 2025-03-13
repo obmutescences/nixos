@@ -8,7 +8,7 @@
   border-size = 3;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
   fetch = "none"; # "nerdfetch" | "neofetch" | "pfetch" | "none"
-  font = "Comic Code";
+  font = "Ubuntu Sans Mono";
   fontSize = "12";
 
   bar = {
