@@ -122,7 +122,7 @@ in {
         "screenshot region swappy";
       "menus.dashboard.shortcuts.right.shortcut3.tooltip" = "Screenshot";
 
-      "theme.bar.menus.monochrome" = true;
+      "theme.bar.menus.monochrome" = false;
       "wallpaper.enable" = false;
       "theme.bar.menus.background" = "${background}";
       "theme.bar.menus.cards" = "${background-alt}";
@@ -151,7 +151,7 @@ in {
         + (if transparentButtons && transparent then "00" else "")}";
 	  # "theme.bar.background" = "transparent";
       "theme.bar.buttons.style" = "default";
-      "theme.bar.buttons.monochrome" = true;
+      "theme.bar.buttons.monochrome" = false;
       "theme.bar.buttons.text" = "${foreground}";
       # "theme.bar.buttons.background" =
       #   "${(if transparent then background else background-alt)
@@ -188,6 +188,8 @@ in {
       "bar.workspaces.showApplicationIcons" = true;
       "bar.workspaces.showWsIcons" = true;
       "theme.bar.dropdownGap" = "4.5em";
+	  "theme.bar.buttons.clock.text" = "#b23a48";
+	  "theme.bar.buttons.clock.icon" = "#b23a48";
     };
   };
 }

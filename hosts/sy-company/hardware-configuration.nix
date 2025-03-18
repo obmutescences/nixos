@@ -34,6 +34,9 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault false;
   networking.interfaces.enp37s0.useDHCP = lib.mkDefault false;
+  boot.kernel.sysctl = {
+	  "fs.file-max" = 65535;  # 全局最大文件描述符数 [[1]][[8]]
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
