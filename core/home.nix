@@ -13,6 +13,8 @@
 	../home/programs/atuin
 	../home/programs/alacritty
 	../home/programs/yazi
+	../home/programs/bat
+
 
     # Scripts
     ../home/scripts # All scripts

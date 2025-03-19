@@ -84,6 +84,7 @@ in {
       ssh = "kitty +kitten ssh";
 	  du = "dust";
 	  ping = "gping";
+	  cat = "bat";
 
       # git
       # g = "lazygit";
