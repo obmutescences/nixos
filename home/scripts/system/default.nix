@@ -108,5 +108,12 @@ let
     ''
       ${pkgs.hyprlock}/bin/hyprlock
     '';
+   
+  start-neovide = pkgs.writeShellScriptBin "start-neovide"
+    # bash
+    ''
+	source ~/.zshrc
+	exec /home/zerone/projects/neovide/target/release/neovide
+    '';
 
-in { home.packages = [ menu powermenu lock quickmenu ]; }
+in { home.packages = [ menu powermenu lock quickmenu start-neovide ]; }

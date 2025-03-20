@@ -85,6 +85,7 @@ in {
     fd
     bc
     gcc
+	pkg-config
     git-ignore
     xdg-utils
     wget

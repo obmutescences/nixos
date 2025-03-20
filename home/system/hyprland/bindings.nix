@@ -38,7 +38,8 @@
 		"ALT, Tab, movefocus, r"
 		"ALT, C, scroller:alignwindow, c"
 		"ALT, F, togglefloating"
-		"$mod, N, exec, ${pkgs.neovide}/bin/neovide"
+		# "$mod, N, exec, ${pkgs.neovide}/bin/neovide"
+		"$mod, N, exec, start-neovide"
 
 		# wallpapers
 		"$mod ALT, right, exec, next-wallpaper"
