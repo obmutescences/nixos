@@ -14,6 +14,7 @@
 	../home/programs/alacritty
 	../home/programs/yazi
 	../home/programs/bat
+	../home/programs/neovim
 
 
     # Scripts
@@ -51,7 +52,6 @@
       jq
       figlet
       just
-      neovim
 	  rye
 	  python313Packages.ipython
 	  python313Packages.pylatexenc
