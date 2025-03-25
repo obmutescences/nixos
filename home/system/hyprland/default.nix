@@ -16,10 +16,10 @@ in {
     ./bindings.nix
     ./polkitagent.nix
   ];
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
+  # nix.settings = {
+  #   substituters = ["https://hyprland.cachix.org"];
+  #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  # };
 
   home.packages = with pkgs; [
     qt5.qtwayland
@@ -46,30 +46,33 @@ in {
 
   wayland.windowManager.hyprland = {
     enable = true;
+	# package = pkgs.hyprland;
+	package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 	plugins = [
 		(pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
+			# hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             src = pkgs.fetchFromGitHub {
               owner = "dawsers";
               repo = "hyprscroller";
-              rev = "de8e4bf8c419d849b053299d67bd554ac3f5c231";
-              hash = "sha256-NZPCWWJuBF8xhg27puq9sHmEs1cxyPkiNpNCoHwqGcc=";
-        };
+              rev = "3f86916f3e9a583154b1be0af4e8a1ef1f7435b2";
+              hash = "sha256-mgYq3vc4JtIzVuAKTWdALOynImYyNZEXh7tiVPvMZg4=";
+			};
 		})
-		(pkgs.hyprlandPlugins.hyprfocus.overrideAttrs {
-            src = pkgs.fetchFromGitHub {
-              owner = "daxisunder";
-              repo = "hyprfocus";
-			  rev = "227378fe742034c87a36fdb0681083da49bd6c99";
-			  hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
-        };
-		})
+		(pkgs.callPackage ./hyprfocus.nix {})
+		# (pkgs.hyprlandPlugins.hyprfocus.overrideAttrs {
+		# 	hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #           src = pkgs.fetchFromGitHub {
+  #             owner = "daxisunder";
+  #             repo = "hyprfocus";
+		# 	  rev = "227378fe742034c87a36fdb0681083da49bd6c99";
+		# 	  hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
+  #       };
+		# })
 	];
     xwayland.enable = true;
     systemd.enable = true;
-	package = pkgs.hyprland;
-	# package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    # make sure to also set the portal package, so that they are in sync
-    # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
     settings = {
       "$mod" = "SUPER";

@@ -24,7 +24,10 @@
 	# hyprland
     hyprland = {
       url = "github:hyprwm/hyprland";
-      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+	hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
@@ -45,7 +48,9 @@
           modules = [
             {
               nixpkgs.overlays =
-                [ inputs.hyprpanel.overlay inputs.nur.overlays.default ];
+                [ inputs.hyprpanel.overlay inputs.nur.overlays.default (final: prev: {
+    hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+  })];
               _module.args = { inherit inputs; };
             }
             inputs.home-manager.nixosModules.home-manager
