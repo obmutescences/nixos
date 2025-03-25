@@ -65,7 +65,9 @@
           modules = [
             {
               nixpkgs.overlays =
-                [ inputs.hyprpanel.overlay inputs.nur.overlays.default ];
+                [ inputs.hyprpanel.overlay inputs.nur.overlays.default (final: prev: {
+    hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+  })];
               _module.args = { inherit inputs; };
             }
             inputs.home-manager.nixosModules.home-manager
