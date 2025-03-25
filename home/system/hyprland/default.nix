@@ -16,10 +16,10 @@ in {
     ./bindings.nix
     ./polkitagent.nix
   ];
-  # nix.settings = {
-  #   substituters = ["https://hyprland.cachix.org"];
-  #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  # };
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
 
   home.packages = with pkgs; [
     qt5.qtwayland
@@ -47,12 +47,11 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
 	# package = pkgs.hyprland;
-	package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+	package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     # make sure to also set the portal package, so that they are in sync
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 	plugins = [
 		(pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
-			# hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
             src = pkgs.fetchFromGitHub {
               owner = "dawsers";
               repo = "hyprscroller";
@@ -61,15 +60,6 @@ in {
 			};
 		})
 		(pkgs.callPackage ./hyprfocus.nix {})
-		# (pkgs.hyprlandPlugins.hyprfocus.overrideAttrs {
-		# 	hyprland = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  #           src = pkgs.fetchFromGitHub {
-  #             owner = "daxisunder";
-  #             repo = "hyprfocus";
-		# 	  rev = "227378fe742034c87a36fdb0681083da49bd6c99";
-		# 	  hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
-  #       };
-		# })
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -127,7 +117,6 @@ in {
         gaps_in = gaps-in;
         gaps_out = gaps-out;
         border_size = border-size;
-        border_part_of_window = true;
         # layout = "dwindle";
 		layout = "scroller";
 		"col.active_border" = "rgba(90ceaaff) rgba(ecd3a0ff) 45deg";
@@ -170,7 +159,7 @@ in {
 		force_default_wallpaper = 0;
       };
 
-      windowrulev2 =
+      windowrule =
         [ 
 		"opacity 0.67 0.67,class:.*"
 		"opacity 0.99 0.99,class:^(neovide)$"

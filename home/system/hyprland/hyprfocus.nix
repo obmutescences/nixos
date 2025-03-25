@@ -1,12 +1,12 @@
 {
   lib,
-  mkHyprlandPlugin,
   hyprland,
+  hyprlandPlugins,
   fetchFromGitHub,
   nix-update-script,
 }:
 
-mkHyprlandPlugin hyprland {
+hyprlandPlugins.mkHyprlandPlugin hyprland {
   pluginName = "hyprfocus";
   version = "0-unstable-2025-01-04";
 
