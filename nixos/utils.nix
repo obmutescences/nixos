@@ -90,7 +90,6 @@ in {
     xdg-utils
     wget
     curl
-    clash-nyanpasu
     dae
 	gnumake
 	fzf
