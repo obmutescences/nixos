@@ -143,6 +143,8 @@ in {
 	xh
 	# manager docker in term
 	oxker
+	# redis cli
+	iredis
   ];
 
   services.logind.extraConfig = ''
