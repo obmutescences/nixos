@@ -9,12 +9,12 @@
 		idle = true;
 		font = {
 			size = 13;
-			width = 1.1;
+			width = 1.0;
 			# normal = {
 			# 	family =  "Comic Code";
 			# 	style = "Italic";
 			# };
-			normal = ["Ubuntu Sans Mono"];
+			normal = ["UbuntuSansMono Nerd Font Mono"];
 		 };
     };
   };
