@@ -36,7 +36,7 @@
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
 	swww.url = "github:LGFae/swww";
-	neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs = inputs@{ nixpkgs, ... }: {
