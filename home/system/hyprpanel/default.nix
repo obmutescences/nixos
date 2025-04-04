@@ -32,22 +32,24 @@ in {
     hyprland.enable = true;
     overwrite.enable = true;
     overlay.enable = true;
-    layout = {
-      "bar.layouts" = {
-        "0" = {
-          "left" = [ "dashboard" "storage" "cpu" "ram" "workspaces" "windowtitle" "media" ];
-          "middle" = [ "clock" ];
-          "right" = [
-			"netstat"
-            "systray"
-            "volume"
-            "bluetooth"
-            "network"
-            "notifications"
-          ];
-        };
-      };
-    };
+	settings = {
+		layout = {
+		  "bar.layouts" = {
+			"0" = {
+			  "left" = [ "dashboard" "storage" "cpu" "ram" "workspaces" "windowtitle" "media" ];
+			  "middle" = [ "clock" ];
+			  "right" = [
+				"netstat"
+				"systray"
+				"volume"
+				"bluetooth"
+				"network"
+				"notifications"
+			  ];
+			};
+		  };
+		};
+	};
 
     override = {
       "theme.font.name" = "${font}";
