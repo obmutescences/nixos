@@ -5,7 +5,7 @@
   active-opacity = 1;
   inactive-opacity = 0.93;
   blur = true;
-  border-size = 3;
+  border-size = 1;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
   fetch = "none"; # "nerdfetch" | "neofetch" | "pfetch" | "none"
   font = "Ubuntu Sans Mono";

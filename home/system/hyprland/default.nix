@@ -120,7 +120,7 @@ in {
         border_size = border-size;
         # layout = "dwindle";
 		layout = "scroller";
-		"col.active_border" = "rgba(90ceaaff) rgba(ecd3a0ff) 45deg";
+		"col.active_border" = "rgba(e67e80ff) rgba(dbbc7fff) 45deg";
 		"col.inactive_border" = "rgba(1e8b50d9) rgba(50b050d9) 45deg";
       };
 
