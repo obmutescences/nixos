@@ -124,6 +124,7 @@ in {
 	mydumper
 	# net proxy
 	flclash
+	gui-for-singbox
 	# mysql cli tools
 	mycli
 	# wallerpaper
