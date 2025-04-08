@@ -111,6 +111,7 @@ in {
 		"IMSETTINGS_MODULE,fcitx"
 		"QT_IM_MODULE,fcitx"
 
+		"BROWSER,zen-beta"
       ];
 
       general = {
