@@ -19,6 +19,7 @@ in {
       substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store"];
       trusted-public-keys = [
       ];
+	  download-buffer-size = 2024288000; # 设置为 500 MiB
     };
     gc = {
       automatic = autoGarbageCollector;

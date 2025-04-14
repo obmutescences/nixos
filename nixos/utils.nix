@@ -146,6 +146,8 @@ in {
 	oxker
 	# redis cli
 	iredis
+
+	zed-editor
   ];
 
   services.logind.extraConfig = ''
