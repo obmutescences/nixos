@@ -48,7 +48,7 @@
       # Dev
       go
       nodejs
-      python3
+      python313
       jq
       figlet
       just

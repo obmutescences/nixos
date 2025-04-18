@@ -6,5 +6,7 @@
 		android-studio
 		# amdgpu usage
 		amdgpu_top
+		# protobuf
+		protobuf
 	];
 }

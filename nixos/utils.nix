@@ -97,6 +97,7 @@ in {
 	cmake
 	dust
 	gping
+	openssl
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
