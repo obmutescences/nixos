@@ -2,6 +2,7 @@
   lib,
   hyprland,
   hyprlandPlugins,
+  cmake,
   fetchFromGitHub,
   nix-update-script,
 }:
@@ -14,8 +15,10 @@ hyprlandPlugins.mkHyprlandPlugin hyprland {
     owner = "nasirHo";
     repo = "hyprscroller";
     rev = "de39157e11de72f3be23a83b4e72f8fdae21cfa2";
-    hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
+    hash = "sha256-j6YbYiIL2SHhwd7F4M4nqd4WGs88TM5YaYN9Lk7xZOM=";
   };
+
+  nativeBuildInputs = [ cmake ];
 
   installPhase = ''
     runHook preInstall
