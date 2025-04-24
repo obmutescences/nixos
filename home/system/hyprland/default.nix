@@ -51,14 +51,15 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 	plugins = [
-		(pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
-            src = pkgs.fetchFromGitHub {
-              owner = "dawsers";
-              repo = "hyprscroller";
-              rev = "3f86916f3e9a583154b1be0af4e8a1ef1f7435b2";
-              hash = "sha256-mgYq3vc4JtIzVuAKTWdALOynImYyNZEXh7tiVPvMZg4=";
-			};
-		})
+		# (pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
+  #           src = pkgs.fetchFromGitHub {
+  #             owner = "nasirHo";
+  #             repo = "hyprscroller";
+  #             rev = "de39157e11de72f3be23a83b4e72f8fdae21cfa2";
+  #             hash = "sha256-mgYq3vc4JtIzVuAKTWdALOynImYyNZEXh7tiVPvMZg4=";
+		# 	};
+		# })
+		(pkgs.callPackage ./hyprscroller.nix {})
 		(pkgs.callPackage ./hyprfocus.nix {})
 	];
     xwayland.enable = true;
