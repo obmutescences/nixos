@@ -1,10 +1,12 @@
-{ pkgs, config, inputs, ... }: {
+{ pkgs, config, inputs, lib, ... }: {
 
   imports = [
     ./variables.nix
 
 	../../core/home.nix
   ];
+
+  nixpkgs.overlays = lib.mkForce null;
 
   home = {
     # Import my profile picture, used by the hyprpanel dashboard
