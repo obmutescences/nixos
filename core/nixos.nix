@@ -19,6 +19,6 @@
 	./fhs.nix
 
     # Choose your theme here
-    ../themes/stylix/2025.nix
+    # ../themes/stylix/2025.nix
 	];
 }

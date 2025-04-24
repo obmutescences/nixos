@@ -4,11 +4,11 @@
 let
   transparentButtons = config.var.theme.bar.transparentButtons;
 
-  accent = "#${config.lib.stylix.colors.base0D}";
-  accent-alt = "#${config.lib.stylix.colors.base03}";
-  background = "#${config.lib.stylix.colors.base00}";
-  background-alt = "#${config.lib.stylix.colors.base01}";
-  foreground = "#${config.lib.stylix.colors.base05}";
+  accent-alt = "#859289";
+  accent = "#7fbbb3";
+  background = "#232a2e";
+  background-alt = "#2d353b";
+  foreground = "#d3c6aa";
   font = config.var.theme.font;
   fontSize = "12";
 
