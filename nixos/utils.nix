@@ -149,6 +149,7 @@ in {
 	iredis
 
 	zed-editor
+	discord
   ];
 
   services.logind.extraConfig = ''
