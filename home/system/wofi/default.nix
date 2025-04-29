@@ -1,10 +1,10 @@
 # Wofi is a launcher for Wayland, inspired by rofi.
 { config, pkgs, lib, ... }:
 let
-  accent = "#7fbbb3";
+  accent = "#27391C";
   background = "#232a2e";
   background-alt = "#2d353b";
-  foreground = "#d3c6aa";
+  foreground = "#A0D683";
   font = config.var.theme.font;
   rounding = config.var.theme.rounding;
   font-size = config.var.theme.fontSize;
