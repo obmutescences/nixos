@@ -5,10 +5,10 @@ let
   transparentButtons = config.var.theme.bar.transparentButtons;
 
   accent-alt = "#859289";
-  accent = "#7fbbb3";
-  background = "#232a2e";
+  accent = "#E67E80";
+  background = "#27391C";
   background-alt = "#2d353b";
-  foreground = "#d3c6aa";
+  foreground = "#A0D683";
   font = config.var.theme.font;
   fontSize = "12";
 
@@ -36,7 +36,7 @@ in {
 		layout = {
 		  "bar.layouts" = {
 			"0" = {
-			  "left" = [ "dashboard" "storage" "cpu" "ram" "workspaces" "windowtitle" "media" ];
+			  "left" = [ "dashboard" "storage" "cpu" "ram" "windowtitle" "media" ];
 			  "middle" = [ "clock" ];
 			  "right" = [
 				"netstat"
@@ -54,6 +54,8 @@ in {
     override = {
       "theme.font.name" = "${font}";
       "theme.font.size" = "${fontSize}px";
+      "theme.bar.buttons.monochrome" = true; # global color
+	  "theme.bar.buttons.background" = "${background}";
       "theme.bar.outer_spacing" =
         "${if floating && transparent then "0" else "8"}px";
       "theme.bar.buttons.y_margins" =
@@ -153,12 +155,10 @@ in {
         + (if transparentButtons && transparent then "00" else "")}";
 	  # "theme.bar.background" = "transparent";
       "theme.bar.buttons.style" = "default";
-      "theme.bar.buttons.monochrome" = false;
       "theme.bar.buttons.text" = "${foreground}";
       # "theme.bar.buttons.background" =
       #   "${(if transparent then background else background-alt)
       #   + (if transparentButtons then "00" else "")}";
-	  "theme.bar.buttons.background" = "#323d43";
       "theme.bar.buttons.icon" = "${accent}";
       "theme.bar.buttons.notifications.background" = "${background-alt}";
       "theme.bar.buttons.hover" = "${background}";
