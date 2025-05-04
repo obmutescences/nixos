@@ -8,13 +8,13 @@
 
 hyprlandPlugins.mkHyprlandPlugin hyprland {
   pluginName = "hyprfocus";
-  version = "0-unstable-2025-01-04";
+  version = "0-unstable-2025-05-04";
 
   src = fetchFromGitHub {
-    owner = "daxisunder";
+    owner = "obmutescences";
     repo = "hyprfocus";
-    rev = "227378fe742034c87a36fdb0681083da49bd6c99";
-    hash = "sha256-ST5FFxyw5El4A7zWLaWbXb9bD9C/tunU+flmNxWCcEY=";
+    rev = "6ebd23ccefc14cf3e7310789f2ea09b4bc83fee0";
+    hash = "sha256-au+LLE/7CfqhH1ExAzbcrkBNz+DPxs0Qewt3Vcqk/2c=";
   };
 
   installPhase = ''
