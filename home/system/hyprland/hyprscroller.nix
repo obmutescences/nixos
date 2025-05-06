@@ -14,8 +14,8 @@ hyprlandPlugins.mkHyprlandPlugin hyprland {
   src = fetchFromGitHub {
     owner = "nasirHo";
     repo = "hyprscroller";
-    rev = "35ee6662ab3b6911b3c6adab8e7807b739b087af";
-    hash = "sha256-ccuwXn9psnZPMRGyUCKTcU3eFiw3c2mqweuaLpvjnnU=";
+    rev = "59a66b860215d58632fe73a1c122c8c6ee354b32";
+    hash = "sha256-DvFA8KxCGcc03DYOuxXp2cz77mjkJOxCQHpo5v5jTzg=";
   };
 
   nativeBuildInputs = [ cmake ];
