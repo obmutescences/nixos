@@ -16,8 +16,13 @@ in {
 	  trusted-users = ["zerone"];
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store"];
+      substituters = [ 
+			"https://mirrors.ustc.edu.cn/nix-channels/store"
+			"https://cache.nixos.org" 
+			"https://nix-community.cachix.org"
+		];
       trusted-public-keys = [
+		"nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
 	  download-buffer-size = 2024288000; # 设置为 500 MiB
     };

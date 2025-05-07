@@ -44,6 +44,8 @@ in {
     meson
   ];
 
+  services.swww.enable = true;
+
   wayland.windowManager.hyprland = {
     enable = true;
 	# package = pkgs.hyprland;
@@ -51,14 +53,6 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 	plugins = [
-		# (pkgs.hyprlandPlugins.hyprscroller.overrideAttrs {
-  #           src = pkgs.fetchFromGitHub {
-  #             owner = "nasirHo";
-  #             repo = "hyprscroller";
-  #             rev = "de39157e11de72f3be23a83b4e72f8fdae21cfa2";
-  #             hash = "sha256-mgYq3vc4JtIzVuAKTWdALOynImYyNZEXh7tiVPvMZg4=";
-		# 	};
-		# })
 		(pkgs.callPackage ./hyprscroller.nix {})
 		(pkgs.callPackage ./hyprfocus.nix {})
 	];
@@ -78,7 +72,7 @@ in {
 		"FlClash"
 		# "GUI.for.SingBox"
 		"buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100"
-		"swww-daemon"
+		# "swww-daemon"
 		"set-wallpaper"
       ];
 
