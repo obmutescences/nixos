@@ -6,7 +6,7 @@ let
 
   accent-alt = "#859289";
   accent = "#E67E80";
-  background = "#27391C";
+  background = "#414141";
   background-alt = "#2d353b";
   foreground = "#A0D683";
   font = config.var.theme.font;
@@ -80,7 +80,7 @@ in {
 	  "theme.bar.transparent" = true;
 	  "theme.bar.opacity" = 100;
 	  "theme.bar.buttons.opacity" = 90;
-	  "theme.bar.buttons.background_opacity" = 90;
+	  "theme.bar.buttons.background_opacity" = 45;
 	  "theme.bar.buttons.background_hover_opacity" = 75;
 	  "theme.bar.shadow" = "0px 0px 0px 0px #16161e";
 	  "theme.bar.menus.opacity" = 90;
