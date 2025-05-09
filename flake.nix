@@ -22,8 +22,9 @@
     hyprspace = { url = "github:KZDKM/Hyprspace"; };
 	# hyprland
     hyprland = {
-      url = "github:hyprwm/hyprland";
+      url = "github:hyprwm/hyprland/v0.49.0";
     };
+	# hyprland = { url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.49.0"; };
 	hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";

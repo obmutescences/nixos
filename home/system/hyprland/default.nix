@@ -16,11 +16,6 @@ in {
     ./bindings.nix
     ./polkitagent.nix
   ];
-  nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-  };
-
   home.packages = with pkgs; [
     qt5.qtwayland
     qt6.qtwayland
@@ -124,24 +119,22 @@ in {
         rounding = rounding;
         shadow = {
           enabled = false;
-          range = 20;
-          render_power = 3;
         };
         blur = { 
-	    enabled = true;
-	    size = 5;
-        passes = 3;
-	    vibrancy = 0.7;
-        new_optimizations = true;
-        ignore_opacity = true;
-        xray = false;
-		popups = true;
-		popups_ignorealpha = 0.5;
-		input_methods = true;
-		input_methods_ignorealpha = 0.5;
-		special = true;
-	};
-      };
+			enabled = true;
+			size = 5;
+			passes = 3;
+			vibrancy = 0.7;
+			new_optimizations = true;
+			ignore_opacity = true;
+			xray = false;
+			popups = true;
+			popups_ignorealpha = 0.5;
+			input_methods = true;
+			input_methods_ignorealpha = 0.5;
+			special = true;
+	     };
+	   };
 
       master = {
         new_status = true;
@@ -189,8 +182,7 @@ in {
       input = {
         kb_layout = "us";
         follow_mouse = 1;
-		force_no_accel = 1;
-        sensitivity = 1;
+        sensitivity = 0.6;
         repeat_delay = 200;
         repeat_rate = 80;
 
