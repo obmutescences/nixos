@@ -94,12 +94,13 @@ in {
 		"GDK_SCALE,1"
 		"WLR_RENDERER_ALLOW_SOFTWARE,1"
 
-		"GLFW_IM_MODULE,fcitx"
-		"GTK_IM_MODULE,fcitx"
-		"INPUT_METHOD,fcitx"
+		# "GLFW_IM_MODULE,fcitx"
+		# "GTK_IM_MODULE,fcitx"
+		# "INPUT_METHOD,fcitx"
 		"XMODIFIERS,@im=fcitx"
-		"IMSETTINGS_MODULE,fcitx"
+		# "IMSETTINGS_MODULE,fcitx"
 		"QT_IM_MODULE,fcitx"
+		"SDL_IM_MODULE,fcitx"
 
 		"BROWSER,zen-beta"
       ];
