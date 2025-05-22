@@ -7,7 +7,8 @@
 	  "cmd+t" = "new_tab";
 	  "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
     };
-	font.name = "UbuntuSansMono Nerd Font Mono";
+	# font.name = "UbuntuSansMono Nerd Font Mono";
+	font.name = "Comic Code";
 	font.size = 12;
     settings = {
       scrollback_lines = 10000;

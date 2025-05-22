@@ -8,13 +8,14 @@
 		srgb = true;
 		idle = true;
 		font = {
-			size = 13;
 			width = 1.0;
-			# normal = {
-			# 	family =  "Comic Code";
-			# 	style = "Italic";
-			# };
-			normal = ["UbuntuSansMono Nerd Font Mono"];
+			size = 12;
+			normal = {
+				family =  "Comic Code";
+				style = "Italic";
+			};
+			# size = 13;
+			# normal = ["UbuntuSansMono Nerd Font Mono"];
 		 };
     };
   };
