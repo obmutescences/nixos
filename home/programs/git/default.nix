@@ -24,7 +24,16 @@ in {
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
 	  pull.rebase = true;
+	  core.whitespace = "error";
+	  core.preloadindex = true;
+	  diff.context = "3";
+	  diff.interHunkContext = "10";
       # color.ui = "1";
+	  status = {
+			branch = true;
+			showStash = true;
+			showUntrackedFiles = "all";
+	  };
 	  delta = {
 		enable = true;
 		options = {
