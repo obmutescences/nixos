@@ -34,18 +34,17 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
-	swww.url = "github:LGFae/swww";
+	swww.url = "github:LGFae/swww/v0.10.2";
 	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-  };
 
-  outputs = inputs@{ nixpkgs, ... }: {
+  outputs = inputs@{ nixpkgs, rust-overlay, ... }: {
     nixosConfigurations = {
       zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
-            {
+            ({ pkgs, ... }: {
               nixpkgs.overlays =
                 [ 
 					inputs.hyprpanel.overlay
@@ -54,7 +53,7 @@
 					})
 				];
               _module.args = { inherit inputs; };
-            }
+            })
             inputs.home-manager.nixosModules.home-manager
             ./hosts/sy-company/configuration.nix # CHANGEME: change the path to match your host folder
           ];
