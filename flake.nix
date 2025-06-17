@@ -37,7 +37,9 @@
 	swww.url = "github:LGFae/swww/v0.10.2";
 	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-  outputs = inputs@{ nixpkgs, rust-overlay, ... }: {
+   };
+
+  outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations = {
       zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
