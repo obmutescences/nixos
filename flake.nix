@@ -37,6 +37,12 @@
 	swww.url = "github:LGFae/swww/v0.10.2";
 	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
+	# niri wm
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
    };
 
   outputs = inputs@{ nixpkgs, ... }: {
