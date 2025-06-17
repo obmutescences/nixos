@@ -18,6 +18,9 @@
 	../home/system/dae/default.nix
 	./fhs.nix
 
+	# niri
+	../home/system/niri
+
     # Choose your theme here
     # ../themes/stylix/2025.nix
 	];

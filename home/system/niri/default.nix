@@ -1,13 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
-	programs.waybar.enable = true;
+	# home.packages = [ pkgs.xwayland-satellite ];
+	# programs.waybar.enable = true;
+	nixpkgs.overlays = [inputs.niri.overlays.niri];
+	imports = [inputs.niri.nixosModules.niri];
 	programs.niri = {
 		enable = true;
-		package = pkgs.niri;  
+		package = pkgs.niri-unstable;  
 	};
+	
+	# environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-	home.file.".config/niri" = {
-		recursive = true;
-		source = ./niri;
-	};
+	# xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
+	# home.file.".config/niri" = {
+	# 	recursive = true;
+	# 	source = ./niri;
+	# };
 }

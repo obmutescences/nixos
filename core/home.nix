@@ -32,8 +32,8 @@
     ../home/system/clipman
     ../home/system/fctix5
 	../home/system/mime
-	# niri
-	../home/system/niri
+	../home/system/niri/config.nix
+	../home/system/waybar
 
 	../themes/gtk.nix
 

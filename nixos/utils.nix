@@ -150,6 +150,9 @@ in {
 
 	zed-editor
 	discord
+
+	# bar
+	waybar
   ];
 
   services.logind.extraConfig = ''
