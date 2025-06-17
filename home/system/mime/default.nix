@@ -35,6 +35,8 @@
       "application/xhtml+xml" = "zen-beta.desktop";
       "application/x-extension-xhtml" = "zen-beta.desktop";
       "application/x-extension-xht" = "zen-beta.desktop";
+	  "inode/directory" = "thunar.desktop";
+	  "application/x-directory" = "thunar.desktop";
     };
   };
 }
