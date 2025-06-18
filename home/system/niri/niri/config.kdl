@@ -495,16 +495,16 @@ binds {
         center-column
     }
     Mod+Shift+Left {
-        set-column-width "-10%"
+        set-column-width "-5%"
     }
     Mod+Shift+Right {
-        set-column-width "+10%"
+        set-column-width "+5%"
     }
     Mod+Shift+Up {
-        set-window-height "-10%"
+        set-window-height "-5%"
     }
     Mod+Shift+Down {
-        set-window-height "+10%"
+        set-window-height "+5%"
     }
     Mod+V {
         toggle-window-floating
