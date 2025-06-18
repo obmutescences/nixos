@@ -81,6 +81,8 @@ in {
     nixos.enable = false;
   };
 
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   environment.systemPackages = with pkgs; [
     fd
     bc
@@ -153,6 +155,10 @@ in {
 
 	# bar
 	waybar
+	
+	# niri need
+	xwayland-satellite
+	dunst
   ];
 
   services.logind.extraConfig = ''

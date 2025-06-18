@@ -34,13 +34,22 @@
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
-	swww.url = "github:LGFae/swww/v0.10.2";
+	swww.url = "github:LGFae/swww/v0.10.3";
 	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+	rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs"; # 确保它使用与您系统相同的 nixpkgs 版本
+    };
 
 	# niri wm
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+	my-niri-src = {
+      url = "github:visualglitch91/niri/feat/blur";
+      flake = false;
     };
 
    };
@@ -59,6 +68,20 @@
 					inputs.nur.overlays.default (final: prev: {
 						hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
 					})
+
+					inputs.niri.overlays.niri
+
+					# 自定义 Overlay：覆盖 niri-unstable
+					(final: prev: {
+					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
+						src = inputs.my-niri-src;  # 使用自定义源码
+						# # 更新 cargo 依赖（如果 lock 文件变化）
+						# cargoDeps = prev.rustPlatform.importCargoLock {
+						#   lockFile = "${inputs.my-niri-src}/Cargo.lock";
+						# };
+					  });
+					})				
+
 				];
               _module.args = { inherit inputs; };
             })

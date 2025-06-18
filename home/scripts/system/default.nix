@@ -115,5 +115,15 @@ let
 	source ~/.zshrc
 	exec /home/zerone/projects/neovide/target/release/neovide
     '';
+  keybord-sound = pkgs.writeShellScriptBin "keybord-sound"
+    # bash
+    ''
+	buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100
+    '';
+  screenshot-pin = pkgs.writeShellScriptBin "screenshot-pin"
+    # bash
+    ''
+	flameshot gui -r | wl-copy -t image/png
+    '';
 
-in { home.packages = [ menu powermenu lock quickmenu start-neovide ]; }
+in { home.packages = [ menu powermenu lock quickmenu start-neovide keybord-sound screenshot-pin ]; }

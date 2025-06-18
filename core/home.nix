@@ -34,6 +34,7 @@
 	../home/system/mime
 	../home/system/niri/config.nix
 	../home/system/waybar
+	../home/system/niri/dunst.nix
 
 	../themes/gtk.nix
 
@@ -43,6 +44,7 @@
   home = {
     inherit (config.var) username;
     homeDirectory = "/home/" + config.var.username;
+	sessionVariables.NIXOS_OZONE_WL = "1";
 
     packages = with pkgs; [
       vlc # Video player
