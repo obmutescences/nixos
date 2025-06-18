@@ -269,11 +269,11 @@ binds {
         focus-window-up
     }
     Alt+Tab {
-        focus-column-left
+        focus-column-right-or-first
     }
-    Ctrl+Tab {
-        focus-column-right
-    }
+    // Ctrl+Tab {
+    //     focus-column-right
+    // }
     Mod+Ctrl+Down {
         move-window-down
     }
