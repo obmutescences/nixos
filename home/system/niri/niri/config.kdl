@@ -2,7 +2,6 @@
 input {
     keyboard {
         xkb {
-            // NOTE: No need to ctrl:nocaps since I am using home row mods
             layout "us"
         }
 		repeat-delay 200
@@ -60,8 +59,9 @@ environment {
 }
 // Settings that influence how windows are positioned and sized.
 layout {
-    gaps 3
-    center-focused-column "on-overflow"
+    gaps 6
+    center-focused-column "never"
+	always-center-single-column
     preset-column-widths {
         proportion 0.5
         proportion 1.0
@@ -76,21 +76,21 @@ layout {
     focus-ring {
         off
         width 4
-        active-gradient from="#e67e80ff" to="#dbbc7fff" angle=45
+        active-gradient from="#623e3a" to="#dbbc7fff" angle=45
         inactive-gradient from="#1e8b50d9" to="#50b050d9" angle=45 relative-to="workspace-view"
     }
     border {
         width 2
-        active-gradient from="#e67e80ff" to="#dbbc7fff"
+        active-gradient from="#482d2a" to="#dbbc7fff"
         inactive-gradient from="#1e8b50d9" to="#50b050d9"
     }
     shadow {
         on
-        draw-behind-window true
+        draw-behind-window false
         softness 30
-        spread 5
+        spread 3
         offset x=0 y=5
-        color "#00000070"
+        color "#e67e80ff"
     }
     struts {
 
@@ -99,8 +99,8 @@ layout {
 	blur {
         on
         passes 2
-        radius 3
-        noise 0.02
+        radius 6
+        noise 0
     }
 }
 
@@ -184,14 +184,24 @@ animations {
 }
 
 overview {
-    zoom 0.25
-    backdrop-color "transparent"
-    workspace-shadow {
-        off
+    zoom 0.4
+    backdrop-color "#071207"
+	workspace-shadow {
+        // off
+        softness 40
+        spread 10
+        offset x=0 y=10
+        color "#e67e80ff"
     }
 }
+
+xwayland-satellite {
+    // off
+    path "xwayland-satellite"
+}
+
 window-rule {
-  opacity 0.84
+  opacity 0.7
 }
 // Work around WezTerm's initial configure bug by setting an empty default-column-width.
 window-rule {
