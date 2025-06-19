@@ -7,6 +7,7 @@
 		maximized = false;
 		srgb = true;
 		idle = true;
+		theme = "dark";
 		font = {
 			width = 1.0;
 			size = 12;

@@ -6,5 +6,5 @@
 	];
 	services.swww.enable = true;
 	
-	xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
+	# xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
 }
