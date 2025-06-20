@@ -28,7 +28,7 @@
     };
 	extraConfig = "
 cursor_trail_decay 0.5 1
-modify_font cell_width 110%
+# modify_font cell_width 110%
 modify_font cell_height 4px
 foreground                      #d3c6aa
 background                      #272e33

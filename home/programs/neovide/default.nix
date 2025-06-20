@@ -9,7 +9,7 @@
 		idle = true;
 		theme = "dark";
 		font = {
-			width = 1.0;
+			# width = 1.0;
 			size = 12;
 			normal = {
 				family =  "Comic Code";
