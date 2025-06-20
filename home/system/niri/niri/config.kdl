@@ -22,10 +22,10 @@ input {
     // workspace-auto-back-and-forth
     mod-key "Super"
 }
-// tsuki
-output "GIGA-BYTE TECHNOLOGY CO., LTD. G34WQC A 23022B003495" {
-    mode "3440x1440@144.000"
-    scale 1
+// home desktop
+output "DP-2" {
+    mode "3840x2160@143.999"
+    scale 1.2
     transform "normal"
 }
 // company desktop
