@@ -13,7 +13,7 @@
 
       listener = [
         {
-          timeout = 600;
+          timeout = 1800;
           on-timeout = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
 

@@ -45,20 +45,20 @@ output "DP-1" {
     // focus-at-startup
 }
 environment {
-    // ELECTRON_OZONE_PLATFORM_HINT "auto"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
     DISPLAY ":12"
 	MOZ_ENABLE_WAYLAND "1"
 	NIXOS_OZONE_WL "1"
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
-    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORM "wayland"
     QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
 	SDL_VIDEODRIVER "wayland"
 	CLUTTER_BACKEND "wayland"
 	QT_QPA_PLATFORMTHEME "qt6ct"
-	GDK_BACKEND "wayland,x11,*"
+	GDK_BACKEND "wayland"
 	OZONE_PLATFORM "wayland"
 	EGL_PLATFORM "wayland"
-	GDK_SCALE "1"
+	// GDK_SCALE "1"
 	WLR_RENDERER_ALLOW_SOFTWARE "1"
 
 	XMODIFIERS "@im=fcitx"
