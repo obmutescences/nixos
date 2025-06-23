@@ -80,7 +80,7 @@
       "m": 30, // medium
     },
     "interval": 15,
-    "format": "<span color='#BED754'>󰾆 {used}GB {percentage}%</span>",
+    "format": "<span color='#BED754'>󰾆 {percentage}%</span>",
     "rotate": 0,
     "format-m": "<span color='#BED754'>󰾅 {used}GB</span>",
     "format-h": "<span color='#BED754'>󰓅 {used}GB</span>",
@@ -157,7 +157,7 @@
   },
 
   "clock": {
-    "format": "<span color='#D74B76'>{:%R %a 󰃭 %m·%d}</span>",
+    "format": "<span color='#D74B76'>󰃭 {:%m·%d %a %R}</span>",
     "rotate": 0,
     "format-alt": "{:%R 󰃭 %d·%m·%y}",
     "tooltip-format": "<tt>{calendar}</tt>",
