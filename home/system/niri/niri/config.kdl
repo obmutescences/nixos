@@ -1,4 +1,12 @@
 // Reference: https://github.com/YaLTeR/niri/wiki/Configuration
+workspace "browser"
+workspace "term"
+workspace "code"
+workspace "chat"
+
+hotkey-overlay {
+    skip-at-startup
+}
 input {
     keyboard {
         xkb {
@@ -62,6 +70,7 @@ layout {
     gaps 6
     center-focused-column "never"
 	always-center-single-column
+	background-color "transparent"
     preset-column-widths {
         proportion 0.5
         proportion 1.0
@@ -98,8 +107,8 @@ layout {
 
 	blur {
         on
-        passes 2
-        radius 6
+        passes 3
+        radius 2
         noise 0
     }
 }
@@ -120,7 +129,7 @@ prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
 animations {
-	slowdown 3.0
+	slowdown 3
     window-open {
       duration-ms 200
       curve "linear"
@@ -149,10 +158,8 @@ animations {
 		vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
 		float progress = niri_clamped_progress * niri_clamped_progress;
 		vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
-		coords.y -= progress * 1440.0;
-		float random = (niri_random_seed - 0.5) / 2.0;
-		random = sign(random) - random;
-		float max_angle = 0.5 * random;
+		coords.y -= progress * 4440.0;
+		float max_angle = -0.8;
 		float angle = progress * max_angle;
 		mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
 		coords = rotate * coords;
@@ -169,29 +176,32 @@ animations {
    }
 
     window-resize {
-        custom-shader r"
-            vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
-                vec3 coords_tex_next = niri_geo_to_tex_next * coords_curr_geo;
-                vec4 color = texture2D(niri_tex_next, coords_tex_next.st);
-                return color;
-            }
-        "
+		// damping-ratio 回弹幅度，越小越大
+		// stiffness 越大速度越快
+		spring damping-ratio=0.6 stiffness=800 epsilon=0.0001
     }
 
 	workspace-switch {
-        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+        spring damping-ratio=0.7 stiffness=700 epsilon=0.0001
     }
 }
 
 overview {
     zoom 0.4
-    backdrop-color "#071207"
+    // backdrop-color "#071207"
+    backdrop-color "transparent"
 	workspace-shadow {
-        // off
-        softness 40
+        off
+        softness 10
         spread 10
         offset x=0 y=10
         color "#e67e80ff"
+    }
+}
+
+gestures {
+    hot-corners {
+        off
     }
 }
 
@@ -200,14 +210,61 @@ xwayland-satellite {
     path "xwayland-satellite"
 }
 
-window-rule {
-  opacity 0.7
+layer-rule {
+    match namespace="waybar"
+    match at-startup=true
+
+    // Properties that apply continuously.
+    opacity 0.75
+    block-out-from "screencast"
+    // block-out-from "screen-capture"
+
+    shadow {
+        // on
+        off
+        softness 40
+        spread 5
+        offset x=0 y=5
+        draw-behind-window true
+        color "#00000064"
+        // inactive-color "#00000064"
+    }
+
+    geometry-corner-radius 12
+    place-within-backdrop true
 }
+
+layer-rule {
+    // This is for swaybg; change for other wallpaper tools.
+    // Find the right namespace by running niri msg layers.
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}
+
+window-rule {
+  opacity 0.80
+}
+
+window-rule {
+    match is-floating=true
+
+    baba-is-float true
+}
+// Example: enable rounded corners for all windows.
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+// tweak opacity for inactive windows
+// window-rule {
+//     match is-active=false
+//     opacity 0.3
+// }
 // Work around WezTerm's initial configure bug by setting an empty default-column-width.
 window-rule {
     match app-id="thunar"
     default-column-width {
-        proportion 0.6
+        proportion 0.45
     }
 }
 window-rule {
@@ -269,57 +326,62 @@ window-rule {
 	match app-id="org.pulseaudio.pavucontrol"
 	open-floating true
 }
-// Example: enable rounded corners for all windows.
+
 window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
+	match app-id="zen-beta"
+	open-on-workspace "browser"
 }
-// tweak opacity for inactive windows
-// window-rule {
-//     match is-active=false
-//     opacity 0.2
-// }
+window-rule {
+	match app-id="firefox"
+	open-on-workspace "browser"
+}
+window-rule {
+	match app-id="neovide"
+	open-on-workspace "code"
+}
+
+
 binds {
-    Mod+Shift+Slash {
-        show-hotkey-overlay
-    }
-    Mod+Q {
+    Mod+Q repeat=false {
         close-window
     }
-    Mod+Return {
+    Mod+Return repeat=false {
         spawn "kitty"
     }
-    Mod+E {
+    Mod+E repeat=false {
         spawn "thunar"
     }
-    Mod+F {
+    Mod+F repeat=false {
         spawn "zen"
     }
-    Mod+X {
+    Mod+X repeat=false {
         spawn "powermenu"
     }
-    Mod+N {
+    Mod+N repeat=false {
         spawn "start-neovide"
     }
-    Mod+SPACE {
+    Mod+SPACE repeat=false {
         spawn "menu"
     }
-    Mod+ALT+Right {
+    Mod+ALT+Right repeat=false {
         spawn "next-wallpaper"
     }
-    Mod+ALT+Left {
+    Mod+ALT+Left repeat=false {
         spawn "prev-wallpaper"
     }
-    Mod+P {
+    Mod+P repeat=false {
         // spawn "flameshot" "gui" "-r" "|" "wl-copy" "-t" "image/png"
 		spawn "screenshot-pin"
     }
-	Mod+Ctrl+P {
+	Mod+Ctrl+P repeat=false {
 		spawn "flameshot" "gui"
 	}
-    Mod+L {
+    Mod+L repeat=false {
         spawn "hyprlock"
     }
+	Mod+Tab repeat=false {
+		toggle-overview
+	}
 
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
@@ -387,54 +449,6 @@ binds {
     Mod+Ctrl+End {
         move-column-to-last
     }
-    Mod+Shift+H {
-        focus-monitor-left
-    }
-    Mod+Shift+J {
-        focus-monitor-down
-    }
-    Mod+Shift+K {
-        focus-monitor-up
-    }
-    Mod+Shift+L {
-        focus-monitor-right
-    }
-    Mod+Shift+Ctrl+Left {
-        move-column-to-monitor-left
-    }
-    Mod+Shift+Ctrl+Down {
-        move-column-to-monitor-down
-    }
-    Mod+Shift+Ctrl+Up {
-        move-column-to-monitor-up
-    }
-    Mod+Shift+Ctrl+Right {
-        move-column-to-monitor-right
-    }
-    Mod+Shift+Ctrl+H {
-        move-column-to-monitor-left
-    }
-    Mod+Shift+Ctrl+J {
-        move-column-to-monitor-down
-    }
-    Mod+Shift+Ctrl+K {
-        move-column-to-monitor-up
-    }
-    Mod+Shift+Ctrl+L {
-        move-column-to-monitor-right
-    }
-    Mod+Page_Down {
-        focus-workspace-down
-    }
-    Mod+Page_Up {
-        focus-workspace-up
-    }
-    Mod+U {
-        focus-workspace-down
-    }
-    Mod+I {
-        focus-workspace-up
-    }
     Mod+Ctrl+Page_Down {
         move-column-to-workspace-down
     }
@@ -452,42 +466,6 @@ binds {
     }
     Mod+Shift+I {
         move-workspace-up
-    }
-    Mod+WheelScrollDown cooldown-ms=150 {
-        focus-workspace-down
-    }
-    Mod+WheelScrollUp cooldown-ms=150 {
-        focus-workspace-up
-    }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 {
-        move-column-to-workspace-down
-    }
-    Mod+Ctrl+WheelScrollUp cooldown-ms=150 {
-        move-column-to-workspace-up
-    }
-    Mod+WheelScrollRight {
-        focus-column-right
-    }
-    Mod+WheelScrollLeft {
-        focus-column-left
-    }
-    Mod+Ctrl+WheelScrollRight {
-        move-column-right
-    }
-    Mod+Ctrl+WheelScrollLeft {
-        move-column-left
-    }
-    Mod+Shift+WheelScrollDown {
-        focus-column-right
-    }
-    Mod+Shift+WheelScrollUp {
-        focus-column-left
-    }
-    Mod+Ctrl+Shift+WheelScrollDown {
-        move-column-right
-    }
-    Mod+Ctrl+Shift+WheelScrollUp {
-        move-column-left
     }
     Ctrl+1 {
         focus-workspace 1
@@ -556,16 +534,13 @@ binds {
         expel-window-from-column
     }
     Mod+W {
-        switch-preset-column-width
+		maximize-column
     }
     Mod+Shift+W {
         switch-preset-window-height
     }
     // Expand the focused column to space not taken up by other fully visible columns.
     Mod+Shift+F {
-        maximize-column
-    }
-    Mod+Ctrl+F {
         fullscreen-window
     }
     Mod+C {
