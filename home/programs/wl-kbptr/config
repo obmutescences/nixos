@@ -22,7 +22,7 @@ selectable_bg_color=#1E1D23
 selectable_border_color=#040c
 label_font_family=Comic Code
 label_font_size=16 50% 100
-label_symbols=abcdefghijklmnopqrstuvwxyz
+label_symbols=abcdefhijklnopqrsuvwxy
 
 [mode_bisect]
 label_color=#fffd

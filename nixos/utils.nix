@@ -162,6 +162,7 @@ in {
 
 	# keyboard control cursor
 	wl-kbptr
+	wlrctl 
   ];
 
   services.logind.extraConfig = ''
