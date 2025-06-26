@@ -15,6 +15,7 @@
 	../home/programs/yazi
 	../home/programs/bat
 	../home/programs/neovim
+	../home/programs/wl-kbptr
 
 
     # Scripts

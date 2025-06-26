@@ -159,6 +159,9 @@ in {
 	# niri need
 	xwayland-satellite
 	dunst
+
+	# keyboard control cursor
+	wl-kbptr
   ];
 
   services.logind.extraConfig = ''
