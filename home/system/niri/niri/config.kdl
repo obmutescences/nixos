@@ -46,7 +46,7 @@ output "DP-1" {
 }
 environment {
     // ELECTRON_OZONE_PLATFORM_HINT "auto"
-    DISPLAY ":12"
+    DISPLAY ":0"
 	MOZ_ENABLE_WAYLAND "1"
 	NIXOS_OZONE_WL "1"
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
@@ -113,7 +113,7 @@ layout {
     }
 }
 
-spawn-at-startup "xwayland-satellite" ":12"
+spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "FlClash"
 spawn-at-startup "swww-daemon"
@@ -242,7 +242,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.8
+  opacity 0.80
 }
 
 window-rule {
@@ -304,6 +304,18 @@ window-rule {
 }
 window-rule {
 	match app-id="Alacritty"
+    default-column-width {
+        proportion 0.45
+    }
+	default-window-height { 
+		proportion 0.75
+	}
+	open-floating true
+	open-focused true
+}
+
+window-rule {
+	match app-id="com.mitchellh.ghostty"
     default-column-width {
         proportion 0.45
     }
@@ -402,6 +414,9 @@ binds {
     Mod+U  {
         spawn "wlrctl" "pointer" "scroll" "-20" "0"
     }
+	Mod+T {
+		spawn "/home/zerone/Downloads/ghostty/result/bin/ghostty"
+	}
 
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"

@@ -16,6 +16,7 @@
 	../home/programs/bat
 	../home/programs/neovim
 	../home/programs/wl-kbptr
+	../home/programs/ghostty
 
 
     # Scripts
