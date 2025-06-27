@@ -100,6 +100,7 @@ in {
 	dust
 	gping
 	openssl
+	xclip
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
