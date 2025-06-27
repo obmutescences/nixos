@@ -45,7 +45,7 @@ output "DP-1" {
     // focus-at-startup
 }
 environment {
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    // ELECTRON_OZONE_PLATFORM_HINT "auto"
     DISPLAY ":12"
 	MOZ_ENABLE_WAYLAND "1"
 	NIXOS_OZONE_WL "1"
@@ -83,10 +83,10 @@ layout {
         proportion 0.4
     }
     focus-ring {
-        off
-        width 4
-        active-gradient from="#623e3a" to="#dbbc7fff" angle=45
-        inactive-gradient from="#1e8b50d9" to="#50b050d9" angle=45 relative-to="workspace-view"
+        // off
+        width 2
+        active-gradient  from="#623e3a" to="#dbbc7fff" angle=20
+        inactive-gradient from="#1e8b50d9" to="#50b050d9" angle=10 relative-to="workspace-view"
     }
     border {
         width 2
@@ -96,9 +96,9 @@ layout {
     shadow {
         on
         draw-behind-window false
-        softness 30
-        spread 3
-        offset x=0 y=5
+        softness 50
+        spread 10
+        offset x=0 y=10
         color "#e67e80ff"
     }
     struts {
@@ -108,7 +108,7 @@ layout {
 	blur {
         on
         passes 3
-        radius 2
+        radius 3
         noise 0
     }
 }
@@ -242,7 +242,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.80
+  opacity 0.8
 }
 
 window-rule {
@@ -256,10 +256,21 @@ window-rule {
     clip-to-geometry true
 }
 // tweak opacity for inactive windows
-// window-rule {
-//     match is-active=false
-//     opacity 0.3
-// }
+window-rule {
+    match is-active=false
+    // opacity 0.9
+
+	shadow {
+			on
+			// off
+			softness 50
+			spread 2
+			offset x=0 y=5
+			draw-behind-window false
+			color "#00000064"
+			inactive-color "#00000064"
+		}
+}
 // Work around WezTerm's initial configure bug by setting an empty default-column-width.
 window-rule {
     match app-id="thunar"
@@ -382,6 +393,15 @@ binds {
 	Mod+Tab repeat=false {
 		toggle-overview
 	}
+    Mod+K repeat=false {
+        spawn "/home/zerone/Downloads/wl-kbptr/build/wl-kbptr"
+    }
+    Mod+J  {
+        spawn "wlrctl" "pointer" "scroll" "20" "0"
+    }
+    Mod+U  {
+        spawn "wlrctl" "pointer" "scroll" "-20" "0"
+    }
 
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
@@ -425,12 +445,12 @@ binds {
     Mod+Ctrl+L {
         move-column-right
     }
-    Mod+J {
-        focus-window-or-workspace-down
-    }
-    Mod+K {
-        focus-window-or-workspace-up
-    }
+    // Mod+J {
+    //     focus-window-or-workspace-down
+    // }
+    // Mod+K {
+    //     focus-window-or-workspace-up
+	// }
     Mod+Ctrl+J {
         move-window-down-or-to-workspace-down
     }
