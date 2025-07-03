@@ -5,7 +5,9 @@ in {
 
   home.packages = with pkgs; [ bat ripgrep tldr sesh ];
 
-  home.sessionPath = [ "$HOME/go/bin" ];
+  home.sessionPath = [ 
+	"$HOME/go/bin"
+  ];
 
   programs.zsh = {
     enable = true;
@@ -41,6 +43,7 @@ in {
 	  if [ -f "$HOME/.env.secret" ]; then
 		 source "$HOME/.env.secret"
 	  fi
+	  export PATH="$HOME/.cargo/bin:$PATH"
     '';
 
     history = {
@@ -72,9 +75,6 @@ in {
       vi = "nvim";
       v = "nvim";
       c = "clear";
-      clera = "clear";
-      celar = "clear";
-      e = "exit";
       cd = "z";
       ls = "eza --icons=always --no-quotes";
       tree = "eza --icons=always --tree --no-quotes";
