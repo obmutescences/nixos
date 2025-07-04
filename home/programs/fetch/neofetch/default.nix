@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [ neofetch ];
+  home.packages = with pkgs; [ neofetch fastfetch ];
 
   xdg.configFile."neofetch/ascii.txt".text = ''
     ''${c6}

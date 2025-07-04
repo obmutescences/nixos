@@ -20,10 +20,6 @@ in {
       bindkey -e
       ${if fetch == "neofetch" then
         pkgs.neofetch + "/bin/neofetch"
-      else if fetch == "nerdfetch" then
-        "nerdfetch"
-      else if fetch == "pfetch" then
-        "echo; ${pkgs.pfetch}/bin/pfetch"
       else
         ""}
 

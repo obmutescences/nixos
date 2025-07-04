@@ -11,7 +11,8 @@
     mousepad
   ];
 
-  home.file.".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml".text = ''
+  home.file.".config/xfce4/xfconf/xfce-perchannel-xml/thunar.xml" = {
+  text = ''
     <?xml version="1.0" encoding="UTF-8"?>
 
     <channel name="thunar" version="1.0">
@@ -46,4 +47,7 @@
       <property name="last-toolbar-items" type="string" value="menu:1,back:1,forward:0,open-parent:0,open-home:0,undo:0,redo:0,zoom-in:0,zoom-out:0,zoom-reset:0,view-as-icons:0,view-as-detailed-list:0,view-as-compact-list:0,toggle-split-view:0,location-bar:1,reload:0,search:1,uca-action-1710183590071525-1:0,new-tab:0,new-window:0,view-switcher:0"/>
     </channel>
   '';
+
+  force = true;
+  };
 }
