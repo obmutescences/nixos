@@ -109,6 +109,7 @@ in {
     libsForQt5.qt5.qtgraphicaleffects # for sddm theme effects
     libsForQt5.qtsvg # for sddm theme svg icons
     libsForQt5.qt5.qtwayland # wayland support for qt5
+	libsForQt5.fcitx5-qt
 	# qt
 	adwaita-qt6
 	adwaita-qt
