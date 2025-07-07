@@ -242,7 +242,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.80
+  opacity 0.8
 }
 
 window-rule {
@@ -406,7 +406,7 @@ binds {
 		toggle-overview
 	}
     Mod+K repeat=false {
-        spawn "/home/zerone/Downloads/wl-kbptr/build/wl-kbptr"
+        spawn "wl-kbptr"
     }
     Mod+J  {
         spawn "wlrctl" "pointer" "scroll" "20" "0"
