@@ -25,20 +25,16 @@ let
   location = config.var.location;
 in {
 
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-
+  # imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
   programs.hyprpanel = {
     enable = true;
-    hyprland.enable = true;
-    overwrite.enable = true;
-    overlay.enable = true;
 	settings = {
 		layout = {
 		  "bar.layouts" = {
 			"0" = {
-			  "left" = [ "dashboard" "storage" "cpu" "ram" "windowtitle" "media" ];
-			  "middle" = [ "clock" ];
-			  "right" = [
+			  left = [ "dashboard" "storage" "cpu" "ram" "windowtitle" "media" ];
+			  middle = [ "clock" ];
+			  right = [
 				"netstat"
 				"systray"
 				"volume"
@@ -49,9 +45,6 @@ in {
 			};
 		  };
 		};
-	};
-
-    override = {
       "theme.font.name" = "${font}";
       "theme.font.size" = "${fontSize}px";
       "theme.bar.buttons.monochrome" = true; # global color
@@ -192,6 +185,6 @@ in {
       "theme.bar.dropdownGap" = "4.5em";
 	  "theme.bar.buttons.clock.text" = "#b23a48";
 	  "theme.bar.buttons.clock.icon" = "#b23a48";
-    };
+	};
   };
 }

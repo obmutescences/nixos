@@ -64,7 +64,6 @@
             ({ pkgs, ... }: {
               nixpkgs.overlays =
                 [ 
-					inputs.hyprpanel.overlay
 					inputs.nur.overlays.default (final: prev: {
 						hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
 					})
@@ -75,6 +74,10 @@
 					(final: prev: {
 					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
 						src = inputs.my-niri-src;  # 使用自定义源码
+						cargoDeps = final.rustPlatform.fetchCargoVendor {
+							src = inputs.my-niri-src;
+							hash = "sha256-lhw518vv51IrI21Tu1C6ttNDNe47KHcxnwh791PMynU=";
+						  };
 					  });
 					})				
 
@@ -93,7 +96,6 @@
             {
               nixpkgs.overlays =
                 [ 
-					inputs.hyprpanel.overlay
 					inputs.nur.overlays.default (final: prev: {
 						hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
 					})
@@ -104,6 +106,10 @@
 					(final: prev: {
 					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
 						src = inputs.my-niri-src;  # 使用自定义源码
+						cargoDeps = final.rustPlatform.fetchCargoVendor {
+							src = inputs.my-niri-src;
+							hash = "sha256-lhw518vv51IrI21Tu1C6ttNDNe47KHcxnwh791PMynU=";
+						  };
 					  });
 					})				
 				];

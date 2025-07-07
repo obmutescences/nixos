@@ -150,7 +150,7 @@ in {
 	# manager docker in term
 	oxker
 	# redis cli
-	iredis
+	# iredis
 
 	zed-editor
 	discord
