@@ -1,10 +1,15 @@
-@define-color bar-bg rgba(0, 0, 0, 0);
+/* Everforest Dark Mode Palette - Material 3 Style */
+@define-color ef-bg                rgba(46, 51, 48, 0.85); /* 主背景 - 半透明 */
+@define-color ef-surface           rgba(59, 66, 72, 0.90); /* 板块背景 - 半透明 */
+@define-color ef-surface-variant   rgba(75, 82, 89, 0.85); /* 次级板块背景 - 半透明 */
+@define-color ef-surface-container rgba(67, 74, 80, 0.80); /* 容器背景 - 新增 */
+@define-color ef-on-surface        #d3c6aa; /* 前景色（文字等） */
+@define-color ef-on-surface-variant rgba(211, 198, 170, 0.8); /* 次级文字 - 新增 */
+@define-color ef-primary           #83a471; /* 强调色（选中、激活） */
+@define-color ef-on-primary        #2e3330; /* 强调色文字 */
+@define-color ef-secondary         #7fbbb3; /* 次要强调色 - 新增 */
+@define-color ef-tertiary          #d699b6; /* 第三强调色 - 新增 */
+@define-color overlay-hover        rgba(211, 198, 170, 0.12); /* Hover 覆盖层 - 调整透明度 */
+@define-color overlay-pressed      rgba(211, 198, 170, 0.16); /* 按压覆盖层 - 新增 */
+@define-color overlay-focus        rgba(131, 164, 113, 0.12); /* 焦点覆盖层 - 新增 */
 
-@define-color main-bg #475437;
-@define-color main-fg #b5cc97;
-
-@define-color wb-act-bg #668f31;
-@define-color wb-act-fg #c2d89c;
-
-@define-color wb-hvr-bg #c6eb6f;
-@define-color wb-hvr-fg #c0fc47;

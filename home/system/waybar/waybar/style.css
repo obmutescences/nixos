@@ -1,190 +1,212 @@
-* {
-  border: none;
-  border-radius: 0px;
-  font-family: "Comic Code";
-  font-weight: bold;
-  font-size: 12px;
-  min-height: 10px;
-}
-
 @import "theme.css";
 
-window#waybar {
-  background: @bar-bg;
+/* — 全局重置 & 字体 — */
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-family: "Comic Code";
+  font-size: 14px;
+  font-weight: 400;
+  color: @ef-on-surface;
 }
 
+/* — 整体 Bar 容器 — */
+window#waybar {
+  background-color: @ef-surface;
+  border-radius: 7px; /* Material 3 推荐更大的圆角 */
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2px 8px; /* 增加内边距 */
+  border: 1px solid rgba(211, 198, 170, 0.08); /* 微妙边框 */
+}
+
+/* — Tooltip — */
 tooltip {
-  background: @main-bg;
-  color: @main-fg;
-  border-radius: 7px;
-  border-width: 0px;
+  background-color: @ef-surface-container;
+  color: @ef-on-surface;
+  border-radius: 12px; /* 更大圆角 */
+  padding: 8px 12px; /* 增加内边距 */
+  font-size: 12px;
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(211, 198, 170, 0.08);
+}
+
+/* — Workspaces 区 — */
+#workspaces {
+  background-color: @ef-surface-container;
+  border-radius: 12px;
+  padding: 4px;
+  margin: 0 4px;
 }
 
 #workspaces button {
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0px;
-  border-radius: 9px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  margin-left: 0px;
-  padding-left: 3px;
-  padding-right: 3px;
-  margin-right: 0px;
-  color: @main-fg;
-  animation: ws_normal 20s ease-in-out 1;
-  background: linear-gradient(#3a4230, rgba(58, 66, 48, 0.6));
-}
-
-#workspaces button.active {
-  background: #799351;
-  color: #a8e6cf;
-  margin-left: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 3px;
-  animation: ws_active 20s ease-in-out 1;
-  transition: all 0.4s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background-color: transparent;
+  color: @ef-on-surface-variant;
+  padding: 1px 7px; /* 增加按钮大小 */
+  margin: 1px;
+  border-radius: 8px;
+  transition: all 200ms cubic-bezier(0.2, 0, 0, 1); /* Material 3 缓动 */
+  min-width: 18px;
 }
 
 #workspaces button:hover {
-  background: @wb-hvr-bg;
-  color: @wb-hvr-fg;
-  animation: ws_hover 20s ease-in-out 1;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background-color: @overlay-hover;
+  color: @ef-on-surface;
+}
+
+#workspaces button.active {
+  background-color: @ef-primary;
+  color: @ef-on-primary;
+  box-shadow: 0 2px 8px rgba(131, 164, 113, 0.3); /* 阴影效果 */
+}
+
+#workspaces button.urgent {
+  background-color: @ef-tertiary;
+  color: @ef-on-primary;
+  animation: pulse 1s infinite;
+}
+
+/* — Taskbar 区（窗口列表） — */
+#taskbar {
+  background-color: @ef-surface-container;
+  border-radius: 12px;
+  padding: 4px;
+  margin: 0 4px;
 }
 
 #taskbar button {
-  box-shadow: none;
-  text-shadow: none;
-  padding: 0px;
-  border-radius: 9px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  margin-left: 0px;
-  padding-left: 3px;
-  padding-right: 3px;
-  margin-right: 0px;
-  color: @wb-color;
-  animation: tb_normal 20s ease-in-out 1;
-}
-
-#taskbar button.active {
-  background: @wb-act-bg;
-  color: @wb-act-color;
-  margin-left: 3px;
-  padding-left: 12px;
-  padding-right: 12px;
-  margin-right: 3px;
-  animation: tb_active 20s ease-in-out 1;
-  transition: all 0.4s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background-color: transparent;
+  color: @ef-on-surface-variant;
+  padding: 8px 12px;
+  margin: 2px;
+  border-radius: 8px;
+  transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+  min-width: 32px;
 }
 
 #taskbar button:hover {
-  background: @wb-hvr-bg;
-  color: @wb-hvr-color;
-  animation: tb_hover 20s ease-in-out 1;
-  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background-color: @overlay-hover;
+  color: @ef-on-surface;
 }
 
-#tray menu * {
-  min-height: 16px;
+#taskbar button.active {
+  background-color: @ef-secondary;
+  color: @ef-on-primary;
+  box-shadow: 0 1px 4px rgba(127, 187, 179, 0.3);
 }
 
-#tray menu separator {
-  min-height: 10px;
-}
-
+/* — 其他模块统一样式 — */
 #backlight,
 #battery,
 #bluetooth,
-#custom-cliphist,
 #clock,
-#custom-cpuinfo,
 #cpu,
-#custom-gpuinfo,
-#idle_inhibitor,
-#custom-keybindhint,
-#language,
-#memory,
-#mpris,
 #network,
+#memory,
+#custom-cliphist,
+#custom-cpuinfo,
+#custom-gpuinfo,
+#custom-keybindhint,
 #custom-notifications,
 #custom-power,
-#pulseaudio,
 #custom-spotify,
-#taskbar,
 #custom-theme,
-#tray,
 #custom-updates,
 #custom-wallchange,
 #custom-wbar,
 #disk,
-#window {
-  min-height: 0;
-  padding: 0px 6px;
-  border-radius: 4px;
-  margin: 4px 4px;
-  /* background: linear-gradient(#6b7d60, rgba(107, 125, 96, 0.8)); */
-  background: linear-gradient(#3a4230, rgba(58, 66, 48, 0.6));
+#window,
+#idle_inhibitor,
+#language,
+#mpris,
+#pulseaudio {
+  background-color: @ef-surface-variant;
+  color: @ef-on-surface;
+  padding: 2px 6px; /* 统一增加内边距 */
+  margin: 2px 4px;
+  border-radius: 8px; /* 更大圆角 */
+  transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
+  border: 1px solid rgba(211, 198, 170, 0.05);
 }
 
+/* — 模块 Hover 效果 — */
+#backlight:hover,
+#battery:hover,
+#bluetooth:hover,
+#clock:hover,
+#cpu:hover,
+#network:hover,
+#memory:hover,
+#custom-cliphist:hover,
+#custom-cpuinfo:hover,
+#custom-gpuinfo:hover,
+#custom-keybindhint:hover,
+#custom-notifications:hover,
+#custom-power:hover,
+#custom-spotify:hover,
+#custom-theme:hover,
+#custom-updates:hover,
+#custom-wallchange:hover,
+#custom-wbar:hover,
+#disk:hover,
+#window:hover,
+#idle_inhibitor:hover,
+#language:hover,
+#mpris:hover,
+#pulseaudio:hover {
+  background-color: @ef-surface;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* — 特殊模块样式 — */
+#clock {
+  font-weight: 500;
+  color: @ef-primary;
+}
+
+#battery.warning {
+  color: @ef-tertiary;
+}
+
+#battery.critical {
+  color: #e67e80; /* Everforest 红色 */
+  animation: pulse 1s infinite;
+}
+
+/* — 空窗口时隐藏背景 — */
 window#waybar.empty #window {
   background-color: transparent;
+  border: none;
 }
 
-#workspaces,
-#custom-l_end,
-#custom-r_end,
-#custom-sl_end,
-#custom-sr_end,
-#custom-rl_end,
-#custom-rr_end {
-  color: @main-fg;
-  /* background: @main-bg; */
-  opacity: 1;
-  margin: 4px 0px 4px 0px;
-  padding-left: 4px;
-  padding-right: 4px;
+/* — Tray 菜单 — */
+#tray {
+  background-color: @ef-surface-container;
+  border-radius: 12px;
+  padding: 4px;
+  margin: 0 4px;
 }
 
-#workspaces,
-#taskbar {
-  padding: 0px;
+#tray menu {
+  background-color: @ef-surface;
+  border-radius: 12px;
+  padding: 8px;
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(211, 198, 170, 0.08);
 }
 
-#custom-r_end {
-  border-radius: 0px 21px 21px 0px;
-  margin-right: 9px;
-  padding-right: 3px;
+#tray menu * {
+  padding: 2px 6px;
+  border-radius: 8px;
+  transition: all 200ms cubic-bezier(0.2, 0, 0, 1);
 }
 
-#custom-l_end {
-  border-radius: 21px 0px 0px 21px;
-  margin-left: 9px;
-  padding-left: 3px;
+#tray menu *:hover {
+  background-color: @overlay-hover;
 }
 
-#custom-sr_end {
-  border-radius: 0px;
-  margin-right: 9px;
-  padding-right: 3px;
-}
-
-#custom-sl_end {
-  border-radius: 0px;
-  margin-left: 9px;
-  padding-left: 3px;
-}
-
-#custom-rr_end {
-  border-radius: 0px 7px 7px 0px;
-  margin-right: 9px;
-  padding-right: 3px;
-}
-
-#custom-rl_end {
-  border-radius: 7px 0px 0px 7px;
-  margin-left: 9px;
-  padding-left: 3px;
+#tray menu separator {
+  border-top: 1px solid rgba(211, 198, 170, 0.12);
+  margin: 3px 0;
 }
