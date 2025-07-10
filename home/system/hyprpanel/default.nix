@@ -27,7 +27,7 @@ in {
 
   # imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
   programs.hyprpanel = {
-    enable = true;
+    enable = false;
 	settings = {
 		layout = {
 		  "bar.layouts" = {
