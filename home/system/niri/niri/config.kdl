@@ -45,7 +45,7 @@ output "DP-1" {
     // focus-at-startup
 }
 environment {
-    // ELECTRON_OZONE_PLATFORM_HINT "auto"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
     DISPLAY ":0"
 	MOZ_ENABLE_WAYLAND "1"
 	NIXOS_OZONE_WL "1"
@@ -215,18 +215,18 @@ layer-rule {
     match at-startup=true
 
     // Properties that apply continuously.
-    opacity 0.75
+    opacity 0.65
     block-out-from "screencast"
     // block-out-from "screen-capture"
 
     shadow {
         // on
         off
-        softness 40
-        spread 5
-        offset x=0 y=5
+        softness 5
+        spread 2
+        offset x=1 y=1
         draw-behind-window true
-        color "#00000064"
+        color "#3E432E"
         // inactive-color "#00000064"
     }
 
@@ -242,7 +242,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.8
+  opacity 0.80
 }
 
 window-rule {

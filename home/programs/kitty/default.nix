@@ -5,7 +5,8 @@
       # Reset existing mappings
       "ctrl+tab" = "next_tab";
 	  "cmd+t" = "new_tab";
-	  "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
+	  # "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
+	  "ctrl+shift+f" = "show_scrollback";
     };
 	# font.name = "UbuntuSansMono Nerd Font Mono";
 	font.name = "Comic Code";
@@ -27,6 +28,7 @@
 	  cursor_trail_start_threshold = 4;
     };
 	extraConfig = "
+scrollback_pager nvim -u NONE -R -M -c 'lua require(\"kitty+page\")(INPUT_LINE_NUMBER)' -
 cursor_trail_decay 0.5 1
 # modify_font cell_width 110%
 modify_font cell_height 4px
