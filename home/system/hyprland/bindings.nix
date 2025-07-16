@@ -14,7 +14,7 @@
 		"$mod,Q, killactive," # Close window
 		"$ALT,T, togglefloating," # Toggle Floating
 		"$mod,W, exec, hyprctl dispatch fullscreen 1" # Toggle Fullscreen
-		"$mod,V, scroller:fitsize, active"
+		# "$mod,V, scroller:fitsize, active"
 		"$mod,left, movefocus, l" # Move focus left
 		"$mod,right, movefocus, r" # Move focus Right
 		"$mod,up, movefocus, u" # Move focus Up
@@ -33,10 +33,10 @@
 		"$shiftMod,E, exec, ${pkgs.wofi-emoji}/bin/wofi-emoji" # Emoji picker with wofi
 		"$mod,F2, exec, night-shift" # Toggle night shift
 		"$mod,F3, exec, night-shift" # Toggle night shift
-		"$mod, home, scroller:movefocus, begin"
-		"$mod, end, scroller:movefocus, end"
+		# "$mod, home, scroller:movefocus, begin"
+		# "$mod, end, scroller:movefocus, end"
 		"ALT, Tab, movefocus, r"
-		"ALT, C, scroller:alignwindow, c"
+		# "ALT, C, scroller:alignwindow, c"
 		"ALT, F, togglefloating"
 		# "$mod, N, exec, ${pkgs.neovide}/bin/neovide"
 		"$mod, N, exec, start-neovide"
@@ -45,8 +45,8 @@
 		"$mod ALT, right, exec, next-wallpaper"
 		"$mod ALT, left, exec, prev-wallpaper"
 
-		"$mod, bracketleft, scroller:setmode, row"
-		"$mod, bracketright, scroller:setmode, col"
+		# "$mod, bracketleft, scroller:setmode, row"
+		# "$mod, bracketright, scroller:setmode, col"
 
 		"$mod SHIFT, right, resizeactive, 100 0"
 		"$mod SHIFT, left, resizeactive, -100 0"

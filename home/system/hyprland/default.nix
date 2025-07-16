@@ -48,8 +48,10 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 	plugins = [
-		(pkgs.callPackage ./hyprscroller.nix {})
-		(pkgs.callPackage ./hyprfocus.nix {})
+		inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
+		inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
+		# (pkgs.callPackage ./hyprscroller.nix {})
+		# (pkgs.callPackage ./hyprfocus.nix {})
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -63,6 +65,7 @@ in {
 		"gsettings set org.gnome.desktop.interface gtk-theme adwaita-dark"
 		"gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+		"waybar &"
 		"fcitx5 -d --replace"
 		"FlClash"
 		# "GUI.for.SingBox"
@@ -111,7 +114,7 @@ in {
         gaps_out = gaps-out;
         border_size = border-size;
         # layout = "dwindle";
-		layout = "scroller";
+		layout = "scrolling";
 		"col.active_border" = "rgba(e67e80ff) rgba(dbbc7fff) 45deg";
 		"col.inactive_border" = "rgba(1e8b50d9) rgba(50b050d9) 45deg";
       };
@@ -178,7 +181,7 @@ in {
 		"pin,class:^(flameshot)$"
 		];
 
-      # layerrule = [ "noanim, launcher" "noanim, ^ags-.*" ];
+      layerrule = [ "blur, waybar" ];
 
       input = {
         kb_layout = "us";
@@ -188,35 +191,42 @@ in {
         repeat_rate = 80;
 
       };
+	  "plugin:hyprscrolling" = {
+		enabled = true;
+		column_width = 0.40;
+	  };
 	  "plugin:hyprfocus" = {
 		enabled = true;
-		keyboard_focus_animation = "shrink";
-		mouse_focus_animation = "shrink";
-		animate_floating = false;
-		animate_workspacechange = true;
-		focus_animation = "shrink";
-		bezier = [
-		  "bezIn, 0.5,0.0,1.0,0.5"
-		  "bezOut, 0.0,0.5,0.5,1.0"
-		  "overshot, 0.05, 0.9, 0.1, 1.05"
-		  "smoothOut, 0.36, 0, 0.66, -0.56"
-		  "smoothIn, 0.25, 1, 0.5, 1"
-		  "realsmooth, 0.28,0.29,.69,1.08"
-        ];
-		flash = {
-			flash_opacity = 0.7;
-			in_bezier = "realsmooth";
-			in_speed = 0.5;
-			out_bezier = "realsmooth";
-			out_speed = 3;
-		};
-		shrink = {
-			shrink_percentage = 0.75;
-			in_bezier = "realsmooth";
-			in_speed = "6.5";
-			out_bezier = "realsmooth";
-			out_speed = "6.0";
-		};
+		mode = "bounce"; # slide bounce
+		bounce_strength = 0.80;
+		slide_height = 40;
+		# keyboard_focus_animation = "shrink";
+		# mouse_focus_animation = "shrink";
+		# animate_floating = false;
+		# animate_workspacechange = true;
+		# focus_animation = "shrink";
+		# bezier = [
+		#   "bezIn, 0.5,0.0,1.0,0.5"
+		#   "bezOut, 0.0,0.5,0.5,1.0"
+		#   "overshot, 0.05, 0.9, 0.1, 1.05"
+		#   "smoothOut, 0.36, 0, 0.66, -0.56"
+		#   "smoothIn, 0.25, 1, 0.5, 1"
+		#   "realsmooth, 0.28,0.29,.69,1.08"
+  #       ];
+		# flash = {
+		# 	flash_opacity = 0.7;
+		# 	in_bezier = "realsmooth";
+		# 	in_speed = 0.5;
+		# 	out_bezier = "realsmooth";
+		# 	out_speed = 3;
+		# };
+		# shrink = {
+		# 	shrink_percentage = 0.75;
+		# 	in_bezier = "realsmooth";
+		# 	in_speed = "6.5";
+		# 	out_bezier = "realsmooth";
+		# 	out_speed = "6.0";
+		# };
 	  };
     };
   };

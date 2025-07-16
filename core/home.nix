@@ -26,7 +26,7 @@
     ../home/system/hyprland
     ../home/system/hypridle
     ../home/system/hyprlock
-    ../home/system/hyprpanel
+    # ../home/system/hyprpanel
     # ../home/system/hyprpaper
     ../home/system/wofi
     ../home/system/zathura

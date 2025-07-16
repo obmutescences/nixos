@@ -22,7 +22,7 @@
     hyprspace = { url = "github:KZDKM/Hyprspace"; };
 	# hyprland
     hyprland = {
-      url = "github:hyprwm/hyprland/v0.49.0";
+      url = "github:hyprwm/hyprland";
     };
 	# hyprland = { url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.49.0"; };
 	hyprland-plugins = {
@@ -64,9 +64,9 @@
             ({ pkgs, ... }: {
               nixpkgs.overlays =
                 [ 
-					inputs.nur.overlays.default (final: prev: {
-						hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
-					})
+					# inputs.nur.overlays.default (final: prev: {
+					# 	hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+					# })
 
 					inputs.niri.overlays.niri
 
@@ -96,9 +96,9 @@
             {
               nixpkgs.overlays =
                 [ 
-					inputs.nur.overlays.default (final: prev: {
-						hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
-					})
+					# inputs.nur.overlays.default (final: prev: {
+					# 	hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
+					# })
 
 					inputs.niri.overlays.niri
 

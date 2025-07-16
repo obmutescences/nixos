@@ -10,11 +10,14 @@
 		"easeOutCirc, 0, 0.55, 0.45, 1"
 		"md3_decel, 0.05, 0.7, 0.1, 1"
 		"md3_accel, 0.3, 0, 0.8, 0.15"
+		"realsmooth, 0.28,0.29,.69,1.08"
       ];
       animation = [
 		"windows, 1, 7, md3_decel, popin 5%"
     	"windowsIn, 1, 14, md3_decel, popin 5%"
     	"windowsOut, 1, 12, md3_accel, popin 5%"
+    	"hyprfocusIn, 1, 8, realsmooth"
+    	"hyprfocusOut, 1, 10, realsmooth"
     	"windowsMove, 1, 10, overshot, slide"
     	"layers, 1, 8, default, popin"
     	"fadeIn, 1, 10, overshot"
