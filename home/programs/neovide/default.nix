@@ -2,10 +2,9 @@
   programs.neovide = {
 	enable = true;
 	settings = {
-		vsync = true;
+		vsync = false;
 		no-multigrid = false;
 		maximized = false;
-		srgb = true;
 		idle = true;
 		theme = "dark";
 		font = {
