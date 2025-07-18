@@ -101,6 +101,7 @@ in {
 	gping
 	openssl
 	xclip
+	font-manager
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
