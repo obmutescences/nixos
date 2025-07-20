@@ -49,7 +49,7 @@ in {
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 	plugins = [
 		inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
-		inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
+		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
 		# (pkgs.callPackage ./hyprscroller.nix {})
 		# (pkgs.callPackage ./hyprfocus.nix {})
 	];
@@ -75,7 +75,7 @@ in {
       ];
 
       monitor = [
-        "DP-5,3840x2160@143.99,auto,1"
+        "DP-5,3840x2160@143.99,auto,1.2"
         "DP-1,2560x1440@180.00,auto,1"
       ];
 
@@ -196,7 +196,7 @@ in {
 		column_width = 0.40;
 	  };
 	  "plugin:hyprfocus" = {
-		enabled = true;
+		enabled = false;
 		mode = "bounce"; # slide bounce
 		bounce_strength = 0.80;
 		slide_height = 40;

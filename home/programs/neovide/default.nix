@@ -21,7 +21,7 @@
 			size = 14;
 			width = 1.2;
 			normal = {
-				family =  "monofur";
+				family =  "Monofur Nerd Font Mono";
 				style = "W800";
 			};
 		 };

@@ -14,10 +14,10 @@
       ];
       animation = [
 		"windows, 1, 7, md3_decel, popin 5%"
-    	"windowsIn, 1, 14, md3_decel, popin 5%"
-    	"windowsOut, 1, 12, md3_accel, popin 5%"
-    	"hyprfocusIn, 1, 8, realsmooth"
-    	"hyprfocusOut, 1, 10, realsmooth"
+    	"windowsIn, 1, 10, md3_decel, popin 5%"
+    	"windowsOut, 1, 8, md3_accel, popin 5%"
+    	# "hyprfocusIn, 1, 8, realsmooth"
+    	# "hyprfocusOut, 1, 10, realsmooth"
     	"windowsMove, 1, 10, overshot, slide"
     	"layers, 1, 8, default, popin"
     	"fadeIn, 1, 10, overshot"
