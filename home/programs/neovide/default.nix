@@ -18,11 +18,11 @@
 			# normal = ["UbuntuSansMono Nerd Font Mono"];
 
 			# monofur
-			size = 14;
-			width = 1.2;
+			size = 15;
+			width = 1.0;
 			normal = {
 				family =  "Monofur Nerd Font Mono";
-				style = "W800";
+				style = "Italic";
 			};
 		 };
     };

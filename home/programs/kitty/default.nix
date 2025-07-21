@@ -9,8 +9,9 @@
 	  "ctrl+shift+f" = "show_scrollback";
     };
 	# font.name = "UbuntuSansMono Nerd Font Mono";
-	font.name = "Comic Code";
-	font.size = 12;
+	# font.name = "Comic Code";
+	font.name = "Monofur Nerd font Mono Italic";
+	font.size = 14;
     settings = {
       scrollback_lines = 10000;
       initial_window_width = 1200;
@@ -30,7 +31,7 @@
 	extraConfig = "
 scrollback_pager nvim -u NONE -R -M -c 'lua require(\"kitty+page\")(INPUT_LINE_NUMBER)' -
 cursor_trail_decay 0.5 1
-# modify_font cell_width 110%
+modify_font cell_width 120%
 modify_font cell_height 4px
 foreground                      #d3c6aa
 background                      #272e33
