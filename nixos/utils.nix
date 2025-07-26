@@ -102,6 +102,7 @@ in {
 	openssl
 	xclip
 	font-manager
+	protobuf
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
