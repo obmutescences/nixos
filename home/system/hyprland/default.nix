@@ -128,7 +128,7 @@ in {
 		dim_inactive = true;
 		dim_strength = 0.4;
         shadow = {
-          enabled = false;
+          enabled = true;
 		  color = "rgba(e67e80ff)";
 		  color_inactive = "rgba(62, 67, 46, 0.9)";
 		  range = 40;
