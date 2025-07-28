@@ -1,7 +1,7 @@
 {
   rounding = 14;
   gaps-in = 3;
-  gaps-out = 3;
+  gaps-out = 5;
   active-opacity = 1;
   inactive-opacity = 0.93;
   blur = true;

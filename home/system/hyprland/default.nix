@@ -125,8 +125,13 @@ in {
 
       decoration = {
         rounding = rounding;
+		dim_inactive = true;
+		dim_strength = 0.4;
         shadow = {
           enabled = false;
+		  color = "rgba(e67e80ff)";
+		  color_inactive = "rgba(62, 67, 46, 0.9)";
+		  range = 40;
         };
         blur = { 
 			enabled = true;
@@ -199,8 +204,8 @@ in {
 		enabled = false;
 		column_width = 0.40;
 	  };
-	  "plugin::scroller" = {
-		column_default_width = "onethird";
+	  "plugin:scroller" = {
+		column_default_width = "threeeighths";
 	  };
 	  # "plugin:hyprfocus" = {
 		# enabled = false;
