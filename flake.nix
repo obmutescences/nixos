@@ -29,6 +29,10 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+	hyprscroller = {
+      url = "github:cpiber/hyprscroller";
+      inputs.hyprland.follows = "hyprland";
+    };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
