@@ -102,7 +102,7 @@
 						src = inputs.my-niri-src;  # 使用自定义源码
 						cargoDeps = final.rustPlatform.fetchCargoVendor {
 							src = inputs.my-niri-src;
-							hash = "sha256-lhw518vv51IrI21Tu1C6ttNDNe47KHcxnwh791PMynU=";
+							hash = "sha256-sijPe0LLoTs3PRaNte4VoSc4oZnL8UBls/k8lzAuSjo=";
 						  };
 					  });
 					})				
