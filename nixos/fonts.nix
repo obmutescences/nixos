@@ -6,6 +6,7 @@
       noto-fonts-emoji
 	  noto-fonts-cjk-sans
 	  nerd-fonts.monaspace
+	  material-symbols
 	  comic-mono
 	  ubuntu-sans
 	  ubuntu-sans-mono

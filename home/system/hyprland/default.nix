@@ -190,7 +190,9 @@ in {
 		"pin,class:^(flameshot)$"
 		];
 
-      layerrule = [ "blur, waybar" ];
+      layerrule = [ 
+		  "blur, waybar"
+	  ];
 
       input = {
         kb_layout = "us";

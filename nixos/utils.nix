@@ -167,6 +167,9 @@ in {
 	# keyboard control cursor
 	wl-kbptr
 	wlrctl 
+	
+	# inputs.quickshell.packages.${pkgs.system}.quickshell
+	kdePackages.kdialog
   ];
 
   services.logind.extraConfig = ''
