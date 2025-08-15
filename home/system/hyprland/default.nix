@@ -65,15 +65,14 @@ in {
       exec-once = [
 		"gsettings set org.gnome.desktop.interface gtk-theme adwaita-dark"
 		"gsettings set org.gnome.desktop.interface color-scheme prefer-dark"
-        "dbus-update-activation-environment --systemd --all"
-		"waybar &"
+        "dbus-update-activation-environment --all"
+		"sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+		# "waybar &"
+		"qs -p /home/zerone/projects/dots-hyprland/.config/quickshell/ii"
 		"fcitx5 -d --replace"
 		"FlClash"
-		"dunst"
-		# "GUI.for.SingBox"
+		# "dunst"
 		"keybord-sound"
-		# "buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100"
-		# "swww-daemon"
 		"set-wallpaper"
       ];
 

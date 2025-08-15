@@ -170,6 +170,11 @@ in {
 	
 	# inputs.quickshell.packages.${pkgs.system}.quickshell
 	kdePackages.kdialog
+	cliphist
+	ddcutil
+	libsForQt5.qt5ct
+	kdePackages.qt6ct
+	matugen
   ];
 
   services.logind.extraConfig = ''
