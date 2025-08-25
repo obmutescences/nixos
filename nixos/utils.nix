@@ -169,6 +169,7 @@ in {
 	wlrctl 
 	
 	# inputs.quickshell.packages.${pkgs.system}.quickshell
+	# quickshell need
 	kdePackages.kdialog
 	cliphist
 	ddcutil
