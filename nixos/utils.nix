@@ -103,6 +103,12 @@ in {
 	xclip
 	font-manager
 	protobuf
+	# ---rust 项目开发所需,后续不用可删除
+    stdenv.cc          # 提供 gcc/linker 等基础工具
+    clang
+    libclang.lib
+    llvmPackages.libcxxClang
+	# ---rust 项目开发所需,后续不用可删除
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
@@ -151,10 +157,11 @@ in {
 	xh
 	# manager docker in term
 	oxker
-	# redis cli
-	# iredis
 
+	# editor
 	zed-editor
+
+	# soc
 	discord
 
 	# bar

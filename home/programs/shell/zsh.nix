@@ -40,6 +40,11 @@ in {
 		 source "$HOME/.env.secret"
 	  fi
 	  export PATH="$HOME/.cargo/bin:$PATH"
+	  export PATH="$HOME/.npm/bin:$PATH"
+
+	  # ---rust 项目开发所需,后续不用可删除
+	  export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
+	  export BINDGEN_EXTRA_CLANG_ARGS="-isystem ${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.lib.versions.major (pkgs.lib.getVersion pkgs.clang)}/include"
     '';
 
     history = {
