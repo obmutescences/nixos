@@ -92,7 +92,6 @@ in {
     xdg-utils
     wget
     curl
-    dae
 	gnumake
 	fzf
 	unzip
@@ -102,13 +101,6 @@ in {
 	openssl
 	xclip
 	font-manager
-	protobuf
-	# ---rust 项目开发所需,后续不用可删除
-    stdenv.cc          # 提供 gcc/linker 等基础工具
-    clang
-    libclang.lib
-    llvmPackages.libcxxClang
-	# ---rust 项目开发所需,后续不用可删除
 	# sddm thememe
     sddm-candy
     libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
@@ -124,45 +116,22 @@ in {
 	adwaita-icon-theme
 	# gtk
 	nwg-look
-	# chat
-	wechat-uos
-	telegram-desktop
-	spotify
-	rustup
 	# keyboard sound
 	bucklespring-libinput
 	# tools
 	busybox
-	# mysql backup tools
-	mydumper
 	# net proxy
+    dae
 	flclash
 	# gui-for-singbox
-	# mysql cli tools
-	mycli
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
 	# office
 	libreoffice
 
-	# neovim need
-	tree-sitter
-	prettierd
-	stylua
-	lldb_20
-
 	# music
 	spotube
-	# cli http request
-	xh
-	# manager docker in term
-	oxker
-
-	# editor
-	zed-editor
-
-	# soc
-	discord
+	spotify
 
 	# bar
 	waybar
@@ -174,6 +143,12 @@ in {
 	# keyboard control cursor
 	wl-kbptr
 	wlrctl 
+
+	# chat
+	wechat-uos
+	telegram-desktop
+	# soc
+	discord
 	
 	# inputs.quickshell.packages.${pkgs.system}.quickshell
 	# quickshell need
@@ -183,6 +158,34 @@ in {
 	libsForQt5.qt5ct
 	kdePackages.qt6ct
 	matugen
+
+	# ---dev---
+	# editor
+	zed-editor
+	protobuf
+	# cli http request
+	xh
+	# manager docker in term
+	oxker
+	# neovim need
+	tree-sitter
+	prettierd
+	stylua
+	lldb_20
+	# mysql cli tools
+	mycli
+	# mysql backup tools
+	mydumper
+
+	rustup
+	# ---rust 项目开发所需,后续不用可删除
+    stdenv.cc          # 提供 gcc/linker 等基础工具
+    clang
+    libclang.lib
+    llvmPackages.libcxxClang
+	# ---rust 项目开发所需,后续不用可删除
+	# ---dev---
+
   ];
 
   services.logind.extraConfig = ''
