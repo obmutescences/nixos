@@ -1793,11 +1793,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1756073902,
-        "narHash": "sha256-c+nkNP2iK4BtNL9fkSgjO/ZQstfJKE0G6hanuTtGtf8=",
+        "lastModified": 1756344373,
+        "narHash": "sha256-+BGSd/VOvcWApXw99R09/4czw8EpxXFj5COL6CgmCjs=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "7c096513336dbff12d5e11e352148a676d042820",
+        "rev": "76d253565c64779aae2ad5ce47e7aa7fa183bda4",
         "type": "github"
       },
       "original": {
