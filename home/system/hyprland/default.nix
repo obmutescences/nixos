@@ -134,7 +134,7 @@ in {
         };
         blur = { 
 			enabled = true;
-			size = 5;
+			size = 4;
 			passes = 3;
 			vibrancy = 0.7;
 			new_optimizations = true;
@@ -163,7 +163,7 @@ in {
 
       windowrule =
         [ 
-		"opacity 0.67 0.67,class:.*"
+		"opacity 0.8 0.8,class:.*"
 		"opacity 0.99 0.99,class:^(neovide)$"
 		"float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
 		"float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
@@ -203,6 +203,7 @@ in {
 			"blur, waybar"
 			# "blur, quickshell:bar"
 			# quickshell
+			"blur, quickshell"
 			"blurpopups, quickshell:.*"
 			"blur, quickshell:.*"
 			"ignorealpha 0.79, quickshell:.*"
