@@ -123,7 +123,7 @@ in {
 	# net proxy
     dae
 	flclash
-	# gui-for-singbox
+	clash-verge-rev
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
 	# office
