@@ -64,6 +64,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+	dankmaterialshell.url = "github:AvengeMedia/DankMaterialShell";
+
    };
 
   outputs = inputs@{ nixpkgs, quickshell, ... }: {

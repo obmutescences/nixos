@@ -158,6 +158,8 @@ in {
 	libsForQt5.qt5ct
 	kdePackages.qt6ct
 	matugen
+	# dankmaterialshell
+	inputs.dankmaterialshell.packages.${pkgs.system}.default
 
 	# ---dev---
 	# editor
