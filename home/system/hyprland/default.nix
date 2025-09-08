@@ -70,7 +70,8 @@ in {
 		"fcitx5 -d --replace"
 		# "waybar &"
 		# "qs -p /home/zerone/projects/dots-hyprland/.config/quickshell/ii"
-		"qs -c dms"
+		# "qs -c dms"
+		"qs -p /home/zerone/Downloads/DankMaterialShell"
 		"FlClash"
 		# "clash-verge"
 		# "dunst"
@@ -199,11 +200,20 @@ in {
 		"size 25%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"pin, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
+		"float, class:^(QQ)$"
+		"tile, class:^(QQ)$,title:^(QQ)$"
+		"float, class:^(wechat)$"
+		"tile, class:^(wechat)$,title:^(微信)$"
+
+		# Disable blur for xwayland context menus
+		# "noblur,class:^(wechat)$,title:^(wechat)$"
+		"bordersize 0,class:^(wechat)$,title:^(wechat)$"
+		# "noblur, xwayland:1"
 		];
 
       layerrule = [ 
 			"blur, waybar"
-			# "blur, quickshell:bar"
+			"blur, quickshell:bar"
 			# quickshell
 			"blur, quickshell"
 			"blurpopups, quickshell:.*"
