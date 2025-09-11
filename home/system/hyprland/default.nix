@@ -155,7 +155,7 @@ in {
         new_status = true;
       };
 
-      gestures = { workspace_swipe = true; };
+      gestures = { };
 
       misc = {
         disable_hyprland_logo = true;

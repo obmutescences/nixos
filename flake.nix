@@ -64,7 +64,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+	# quickshell bar theme
 	dankmaterialshell.url = "github:AvengeMedia/DankMaterialShell";
+
+	# sddm theme
+	silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+   };
 
    };
 

@@ -2,7 +2,9 @@
 let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
-  sddm-candy = pkgs.callPackage ../themes/sddm-candy.nix { };
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+      theme = "default"; # select the config of your choice
+  };
 in {
 
   networking.hostName = hostname;
@@ -31,6 +33,8 @@ in {
   programs.nix-ld.libraries = with pkgs; [
 	  # 在此添加 `rye` 所需的动态库
 	];
+  
+  qt.enable = true;
 
   services = {
     dbus.enable = true;
@@ -43,27 +47,14 @@ in {
         enable = true;
         wayland = {
           enable = true;
-          compositor = "kwin";
         };
-        package = pkgs.libsForQt5.sddm;
-        extraPackages = with pkgs; [
-          sddm-candy
-          libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
-          libsForQt5.layer-shell-qt # for sddm theme wayland support
-          libsForQt5.qt5.qtquickcontrols2 # for sddm theme ui elements
-          libsForQt5.qt5.qtgraphicaleffects # for sddm theme effects
-          libsForQt5.qtsvg # for sddm theme svg icons
-          libsForQt5.qt5.qtwayland # wayland support for qt5
-
-        ];
-        theme = "Candy";
+        package = pkgs.kdePackages.sddm;
+		extraPackages = sddm-theme.propagatedBuildInputs;
+		theme = sddm-theme.pname;
         settings = {
           General = {
-            GreeterEnvironment = "QT_WAYLAND_SHELL_INTEGRATION=layer-shell";
-          };
-          Theme = {
-            ThemeDir = "/run/current-system/sw/share/sddm/themes";
-            CursorTheme = "Bibata-Modern-Ice";
+			GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
+			InputMethod = "qtvirtualkeyboard";
           };
         };
       };
@@ -101,15 +92,9 @@ in {
 	openssl
 	xclip
 	font-manager
-	# sddm thememe
-    sddm-candy
-    libsForQt5.qt5.qtquickcontrols # for sddm theme ui elements
-    libsForQt5.layer-shell-qt # for sddm theme wayland support
-    libsForQt5.qt5.qtquickcontrols2 # for sddm theme ui elements
-    libsForQt5.qt5.qtgraphicaleffects # for sddm theme effects
-    libsForQt5.qtsvg # for sddm theme svg icons
-    libsForQt5.qt5.qtwayland # wayland support for qt5
-	libsForQt5.fcitx5-qt
+	# sddm-theme
+	sddm-theme 
+	sddm-theme.test
 	# qt
 	adwaita-qt6
 	adwaita-qt
@@ -145,7 +130,8 @@ in {
 	wlrctl 
 
 	# chat
-	wechat-uos
+	# wechat-uos
+	wechat
 	telegram-desktop
 	# soc
 	discord
@@ -189,9 +175,4 @@ in {
 	# ---dev---
 
   ];
-
-  services.logind.extraConfig = ''
-    # don’t shutdown when power button is short-pressed
-    HandlePowerKey=ignore
-  '';
 }
