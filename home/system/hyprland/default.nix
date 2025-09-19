@@ -52,7 +52,8 @@ in {
 		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
 		# (pkgs.callPackage ./hyprscroller.nix {})
 		inputs.hyprscroller.packages.${pkgs.system}.hyprscroller
-		(pkgs.callPackage ./hyprfocus.nix {})
+		inputs.hyprfocus.packages.${pkgs.system}.hyprfocus
+		# (pkgs.callPackage ./hyprfocus.nix {})
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -187,9 +188,10 @@ in {
 		"float,class:^(nm-applet)$"
 		"float,class:^(nm-connection-editor)$"
 		"float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
-		"float,class:^(flameshot)$"
+		"float,title:^(flameshot-pin)$"
+		"pin,title:^(flameshot-pin)$"
 		"float,class:^(Alacritty)$"
-		"pin,class:^(flameshot)$"
+		"float,class:^(com.mitchellh.ghostty)$"
 		"float, title:^(illogical-impulse Settings)$"
 		"float, title:.*Shell conflicts.*"
 		"float, class:org.freedesktop.impl.portal.desktop.kde"

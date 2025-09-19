@@ -25,12 +25,16 @@
       url = "github:hyprwm/hyprland";
     };
 	# hyprland = { url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.49.0"; };
-	hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+	# hyprland-plugins = {
+ #      url = "github:hyprwm/hyprland-plugins";
+ #      inputs.hyprland.follows = "hyprland";
+ #    };
 	hyprscroller = {
       url = "github:cpiber/hyprscroller";
+      inputs.hyprland.follows = "hyprland";
+    };
+	hyprfocus = {
+      url = "github:daxisunder/hyprfocus";
       inputs.hyprland.follows = "hyprland";
     };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
