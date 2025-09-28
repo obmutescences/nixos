@@ -51,9 +51,10 @@ in {
 		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
 		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
 		# (pkgs.callPackage ./hyprscroller.nix {})
+		# (pkgs.callPackage ./hyprfocus.nix {})
+
 		inputs.hyprscroller.packages.${pkgs.system}.hyprscroller
 		inputs.hyprfocus.packages.${pkgs.system}.hyprfocus
-		# (pkgs.callPackage ./hyprfocus.nix {})
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -158,10 +159,6 @@ in {
 
       gestures = { };
 
-	  group = {
-		auto_group = false;
-	  };
-
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
@@ -221,7 +218,7 @@ in {
 			"blur, waybar"
 			"blur, quickshell:bar"
 			# quickshell
-			"blur, quickshell"
+			# "blur, quickshell"
 			"blurpopups, quickshell:.*"
 			"blur, quickshell:.*"
 			"ignorealpha 0.79, quickshell:.*"
