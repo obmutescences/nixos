@@ -82,6 +82,7 @@ in {
     curl
 	gnumake
 	fzf
+    zip
 	unzip
 	cmake
 	dust

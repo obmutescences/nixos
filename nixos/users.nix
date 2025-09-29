@@ -7,7 +7,7 @@ in {
     users.${username} = {
       isNormalUser = true;
       description = "${username} account";
-      extraGroups = [ "networkmanager" "wheel" "input" ];
+      extraGroups = [ "networkmanager" "wheel" "input" "docker" ];
     };
   };
 }
