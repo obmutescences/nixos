@@ -8,15 +8,6 @@ let
 in {
 
   networking.hostName = hostname;
-
-  services = {
-    xserver = {
-      enable = true;
-      xkb.layout = keyboardLayout;
-      xkb.variant = "";
-    };
-    gnome.gnome-keyring.enable = true;
-  };
   console.keyMap = keyboardLayout;
 
   environment.variables = {
@@ -37,6 +28,12 @@ in {
   qt.enable = true;
 
   services = {
+    xserver = {
+      enable = true;
+      xkb.layout = keyboardLayout;
+      xkb.variant = "";
+    };
+    gnome.gnome-keyring.enable = true;
     dbus.enable = true;
     gvfs.enable = true;
     upower.enable = true;
@@ -58,7 +55,7 @@ in {
           };
         };
       };
-      sessionPackages = [ pkgs.hyprland ];
+      sessionPackages = [ inputs.hyprland.packages.${pkgs.system}.hyprland ];
     };
   };
 

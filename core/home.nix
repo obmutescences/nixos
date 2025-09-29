@@ -46,7 +46,6 @@
   home = {
     inherit (config.var) username;
     homeDirectory = "/home/" + config.var.username;
-	sessionVariables.NIXOS_OZONE_WL = "1";
 
     packages = with pkgs; [
       vlc # Video player
@@ -64,8 +63,6 @@
 	  python313Packages.pylatexenc
 
       # Utils
-      zip
-      unzip
       optipng
       pfetch
       pandoc
@@ -73,7 +70,7 @@
 	  delta
 
       firefox
-	  inputs.zen-browser.packages."${system}".default
+	  inputs.zen-browser.packages."${pkgs.system}".default
 
       # Temp
       mpv

@@ -6,7 +6,7 @@
 	../../core/home.nix
   ];
 
-  nixpkgs.overlays = lib.mkForce null;
+  # nixpkgs.overlays = lib.mkForce null;
 
   home = {
     # Import my profile picture, used by the hyprpanel dashboard

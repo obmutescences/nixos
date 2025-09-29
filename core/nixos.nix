@@ -16,7 +16,7 @@
     ../nixos/variables-config.nix
     ../nixos/docker.nix
 	../home/system/dae/default.nix
-	./fhs.nix
+	# ./fhs.nix
 
 	# niri
 	../home/system/niri
