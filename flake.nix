@@ -55,10 +55,10 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	# my-niri-src = {
- #      url = "github:visualglitch91/niri/feat/blur";
- #      flake = false;
- #    };
+	my-niri-src = {
+      url = "github:visualglitch91/niri/feat/blur";
+      flake = false;
+    };
 	quickshell = {
       # add ?ref=<tag> to track a tag
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
@@ -107,18 +107,19 @@
 					# 	hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
 					# })
 
-					# inputs.niri.overlays.niri
+					inputs.niri.overlays.niri
 
 					# 自定义 Overlay：覆盖 niri-unstable
-					# (final: prev: {
-					#   niri-unstable = prev.niri-unstable.overrideAttrs (old: {
-					# 	src = inputs.my-niri-src;  # 使用自定义源码
-					# 	cargoDeps = final.rustPlatform.fetchCargoVendor {
-					# 		src = inputs.my-niri-src;
-					# 		hash = "sha256-sijPe0LLoTs3PRaNte4VoSc4oZnL8UBls/k8lzAuSjo=";
-					# 	  };
-					#   });
-					# })				
+					(final: prev: {
+					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
+						src = inputs.my-niri-src;  # 使用自定义源码
+						cargoDeps = final.rustPlatform.fetchCargoVendor {
+							src = inputs.my-niri-src;
+							hash = "sha256-Uvf11daCy5m3muun9BXmOw9uiy8L53FgUwyUSxCHaIk=";
+						  };
+						  doCheck = false;
+					  });
+					})				
 				];
 				environment.systemPackages = with pkgs; [
                   # ... 你已有的其他包 ...

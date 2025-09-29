@@ -116,15 +116,16 @@ layout {
 spawn-at-startup "xwayland-satellite"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "FlClash"
-spawn-at-startup "swww-daemon"
-spawn-at-startup "waybar"
+// spawn-at-startup "swww-daemon"
+// spawn-at-startup "waybar"
+spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 // spawn-at-startup "buckle" "-p" "~/.config/nixos/home/sources/keybord-sound/alpacas"
-spawn-at-startup "dunst"
+// spawn-at-startup "dunst"
 spawn-at-startup "keybord-sound"
-spawn-at-startup "set-wallpaper"
+// spawn-at-startup "set-wallpaper"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
@@ -242,7 +243,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.80
+  opacity 0.75
 }
 
 window-rule {
@@ -258,15 +259,15 @@ window-rule {
 // tweak opacity for inactive windows
 window-rule {
     match is-active=false
-    // opacity 0.9
+    opacity 0.8
 
 	shadow {
 			on
 			// off
-			softness 50
+			softness 0
 			spread 2
-			offset x=0 y=5
-			draw-behind-window false
+			offset x=5 y=5
+			draw-behind-window true
 			color "#00000064"
 			inactive-color "#00000064"
 		}
