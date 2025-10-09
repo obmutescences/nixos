@@ -206,7 +206,8 @@ in {
 		# "float, class:^(QQ)$"
 		"tile, class:^(QQ)$,title:^(QQ)$"
 		# "float, class:^(wechat)$"
-		"tile, class:^(wechat)$,title:^(微信)$"
+		"tile, class:^(wechat)$,title:^(图片和视频)$"
+		"float, class:^(wechat)$,title:^(图片和视频)$"
 
 		# Disable blur for xwayland context menus
 		# "noblur,class:^(wechat)$,title:^(wechat)$"
