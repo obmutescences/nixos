@@ -100,12 +100,14 @@ in {
 	# gtk
 	nwg-look
 	# keyboard sound
-	bucklespring-libinput
+	# TODO: using
+	# bucklespring-libinput
 	# tools
 	busybox
 	# net proxy
     dae
-	flclash
+	# TODO: using
+	# flclash
 	clash-verge-rev
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
@@ -161,7 +163,8 @@ in {
 	# mysql cli tools
 	mycli
 	# mysql backup tools
-	mydumper
+	# TODO: using
+	# mydumper
 
 	rustup
 	# ---rust 项目开发所需,后续不用可删除

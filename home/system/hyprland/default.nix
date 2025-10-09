@@ -74,8 +74,8 @@ in {
 		# "qs -p /home/zerone/projects/dots-hyprland/.config/quickshell/ii"
 		# "qs -c dms"
 		"qs -p /home/zerone/Downloads/DankMaterialShell"
-		"FlClash"
-		# "clash-verge"
+		# "FlClash"
+		"clash-verge"
 		# "dunst"
 		"keybord-sound"
 		"set-wallpaper"
@@ -203,9 +203,9 @@ in {
 		"size 25%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"pin, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"float, class:^(QQ)$"
+		# "float, class:^(QQ)$"
 		"tile, class:^(QQ)$,title:^(QQ)$"
-		"float, class:^(wechat)$"
+		# "float, class:^(wechat)$"
 		"tile, class:^(wechat)$,title:^(微信)$"
 
 		# Disable blur for xwayland context menus

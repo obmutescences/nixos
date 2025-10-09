@@ -8,7 +8,6 @@
 		extraPackages = with pkgs; [
 			mesa
 			egl-wayland
-			amdvlk
       ];
     };
   };
