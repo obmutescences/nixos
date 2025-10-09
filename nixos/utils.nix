@@ -108,6 +108,7 @@ in {
     dae
 	# TODO: using
 	# flclash
+	# libepoxy flclash appimage need
 	clash-verge-rev
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
