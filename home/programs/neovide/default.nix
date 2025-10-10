@@ -18,10 +18,19 @@
 			# normal = ["UbuntuSansMono Nerd Font Mono"];
 
 			# monofur
-			size = 15;
-			width = 1.0;
+			# size = 15;
+			# width = 1.0;
+			# normal = {
+			# 	family =  "Monofur Nerd Font Mono";
+			# 	style = "Italic";
+			# };
+
+			# Lotion
+
+			size = 16;
+			width = 0.5;
 			normal = {
-				family =  "Monofur Nerd Font Mono";
+				family =  "Lotion";
 				style = "Italic";
 			};
 		 };
