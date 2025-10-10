@@ -36,6 +36,28 @@
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
+  boot.kernel.sysctl = {
+	  # "fs.file-max" = 65535;  # 全局最大文件描述符数 [[1]][[8]]
+	"fs.file-max" = 2097152;  # 系统最大文件描述符
+    "fs.nr_open" = 2097152;   # 单个进程最大文件描述符
+    
+    # 网络性能优化
+    "net.core.somaxconn" = 65535;
+    "net.ipv4.tcp_max_syn_backlog" = 65536;
+    "net.core.netdev_max_backlog" = 65536;
+    "net.ipv4.ip_local_port_range" = "1024 65535";
+    
+    # 内存管理优化
+    "vm.swappiness" = 10;
+    "vm.dirty_ratio" = 15;
+    "vm.dirty_background_ratio" = 5;
+    
+    # 网络连接优化
+    "net.ipv4.tcp_keepalive_time" = 300;
+    "net.ipv4.tcp_keepalive_probes" = 5;
+    "net.ipv4.tcp_keepalive_intvl" = 15;
+  };
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
