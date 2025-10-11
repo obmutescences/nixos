@@ -20,6 +20,12 @@ in {
   programs.dconf.enable = true;
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+  programs.appimage.package = pkgs.appimage-run.override {
+	  extraPkgs = pkgs: [
+		pkgs.libepoxy
+		# 可能其他库
+	  ];
+  };
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
 	  # 在此添加 `rye` 所需的动态库
