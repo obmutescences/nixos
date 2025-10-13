@@ -95,12 +95,12 @@ in {
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_QPA_PLATFORM,wayland;xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        # "SDL_VIDEODRIVER,wayland"
-		# "CLUTTER_BACKEND,wayland"
+        "SDL_VIDEODRIVER,wayland"
+		"CLUTTER_BACKEND,wayland"
 		"QT_QPA_PLATFORMTHEME,qt6ct"
 		"GDK_BACKEND,wayland,x11,*"
-		# "OZONE_PLATFORM,wayland"
-		# "EGL_PLATFORM,wayland"
+		"OZONE_PLATFORM,wayland"
+		"EGL_PLATFORM,wayland"
 		"GDK_SCALE,1"
 		"WLR_RENDERER_ALLOW_SOFTWARE,1"
 
@@ -206,13 +206,12 @@ in {
 		# "float, class:^(QQ)$"
 		"tile, class:^(QQ)$,title:^(QQ)$"
 		# "float, class:^(wechat)$"
+		"opacity 0.96 0.96,class:^(wechat)$"
 		"tile, class:^(wechat)$,title:^(图片和视频)$"
 		"float, class:^(wechat)$,title:^(图片和视频)$"
-
-		# Disable blur for xwayland context menus
-		# "noblur,class:^(wechat)$,title:^(wechat)$"
-		"bordersize 0,class:^(wechat)$,title:^(wechat)$"
-		# "noblur, xwayland:1"
+		"noborder, class:^(wechat)$,title:negative:^(朋友圈)$"
+		"noblur, class:^(wechat)$,title:negative:^(朋友圈)$"
+		"noshadow, class:^(wechat)$, title:negative:^(朋友圈)$"
 		];
 
       layerrule = [ 
