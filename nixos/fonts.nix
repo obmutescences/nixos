@@ -18,9 +18,9 @@
 
     fontconfig = {
       defaultFonts = {
-		monospace = [ "Ubuntu Sans Mono" ];
-        # sansSerif = [ "SFProDisplay Nerd Font" "Noto Color Emoji" ];
-        # serif = [ "SFProDisplay Nerd Font" "Noto Color Emoji" ];
+		monospace = [ "Monofur Nerd Font Mono" "AaNLYDSYY (Non-Commercial Use)" ];
+        sansSerif = [ "Monofur Nerd Font Mono" "AaNLYDSYY (Non-Commercial Use)" ] ;
+        serif = [ "Monofur Nerd Font Mono" "AaNLYDSYY (Non-Commercial Use)" ];
         # emoji = [ "Noto Color Emoji" ];
       };
     };

@@ -8,8 +8,8 @@
   border-size = 2;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
   fetch = "none"; # "nerdfetch" | "neofetch" | "pfetch" | "none"
-  font = "Ubuntu Sans Mono";
-  fontSize = "12";
+  font = "Monofur Nerd Font Mono";
+  fontSize = "13";
 
   bar = {
     position = "top"; # "top" | "bottom"

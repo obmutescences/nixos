@@ -60,7 +60,7 @@ in {
           '';
         };
 		font = {
-		  name = "Comic Code";
+		  name = "Monofur Nerd Font Mono";
 		  size = 13;
 		};
       };
