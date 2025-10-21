@@ -3,7 +3,7 @@ let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
   sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
-      theme = "default"; # select the config of your choice
+      theme = "ken"; # select the config of your choice
   };
 in {
 
@@ -96,6 +96,9 @@ in {
 	openssl
 	xclip
 	font-manager
+    wl-clipboard
+	cliphist
+    brightnessctl
 	# sddm-theme
 	sddm-theme 
 	sddm-theme.test
@@ -145,7 +148,6 @@ in {
 	# inputs.quickshell.packages.${pkgs.system}.quickshell
 	# quickshell need
 	kdePackages.kdialog
-	cliphist
 	ddcutil
 	libsForQt5.qt5ct
 	kdePackages.qt6ct

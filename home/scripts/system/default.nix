@@ -118,7 +118,7 @@ let
   keybord-sound = pkgs.writeShellScriptBin "keybord-sound"
     # bash
     ''
-	/home/zerone/Downloads/bucklespring/buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100
+	~/.config/nixos/home/scripts/system/buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100
     '';
   screenshot-pin = pkgs.writeShellScriptBin "screenshot-pin"
     # bash

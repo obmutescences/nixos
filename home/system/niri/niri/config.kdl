@@ -55,6 +55,7 @@ environment {
 	SDL_VIDEODRIVER "wayland"
 	CLUTTER_BACKEND "wayland"
 	QT_QPA_PLATFORMTHEME "qt6ct"
+	QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
 	GDK_BACKEND "wayland"
 	OZONE_PLATFORM "wayland"
 	EGL_PLATFORM "wayland"
@@ -64,6 +65,9 @@ environment {
 	XMODIFIERS "@im=fcitx"
 	QT_IM_MODULE "fcitx"
 	SDL_IM_MODULE "fcitx"
+	GTK_IM_MODULE "fcitx"
+	INPUT_METHOD "fcitx"
+	GLFW_IM_MODULE "fcitx"
 }
 // Settings that influence how windows are positioned and sized.
 layout {
@@ -114,18 +118,19 @@ layout {
 }
 
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "fcitx5" "-d" "--replace"
-spawn-at-startup "FlClash"
-// spawn-at-startup "swww-daemon"
-// spawn-at-startup "waybar"
 spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
+spawn-at-startup "fcitx5" "-d" "--replace"
+spawn-at-startup "appimage-run" "/home/zerone/projects/soft/FlClash.AppImage"
+// spawn-at-startup "swww-daemon"
+// spawn-at-startup "waybar"
 // spawn-at-startup "buckle" "-p" "~/.config/nixos/home/sources/keybord-sound/alpacas"
 // spawn-at-startup "dunst"
 spawn-at-startup "keybord-sound"
 // spawn-at-startup "set-wallpaper"
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
@@ -238,12 +243,12 @@ layer-rule {
 layer-rule {
     // This is for swaybg; change for other wallpaper tools.
     // Find the right namespace by running niri msg layers.
-    match namespace="^swww-daemon$"
+    match namespace="^quickshell$"
     place-within-backdrop true
 }
 
 window-rule {
-  opacity 0.75
+  opacity 0.80
 }
 
 window-rule {
@@ -255,6 +260,8 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+    tiled-state true
+    draw-border-with-background false
 }
 // tweak opacity for inactive windows
 window-rule {
@@ -262,8 +269,8 @@ window-rule {
     opacity 0.8
 
 	shadow {
-			on
-			// off
+			// on
+			off
 			softness 0
 			spread 2
 			offset x=5 y=5
@@ -276,7 +283,7 @@ window-rule {
 window-rule {
     match app-id="thunar"
     default-column-width {
-        proportion 0.45
+        proportion 0.40
     }
 }
 window-rule {
@@ -362,6 +369,13 @@ window-rule {
 window-rule {
 	match app-id="neovide"
 	open-on-workspace "code"
+    opacity 1.0
+}
+
+window-rule {
+	match app-id="wechat" title="图片和视频"
+	open-floating true
+	open-focused true
 }
 
 
@@ -630,3 +644,5 @@ binds {
         power-off-monitors
     }
 }
+include "./dms/colors.kdl"
+include "./layout.kdl"

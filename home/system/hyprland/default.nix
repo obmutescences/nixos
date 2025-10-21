@@ -27,8 +27,6 @@ in {
     imv
     wf-recorder
     wlr-randr
-    wl-clipboard
-    brightnessctl
     gnome-themes-extra
     libva
     dconf
@@ -39,7 +37,7 @@ in {
     meson
   ];
 
-  services.swww.enable = true;
+  # services.swww.enable = true;
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -78,7 +76,7 @@ in {
 		"clash-verge"
 		# "dunst"
 		"keybord-sound"
-		"set-wallpaper"
+		# "set-wallpaper"
       ];
 
       monitor = [
@@ -95,12 +93,12 @@ in {
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_QPA_PLATFORM,wayland;xcb"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "SDL_VIDEODRIVER,wayland"
-		"CLUTTER_BACKEND,wayland"
+        # "SDL_VIDEODRIVER,wayland"
+		# "CLUTTER_BACKEND,wayland"
 		"QT_QPA_PLATFORMTHEME,qt6ct"
 		"GDK_BACKEND,wayland,x11,*"
-		"OZONE_PLATFORM,wayland"
-		"EGL_PLATFORM,wayland"
+		# "OZONE_PLATFORM,wayland"
+		# "EGL_PLATFORM,wayland"
 		"GDK_SCALE,1"
 		"WLR_RENDERER_ALLOW_SOFTWARE,1"
 
@@ -203,9 +201,8 @@ in {
 		"size 25%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
 		"pin, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		# "float, class:^(QQ)$"
+		"opacity 0.99 0.99,class:^(firefox)$"
 		"tile, class:^(QQ)$,title:^(QQ)$"
-		# "float, class:^(wechat)$"
 		"opacity 0.96 0.96,class:^(wechat)$"
 		"tile, class:^(wechat)$,title:^(图片和视频)$"
 		"float, class:^(wechat)$,title:^(图片和视频)$"

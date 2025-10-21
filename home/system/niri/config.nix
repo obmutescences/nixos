@@ -2,9 +2,9 @@
 {
 	home.packages = [ 
 		pkgs.xwayland-satellite
-		pkgs.swww
+		# pkgs.swww
 	];
-	services.swww.enable = true;
+	# services.swww.enable = true;
 	
 	# xdg.configFile."niri/config.kdl".source = ./niri/config.kdl;
 }

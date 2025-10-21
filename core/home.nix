@@ -26,16 +26,13 @@
     ../home/system/hyprland
     ../home/system/hypridle
     ../home/system/hyprlock
-    # ../home/system/hyprpanel
-    # ../home/system/hyprpaper
     ../home/system/wofi
     ../home/system/zathura
     ../home/system/udiskie
-    ../home/system/clipman
     ../home/system/fctix5
 	../home/system/mime
 	../home/system/niri/config.nix
-	../home/system/waybar
+	# ../home/system/waybar
 	../home/system/niri/dunst.nix
 
 	../themes/gtk.nix
