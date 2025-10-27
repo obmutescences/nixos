@@ -5,6 +5,8 @@ let
   sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
       theme = "ken"; # select the config of your choice
   };
+  myAlure = pkgs.callPackage ../home/programs/deps/alure.nix {};
+  myBucklespring = pkgs.callPackage ../home/programs/buckle/default.nix { alure = myAlure; };
 in {
 
   networking.hostName = hostname;
@@ -111,6 +113,7 @@ in {
 	# keyboard sound
 	# TODO: using
 	# bucklespring-libinput
+	myBucklespring
 	# tools
 	busybox
 	# net proxy
