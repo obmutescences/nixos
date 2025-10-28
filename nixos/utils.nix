@@ -111,7 +111,6 @@ in {
 	# gtk
 	nwg-look
 	# keyboard sound
-	# TODO: using
 	# bucklespring-libinput
 	myBucklespring
 	# tools
@@ -176,6 +175,7 @@ in {
 	# mysql backup tools
 	# TODO: using
 	# mydumper
+	(callPackage ../home/programs/mydumper/default.nix {})
 
 	rustup
 	# ---rust 项目开发所需,后续不用可删除
