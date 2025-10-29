@@ -1,0 +1,41 @@
+layout {
+    gaps 6
+    center-focused-column "never"
+	always-center-single-column
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+    default-column-width {
+        proportion 0.4
+    }
+    focus-ring {
+        // off
+        width 2
+    }
+    border {
+        width 1
+    }
+    shadow {
+        off
+        draw-behind-window false
+        softness 50
+        spread 10
+        offset x=0 y=10
+        color "#e67e80ff"
+    }
+    struts {
+
+    }
+
+	blur {
+        on
+        passes 3
+        radius 3
+        noise 0
+    }
+}

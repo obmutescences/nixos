@@ -79,57 +79,13 @@
 
    };
 
-  outputs = inputs@{ nixpkgs, quickshell, ... }: {
+  outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations = {
       zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
-            ({ pkgs, inputs, ... }:
-			let
-                # --- 在 let 中定义自定义 Quickshell 包 ---
-                myQuickshell = inputs.quickshell.packages.${pkgs.system}.quickshell.withModules [
-                  pkgs.kdePackages.qtbase
-                  pkgs.kdePackages.qt6ct
-                  pkgs.kdePackages.qtpositioning
-                  pkgs.kdePackages.qt5compat
-                  pkgs.kdePackages.qtwayland
-                  pkgs.kdePackages.qtlocation
-                  pkgs.kdePackages.qtutilities
-                ];
-              in
-
-			{
-              nixpkgs.overlays =
-                [ 
-					# inputs.nur.overlays.default (final: prev: {
-					# 	hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
-					# })
-
-					inputs.niri.overlays.niri
-
-					# 自定义 Overlay：覆盖 niri-unstable
-					(final: prev: {
-					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
-						src = inputs.my-niri-src;  # 使用自定义源码
-						cargoDeps = final.rustPlatform.fetchCargoVendor {
-							src = inputs.my-niri-src;
-							hash = "sha256-3A37vUNv37IKAm9MdlfVMkuTd/HZSkPO+gv1m23qJvo=";
-						  };
-						  doCheck = false;
-					  });
-					})				
-				];
-				environment.systemPackages = with pkgs; [
-                  # ... 你已有的其他包 ...
-                  
-                  # 直接使用 myQuickshell 表达式的结果
-                  myQuickshell # <-- 这样是正确的，Nix 会计算 myQuickshell 的值并将其作为包处理
-                  
-                ];
-              _module.args = { inherit inputs; };
-            })
             inputs.home-manager.nixosModules.home-manager
             ./hosts/sy-company/configuration.nix # CHANGEME: change the path to match your host folder
           ];
@@ -139,49 +95,6 @@
           system = "x86_64-linux";
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
-            ({ pkgs, inputs, ... }:
-			let
-                # --- 在 let 中定义自定义 Quickshell 包 ---
-                myQuickshell = inputs.quickshell.packages.${pkgs.system}.quickshell.withModules [
-                  pkgs.kdePackages.qtbase
-                  pkgs.kdePackages.qt6ct
-                  pkgs.kdePackages.qtpositioning
-                  pkgs.kdePackages.qt5compat
-                  pkgs.kdePackages.qtwayland
-                  pkgs.kdePackages.qtlocation
-                  pkgs.kdePackages.qtutilities
-                ];
-              in
-            {
-              nixpkgs.overlays =
-                [ 
-					# inputs.nur.overlays.default (final: prev: {
-					# 	hyprland = inputs.hyprland.packages.${prev.system}.hyprland;
-					# })
-
-					inputs.niri.overlays.niri
-
-					# 自定义 Overlay：覆盖 niri-unstable
-					(final: prev: {
-					  niri-unstable = prev.niri-unstable.overrideAttrs (old: {
-						src = inputs.my-niri-src;  # 使用自定义源码
-						cargoDeps = final.rustPlatform.fetchCargoVendor {
-							src = inputs.my-niri-src;
-							hash = "sha256-3A37vUNv37IKAm9MdlfVMkuTd/HZSkPO+gv1m23qJvo=";
-						  };
-						  doCheck = false;
-					  });
-					})				
-				];
-				environment.systemPackages = with pkgs; [
-                  # ... 你已有的其他包 ...
-                  
-                  # 直接使用 myQuickshell 表达式的结果
-                  myQuickshell # <-- 这样是正确的，Nix 会计算 myQuickshell 的值并将其作为包处理
-                  
-                ];
-              _module.args = { inherit inputs; };
-            })
             inputs.home-manager.nixosModules.home-manager
             ./hosts/home-desktop/configuration.nix # CHANGEME: change the path to match your host folder
           ];
