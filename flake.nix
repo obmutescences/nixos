@@ -56,7 +56,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 	my-niri-src = {
-      url = "github:visualglitch91/niri/feat/blur";
+      url = "github:akass-org/niri/feat/blur";
       flake = false;
     };
 	quickshell = {

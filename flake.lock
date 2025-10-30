@@ -1150,15 +1150,15 @@
     "my-niri-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1760549596,
-        "narHash": "sha256-sNAJQBP2rVL5OM6Lnblmy7EWYRsrZnmuQnnip4mX8mQ=",
-        "owner": "visualglitch91",
+        "lastModified": 1761783034,
+        "narHash": "sha256-t1KNXTerWw7vzVhCUTpXN8qSi6sOoItwG0Yt2Slzce8=",
+        "owner": "akass-org",
         "repo": "niri",
-        "rev": "1b8f467fa26014cf846c1960d93995b73f24e1e4",
+        "rev": "abeb6f0a2cd2ecbfcf869708ba538609672cbcf2",
         "type": "github"
       },
       "original": {
-        "owner": "visualglitch91",
+        "owner": "akass-org",
         "ref": "feat/blur",
         "repo": "niri",
         "type": "github"
