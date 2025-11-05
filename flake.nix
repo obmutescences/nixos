@@ -57,7 +57,7 @@
     };
 	my-niri-src = {
       url = "github:akass-org/niri/feat/blur";
-      flake = false;
+      # flake = false;
     };
 	quickshell = {
       # add ?ref=<tag> to track a tag
