@@ -119,8 +119,7 @@ in {
 	busybox
 	# net proxy
     dae
-	# TODO: using
-	# flclash
+	flclash
 	clash-verge-rev
 	# wallerpaper
 	inputs.swww.packages.${pkgs.system}.swww
