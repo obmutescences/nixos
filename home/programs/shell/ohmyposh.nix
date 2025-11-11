@@ -4,7 +4,7 @@
 		enable = true;
 		enableZshIntegration = true;
 		settings = builtins.fromJSON 
-		(builtins.unsafeDiscardStringContext (builtins.readFile  "${./powerlevel10k_rainbow.omp.json}"
+		(builtins.unsafeDiscardStringContext (builtins.readFile  "${./the-unnamed.omp.json}"
 		)
 		);
 	};
