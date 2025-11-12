@@ -8,9 +8,8 @@
 	  # "ctrl+shift+f" = "launch --type=overlay --stdin-source=@screen_scrollback fzf --no-sort --no-mouse --exact -i --tac";
 	  "ctrl+shift+f" = "show_scrollback";
     };
-	font.name = "Lotion Italic";
 	# font.name = "Comic Code";
-	# font.name = "Monofur Nerd font Mono Italic";
+	font.name = "Monofur Nerd font Mono Italic";
 	font.size = 14;
     settings = {
       scrollback_lines = 10000;
