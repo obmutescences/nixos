@@ -34,8 +34,6 @@ in {
 	];
   
   qt.enable = true;
-  # TODO: TEST
-  programs.ssh.package = pkgs.openssh_10_2;
 
   services = {
     xserver = {
