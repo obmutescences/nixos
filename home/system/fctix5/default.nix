@@ -2,7 +2,7 @@
   pkgs,
   ...
 }: {
-  # home.file.".local/share/fcitx5/themes".source = "${nur-ryan4yin.packages.${pkgs.system}.catppuccin-fcitx5}/src";
+  # home.file.".local/share/fcitx5/themes".source = "${nur-ryan4yin.packages.${pkgs.stdenv.hostPlatform.system}.catppuccin-fcitx5}/src";
 
   xdg.configFile = {
     "fcitx5/profile" = {

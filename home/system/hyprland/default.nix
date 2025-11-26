@@ -42,17 +42,17 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
 	# package = pkgs.hyprland;
-	package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+	package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # make sure to also set the portal package, so that they are in sync
-    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 	plugins = [
-		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprscrolling
-		# inputs.hyprland-plugins.packages.${pkgs.system}.hyprfocus
+		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
+		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
 		# (pkgs.callPackage ./hyprscroller.nix {})
 		# (pkgs.callPackage ./hyprfocus.nix {})
 
-		inputs.hyprscroller.packages.${pkgs.system}.hyprscroller
-		inputs.hyprfocus.packages.${pkgs.system}.hyprfocus
+		inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.hyprscroller
+		inputs.hyprfocus.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
 	];
     xwayland.enable = true;
     systemd.enable = true;
@@ -135,7 +135,7 @@ in {
 		  color_inactive = "rgba(62, 67, 46, 0.9)";
 		  range = 40;
         };
-        blur = { 
+        blur = {
 			enabled = true;
 			size = 4;
 			passes = 3;
@@ -165,7 +165,7 @@ in {
       };
 
       windowrule =
-        [ 
+        [
 		"opacity 0.8 0.8,class:.*"
 		"opacity 0.99 0.99,class:^(neovide)$"
 		"float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
@@ -211,7 +211,7 @@ in {
 		"noshadow, class:^(wechat)$, title:negative:^(朋友圈)$"
 		];
 
-      layerrule = [ 
+      layerrule = [
 			"blur, waybar"
 			"blur, quickshell:bar"
 			# quickshell

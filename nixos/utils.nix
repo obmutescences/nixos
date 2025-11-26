@@ -2,7 +2,7 @@
 let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
-  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       theme = "ken"; # select the config of your choice
   };
   myAlure = pkgs.callPackage ../home/programs/deps/alure.nix {};
@@ -32,7 +32,7 @@ in {
   programs.nix-ld.libraries = with pkgs; [
 	  # 在此添加 `rye` 所需的动态库
 	];
-  
+
   qt.enable = true;
 
   services = {
@@ -63,7 +63,7 @@ in {
           };
         };
       };
-      sessionPackages = [ inputs.hyprland.packages.${pkgs.system}.hyprland ];
+      sessionPackages = [ inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
     };
   };
 
@@ -102,7 +102,7 @@ in {
 	cliphist
     brightnessctl
 	# sddm-theme
-	sddm-theme 
+	sddm-theme
 	sddm-theme.test
 	# qt
 	adwaita-qt6
@@ -120,7 +120,7 @@ in {
 	flclash
 	clash-verge-rev
 	# wallerpaper
-	inputs.swww.packages.${pkgs.system}.swww
+	inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
 	# office
 	libreoffice
 
@@ -130,14 +130,14 @@ in {
 
 	# bar
 	waybar
-	
+
 	# niri need
 	xwayland-satellite
 	dunst
 
 	# keyboard control cursor
 	wl-kbptr
-	wlrctl 
+	wlrctl
 
 	# chat
 	# wechat-uos
@@ -145,8 +145,8 @@ in {
 	telegram-desktop
 	# soc
 	discord
-	
-	# inputs.quickshell.packages.${pkgs.system}.quickshell
+
+	# inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
 	# quickshell need
 	kdePackages.kdialog
 	ddcutil
@@ -154,7 +154,7 @@ in {
 	kdePackages.qt6ct
 	matugen
 	# dankmaterialshell
-	inputs.dankmaterialshell.packages.${pkgs.system}.default
+	inputs.dankmaterialshell.packages.${pkgs.stdenv.hostPlatform.system}.default
 
 	# ---dev---
 	# editor

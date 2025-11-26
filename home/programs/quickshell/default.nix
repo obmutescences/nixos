@@ -2,7 +2,7 @@
 
 let
   # 定义自定义 QuickShell 包（基于你的扩展列表）
-  myQuickshell = inputs.quickshell.packages.${pkgs.system}.quickshell.withModules [
+  myQuickshell = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell.withModules [
 	  pkgs.kdePackages.qtbase
 	  pkgs.kdePackages.qt6ct
 	  pkgs.kdePackages.qtpositioning

@@ -11,7 +11,7 @@
 	  ubuntu-sans
 	  ubuntu-sans-mono
 	  nerd-fonts.ubuntu-sans
-      inputs.apple-fonts.packages.${pkgs.system}.sf-pro-nerd
+      inputs.apple-fonts.packages.${pkgs.stdenv.hostPlatform.system}.sf-pro-nerd
     ];
 
     enableDefaultPackages = false;
