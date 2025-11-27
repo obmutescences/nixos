@@ -26,6 +26,7 @@
       window_padding_width = 10;
 	  cursor_trail = 3;
 	  cursor_trail_start_threshold = 4;
+	  allow_remote_control = true;
     };
 	extraConfig = "
 scrollback_pager nvim -u NONE -R -M -c 'lua require(\"kitty+page\")(INPUT_LINE_NUMBER)' -
@@ -137,7 +138,8 @@ color15                         #9da9a0
 # color7   #E5E9F0
 # color15  #ECEFF4
 
-
+include dank-tabs.conf
+include dank-theme.conf
 ";
   };
 }

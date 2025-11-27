@@ -21,6 +21,8 @@
 
 	# niri
 	../home/system/niri
+	# wayfire
+	../home/system/wayfire
 
     # Choose your theme here
     # ../themes/stylix/2025.nix
