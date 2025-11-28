@@ -1,0 +1,7 @@
+[config]
+version_check = false
+
+[templates.niri_layout]
+input_path = "/home/zerone/.config/niri/layout_template.kdl"
+output_path = "/home/zerone/.config/niri/layout.kdl"
+mode = "Dark"  # Or "light" if you prefer; defaults to system scheme if omitted

@@ -68,7 +68,7 @@ environment {
 }
 // Settings that influence how windows are positioned and sized.
 layout {
-    gaps 6
+    gaps 10
     center-focused-column "never"
 	always-center-single-column
 	background-color "transparent"
@@ -109,18 +109,18 @@ layout {
 	blur {
         on
         passes 3
-        radius 3
+        radius 4
         noise 0
     }
 }
 
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell"
+spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
-spawn-at-startup "appimage-run" "/home/zerone/projects/soft/FlClash.AppImage"
+spawn-at-startup "FlClash"
 // spawn-at-startup "swww-daemon"
 // spawn-at-startup "waybar"
 // spawn-at-startup "buckle" "-p" "~/.config/nixos/home/sources/keybord-sound/alpacas"
@@ -128,6 +128,7 @@ spawn-at-startup "appimage-run" "/home/zerone/projects/soft/FlClash.AppImage"
 spawn-at-startup "keybord-sound"
 // spawn-at-startup "set-wallpaper"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "bash" "/home/zerone/.config/kitty/reload-kitty-on-theme-change.sh"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
@@ -202,6 +203,27 @@ overview {
     }
 }
 
+recent-windows {
+    off
+    open-delay-ms 150
+    highlight {
+        urgent-color "#999999ff"
+        active-color "#ff9999ff"
+        padding 0
+        corner-radius 0
+    }
+    previews {
+        max-height 500
+        max-scale 0.5
+    }
+
+    binds {
+        Alt+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+    }
+
+}
+
 gestures {
     hot-corners {
         off
@@ -245,7 +267,7 @@ layer-rule {
 }
 
 window-rule {
-  opacity 0.81
+  opacity 0.75
 }
 
 window-rule {
@@ -389,6 +411,12 @@ window-rule {
 
 window-rule {
 	match app-id="" title="flameshot-pin"
+	open-floating true
+	open-focused true
+}
+
+window-rule {
+	match app-id="org.quickshell"
 	open-floating true
 	open-focused true
 }
@@ -658,3 +686,4 @@ binds {
 }
 include "./dms/colors.kdl"
 include "./layout.kdl"
+include "./dms/wpblur.kdl"
