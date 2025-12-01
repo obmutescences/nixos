@@ -76,6 +76,9 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
    };
+  #  matugen-src = {
+		# url = "git+https://github.com/InioX/Matugen?submodules=1&ref=refs/tags/v3.1.0";
+   # };
 
    };
 

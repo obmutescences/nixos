@@ -2,6 +2,7 @@
 {
 	home.packages = [ 
 		pkgs.xwayland-satellite
+		# inputs.matugen-src.packages.${pkgs.stdenv.hostPlatform.system}.default
 		# pkgs.swww
 	];
 	# services.swww.enable = true;

@@ -188,5 +188,8 @@ in {
 	# watch file change
 	inotify-tools
 
+	# matugen
+	# inputs.matugen-src.packages.${pkgs.stdenv.hostPlatform.system}.default
+
   ];
 }

@@ -9,12 +9,12 @@
 
 hyprlandPlugins.mkHyprlandPlugin hyprland {
   pluginName = "hyprscroller";
-  version = "0-unstable-2025-07-28";
+  version = "0-unstable-2025-12-01";
 
   src = fetchFromGitHub {
     owner = "cpiber";
     repo = "hyprscroller";
-    rev = "b0dfb7b1844eece9e15650b963f8e343baf63106";
+    rev = "75927f4e8d38da78c78b518227fef09b5aa98514";
     hash = "sha256-dA8fKlDPReinuP4SkOqPwkebv43himKpN4wvoLctTKE=";
   };
 

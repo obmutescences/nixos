@@ -51,7 +51,7 @@ in {
 		# (pkgs.callPackage ./hyprscroller.nix {})
 		# (pkgs.callPackage ./hyprfocus.nix {})
 
-		inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.hyprscroller
+		# inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.hyprscroller
 		inputs.hyprfocus.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
 	];
     xwayland.enable = true;
