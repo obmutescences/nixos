@@ -140,6 +140,8 @@ color15                         #9da9a0
 
 include dank-tabs.conf
 include dank-theme.conf
+
+background                      #272e33
 ";
   };
 }
