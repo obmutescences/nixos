@@ -46,7 +46,7 @@ output "DP-1" {
 }
 environment {
     ELECTRON_OZONE_PLATFORM_HINT "auto"
-    DISPLAY ":0"
+    DISPLAY ":1"
 	MOZ_ENABLE_WAYLAND "1"
 	NIXOS_OZONE_WL "1"
     QT_AUTO_SCREEN_SCALE_FACTOR "1"
@@ -115,11 +115,12 @@ layout {
 }
 
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
+spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
 spawn-at-startup "FlClash"
 // spawn-at-startup "swww-daemon"
 // spawn-at-startup "waybar"
@@ -127,7 +128,6 @@ spawn-at-startup "FlClash"
 // spawn-at-startup "dunst"
 spawn-at-startup "keybord-sound"
 // spawn-at-startup "set-wallpaper"
-spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 spawn-at-startup "bash" "/home/zerone/.config/kitty/reload-kitty-on-theme-change.sh"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
@@ -384,11 +384,12 @@ window-rule {
 window-rule {
 	match app-id="firefox"
 	open-on-workspace "browser"
+    opacity 1.0
 }
 window-rule {
 	match app-id="neovide"
 	open-on-workspace "code"
-    opacity 1.0
+    opacity 0.85
 }
 
 window-rule {
