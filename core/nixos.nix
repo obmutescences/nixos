@@ -9,7 +9,6 @@
     ../nixos/nix.nix
     ../nixos/systemd-boot.nix
     ../nixos/timezone.nix
-    # ../../nixos/tuigreet.nix
     ../nixos/users.nix
     ../nixos/utils.nix
     ../nixos/xdg-portal.nix
@@ -21,11 +20,6 @@
 
 	# niri
 	../home/system/niri
-	# wayfire
-	../home/system/wayfire
-
-    # Choose your theme here
-    # ../themes/stylix/2025.nix
 	];
 
 	security.pam.loginLimits = [
