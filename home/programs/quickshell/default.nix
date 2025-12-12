@@ -21,6 +21,7 @@ let
 	  pkgs.kdePackages.qtvirtualkeyboard
 	  pkgs.kdePackages.qtwebsockets
 	  pkgs.kdePackages.syntax-highlighting
+	  pkgs.kdePackages.kirigami
   ];
 
   # 如果需要 wrapping（如第一段代码所示），可以在这里扩展
@@ -52,6 +53,7 @@ let
 			  pkgs.kdePackages.qtvirtualkeyboard
 			  pkgs.kdePackages.qtwebsockets
 			  pkgs.kdePackages.syntax-highlighting
+			  pkgs.kdePackages.kirigami
             ]}"
         fi
       done
