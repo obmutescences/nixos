@@ -124,11 +124,8 @@ spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
 spawn-at-startup "FlClash"
 // spawn-at-startup "swww-daemon"
 // spawn-at-startup "waybar"
-// spawn-at-startup "buckle" "-p" "~/.config/nixos/home/sources/keybord-sound/alpacas"
 // spawn-at-startup "dunst"
 spawn-at-startup "keybord-sound"
-// spawn-at-startup "set-wallpaper"
-spawn-at-startup "bash" "/home/zerone/.config/kitty/reload-kitty-on-theme-change.sh"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
@@ -265,6 +262,7 @@ layer-rule {
     match namespace="^quickshell$"
     place-within-backdrop true
 }
+
 
 window-rule {
   opacity 0.75
