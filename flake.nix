@@ -59,6 +59,10 @@
       url = "github:akass-org/niri/feat/blur";
       # flake = false;
     };
+	blur-niri = {
+      url = "github:Naxdy/niri";
+      # flake = false;
+    };
 	quickshell = {
       # add ?ref=<tag> to track a tag
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
