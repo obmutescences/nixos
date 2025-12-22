@@ -59,8 +59,8 @@
       url = "github:akass-org/niri/feat/blur";
       # flake = false;
     };
-	blur-niri = {
-      url = "github:Naxdy/niri";
+	my-fork-niri = {
+      url = "github:obmutescences/niri/feat/blur";
       # flake = false;
     };
 	quickshell = {

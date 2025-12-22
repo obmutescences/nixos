@@ -8,12 +8,12 @@
     (final: prev: {
       niri-unstable = prev.niri-unstable.overrideAttrs (old: {
         # src = inputs.my-niri-src;  # 使用自定义源码
-        src = inputs.blur-niri;  # 使用自定义源码
+        src = inputs.my-fork-niri;  # 使用自定义源码
         cargoDeps = final.rustPlatform.fetchCargoVendor {
           # src = inputs.my-niri-src;
-          src = inputs.blur-niri;
+          src = inputs.my-fork-niri;
           # hash = "sha256-X28M0jyhUtVtMQAYdxIPQF9mJ5a77v8jw1LKaXSjy7E=";
-		  hash = "sha256-BGMNNot7DGAGcDDCF+6mHvwjrTtp3wx3huoH4v3ztnE=";
+		  hash = "sha256-/jmV5mWYW3khDmyioSRj10IsfLtj5EYDIVSMK4KAc4A=";
         };
         doCheck = false;
       });
@@ -33,5 +33,10 @@
   # _module.args = { inherit inputs; };
 
   # 如果有其他 niri 相关配置（如 environment.systemPackages 中的 niri 依赖），可以在这里添加
-  # environment.systemPackages = with pkgs; [ /* niri 相关包 */ ];
+  environment.systemPackages = with pkgs; [ 
+	  xdg-desktop-portal-gtk
+	  xdg-desktop-portal
+	  xdg-desktop-portal-gnome
+	  xdg-desktop-portal-wlr
+  ];
 }

@@ -146,6 +146,11 @@ in {
 	# soc
 	discord
 
+	# display recording
+	wf-recorder
+	# mp4 压缩
+	ffmpeg
+
 	# inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
 	# quickshell need
 	kdePackages.kdialog

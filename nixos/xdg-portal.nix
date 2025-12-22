@@ -15,6 +15,12 @@
 		  "org.freedesktop.impl.portal.Secret" = "kwallet"; # needs to be tested
     };
     extraPortals =
-      [ pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
+      [ 
+	  pkgs.xdg-desktop-portal-hyprland
+	  pkgs.xdg-desktop-portal-gtk
+	  pkgs.xdg-desktop-portal
+	  pkgs.xdg-desktop-portal-gnome
+	  pkgs.xdg-desktop-portal-wlr
+	  ];
   };
 }
