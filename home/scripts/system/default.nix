@@ -115,10 +115,15 @@ let
 	source ~/.zshrc
 	exec /home/zerone/projects/neovide/target/release/neovide
     '';
-  keybord-sound = pkgs.writeShellScriptBin "keybord-sound"
+  keyboard-sound-alpacas = pkgs.writeShellScriptBin "keyboard-sound-alpacas"
     # bash
     ''
 	buckle -p ~/.config/nixos/home/sources/keybord-sound/alpacas -g 100 -s 100
+    '';
+  keyboard-sound-nkcream = pkgs.writeShellScriptBin "keyboard-sound-nkcream"
+    # bash
+    ''
+	buckle -p ~/.config/nixos/home/sources/keybord-sound/nk-cream -g 100 -s 100
     '';
   screenshot-pin = pkgs.writeShellScriptBin "screenshot-pin"
     # bash
@@ -126,4 +131,4 @@ let
 	flameshot gui -r | wl-copy -t image/png
     '';
 
-in { home.packages = [ menu powermenu lock quickmenu start-neovide keybord-sound screenshot-pin ]; }
+in { home.packages = [ menu powermenu lock quickmenu start-neovide keyboard-sound-alpacas keyboard-sound-nkcream screenshot-pin ]; }
