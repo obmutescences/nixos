@@ -113,7 +113,7 @@ let
     # bash
     ''
 	source ~/.zshrc
-	exec /home/zerone/projects/neovide/target/release/neovide
+	exec /home/zerone/.cache/target/release/neovide
     '';
   keyboard-sound-alpacas = pkgs.writeShellScriptBin "keyboard-sound-alpacas"
     # bash
