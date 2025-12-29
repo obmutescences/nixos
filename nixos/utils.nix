@@ -3,7 +3,7 @@ let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
   sddm-theme = inputs.silentSDDM.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      theme = "ken"; # select the config of your choice
+      theme = "everforest"; # select the config of your choice
   };
   myAlure = pkgs.callPackage ../home/programs/deps/alure.nix {};
   myBucklespring = pkgs.callPackage ../home/programs/buckle/default.nix { alure = myAlure; };
