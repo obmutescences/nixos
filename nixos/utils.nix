@@ -189,5 +189,8 @@ in {
     llvmPackages.libcxxClang
 	# ---rust 项目开发所需,后续不用可删除
 	# ---dev---
+
+	# sql cli tools
+	rainfrog
   ];
 }
