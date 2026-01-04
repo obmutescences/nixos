@@ -51,13 +51,13 @@
       # Dev
       go
       nodejs
-      python313
+      python314
       jq
       figlet
       just
 	  rye
-	  python313Packages.ipython
-	  python313Packages.pylatexenc
+	  python314Packages.ipython
+	  python314Packages.pylatexenc
 
       # Utils
       optipng

@@ -175,7 +175,7 @@ in {
 	stylua
 	lldb_20
 	# mysql cli tools
-	mycli
+	# mycli
 	# mysql backup tools
 	# TODO: using
 	# mydumper
@@ -192,5 +192,8 @@ in {
 
 	# sql cli tools
 	rainfrog
+
+	# music cli
+	go-musicfox
   ];
 }

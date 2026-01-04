@@ -7,13 +7,13 @@
     # 自定义 Overlay：覆盖 niri-unstable
     (final: prev: {
       niri-unstable = prev.niri-unstable.overrideAttrs (old: {
-        # src = inputs.my-niri-src;  # 使用自定义源码
-        src = inputs.my-fork-niri;  # 使用自定义源码
+        src = inputs.my-niri-src;  # 使用自定义源码
+        # src = inputs.my-fork-niri;  # 使用自定义源码
         cargoDeps = final.rustPlatform.fetchCargoVendor {
-          # src = inputs.my-niri-src;
-          src = inputs.my-fork-niri;
-          # hash = "sha256-X28M0jyhUtVtMQAYdxIPQF9mJ5a77v8jw1LKaXSjy7E=";
-		  hash = "sha256-/jmV5mWYW3khDmyioSRj10IsfLtj5EYDIVSMK4KAc4A=";
+          src = inputs.my-niri-src;
+          # src = inputs.my-fork-niri;
+          hash = "sha256-CXRI9LBmP2YXd2Kao9Z2jpON+98n2h7m0zQVVTuwqYQ=";
+		  # hash = "sha256-/jmV5mWYW3khDmyioSRj10IsfLtj5EYDIVSMK4KAc4A=";
         };
         doCheck = false;
       });
