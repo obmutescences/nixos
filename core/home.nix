@@ -56,6 +56,7 @@
       figlet
       just
 	  rye
+	  python314Packages.pip
 	  python314Packages.ipython
 	  python314Packages.pylatexenc
 
