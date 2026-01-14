@@ -48,6 +48,8 @@ routing {
   pname(NetworkManager) -> direct
   pname(clash-nyanpasu) -> direct
   pname(FlClashCore) -> direct
+  pname(clash-verge) -> direct
+  pname(verge-mihomo) -> direct
 
   domain(geosite:category-ads) -> block
   domain(geosite:cn) -> direct
