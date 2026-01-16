@@ -195,5 +195,8 @@ in {
 
 	# music cli
 	go-musicfox
+
+	# recording and streaming
+	obs-studio
   ];
 }

@@ -38,5 +38,6 @@
 	  xdg-desktop-portal
 	  xdg-desktop-portal-gnome
 	  xdg-desktop-portal-wlr
+	  slurp
   ];
 }
