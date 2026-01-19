@@ -12,7 +12,7 @@
         cargoDeps = final.rustPlatform.fetchCargoVendor {
           src = inputs.my-niri-src;
           # src = inputs.my-fork-niri;
-          hash = "sha256-nquoZDVzs5EJkfXmzakU04zt+KlTCx9E2X/S9ZZi/3E=";
+          hash = "sha256-i9YG3xDe8JsBgwQABfQeEaz4kzH+ZO2IaPZ7hhmpgN0=";
 		  # hash = "sha256-/jmV5mWYW3khDmyioSRj10IsfLtj5EYDIVSMK4KAc4A=";
         };
         doCheck = false;
