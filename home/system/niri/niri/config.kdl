@@ -56,11 +56,12 @@ environment {
 	CLUTTER_BACKEND "wayland"
 	QT_QPA_PLATFORMTHEME "qt6ct"
 	QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
-	GDK_BACKEND "wayland"
+	// GDK_BACKEND "wayland"
 	OZONE_PLATFORM "wayland"
 	EGL_PLATFORM "wayland"
 	// GDK_SCALE "1"
 	WLR_RENDERER_ALLOW_SOFTWARE "1"
+	XDG_CURRENT_DESKTOP "niri"
 
 	XMODIFIERS "@im=fcitx"
 	QT_IM_MODULE "fcitx"
@@ -112,6 +113,19 @@ layout {
         radius 4
         noise 0
     }
+	// focus-animation {
+	// 		on
+	// 		// 使用弹簧动画实现回弹效果
+	// 		// damping-ratio 回弹幅度，越小越大
+	// 		// stiffness 越大速度越快
+	// 		spring damping-ratio=0.4 stiffness=800 epsilon=0.0001
+	// 		
+	// 		scale {
+	// 			on
+	// 			flash-scale 0.85
+	// 			disable-on-solo true
+	// 		}
+	// }
 }
 
 spawn-at-startup "xwayland-satellite"
@@ -120,69 +134,196 @@ spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" 
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
+// spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
+spawn-at-startup "dms" "run"
 spawn-at-startup "FlClash"
 // spawn-at-startup "swww-daemon"
 // spawn-at-startup "waybar"
 // spawn-at-startup "dunst"
-spawn-at-startup "keybord-sound"
+spawn-at-startup "keyboard-sound-nkcream"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
 // Animation settings.
 animations {
 	slowdown 3
-    window-open {
-      duration-ms 200
-      curve "linear"
-      custom-shader r"
-			vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
-			vec3 coords_tex = niri_geo_to_tex * coords_geo;
-			vec4 color = texture2D(niri_tex, coords_tex.st);
-			vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
-			coords = coords / length(size_geo.xy);
-			float p = niri_clamped_progress;
-			if (p * p <= dot(coords, coords))
-			color = vec4(0.0);
-			return color;
-		}
-
+  //   window-open {
+  //     duration-ms 200
+  //     curve "linear"
+  //     custom-shader r"
+		// 	vec4 expanding_circle(vec3 coords_geo, vec3 size_geo) {
+		// 	vec3 coords_tex = niri_geo_to_tex * coords_geo;
+		// 	vec4 color = texture2D(niri_tex, coords_tex.st);
+		// 	vec2 coords = (coords_geo.xy - vec2(0.5, 0.5)) * size_geo.xy * 2.0;
+		// 	coords = coords / length(size_geo.xy);
+		// 	float p = niri_clamped_progress;
+		// 	if (p * p <= dot(coords, coords))
+		// 	color = vec4(0.0);
+		// 	return color;
+		// }
+		//
+		// vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+		// 	return expanding_circle(coords_geo, size_geo);
+		//    }
+		//   "
+	 // }
+	window-open {
+		duration-ms 200
+		curve "ease-out-quad"
+		custom-shader "
 		vec4 open_color(vec3 coords_geo, vec3 size_geo) {
-			return expanding_circle(coords_geo, size_geo);
-		   }
-		  "
-	 }
+			float progress = niri_clamped_progress;
+			
+			// Completely random angle (0 to 2*PI)
+			float random_angle = niri_random_seed * 6.28318;
+			
+			// Rotate the coordinates to create tilted ribbons
+			vec2 coords = coords_geo.xy - 0.5;
+			float cos_a = cos(random_angle);
+			float sin_a = sin(random_angle);
+			vec2 rotated = vec2(
+				coords.x * cos_a - coords.y * sin_a,
+				coords.x * sin_a + coords.y * cos_a
+			);
+			
+			// Now work with rotated Y position for ribbon indexing
+			float y_pos = rotated.y + 0.5;
+			
+			// Equal-sized ribbons (20 total)
+			float ribbon_count = 20.0;
+			float ribbon_index = floor(y_pos * ribbon_count);
+			
+			// Alternating pattern: even = left, odd = right
+			float direction = mod(ribbon_index, 2.0) == 0.0 ? -1.0 : 1.0;
+			
+			// Cascading delay
+			float delay = ribbon_index / ribbon_count * 0.5;
+			float ribbon_progress = clamp((progress - delay) / (1.0 - delay), 0.0, 1.0);
+			
+			// Slide along the rotated X axis
+			rotated.x += (1.0 - ribbon_progress) * direction * 2.0;
+			
+			// Rotate back to get final coordinates
+			coords = vec2(
+				rotated.x * cos_a + rotated.y * sin_a,
+				-rotated.x * sin_a + rotated.y * cos_a
+			);
+			coords += 0.5;
+			
+			// Regular sampling
+			vec3 coords_tex = niri_geo_to_tex * vec3(coords.x, coords.y, 1.0);
+			vec4 color = texture2D(niri_tex, coords_tex.xy);
+			
+			// Check if ribbon hasn't arrived yet
+			if (coords.x < 0.0 || coords.x > 1.0) {
+				return vec4(0.0);
+			}
+			
+			return color;
+		}"
+   }	
 
+  //  window-close {
+  //     duration-ms 300
+  //     curve "linear"
+  //     custom-shader r"
+		// vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
+		// float progress = niri_clamped_progress * niri_clamped_progress;
+		// vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
+		// coords.y -= progress * 4440.0;
+		// float max_angle = -0.8;
+		// float angle = progress * max_angle;
+		// mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+		// coords = rotate * coords;
+		// coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
+		// vec3 coords_tex = niri_geo_to_tex * coords_geo;
+		// vec4 color = texture2D(niri_tex, coords_tex.st);
+		//
+		// return color;
+	 //  }
+	 //   vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+		// return fall_and_rotate(coords_geo, size_geo);
+	 //  }
+  //   "
+  //  }
    window-close {
-      duration-ms 300
-      curve "linear"
-      custom-shader r"
-		vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
-		float progress = niri_clamped_progress * niri_clamped_progress;
-		vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
-		coords.y -= progress * 4440.0;
-		float max_angle = -0.8;
-		float angle = progress * max_angle;
-		mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
-		coords = rotate * coords;
-		coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
-		vec3 coords_tex = niri_geo_to_tex * coords_geo;
-		vec4 color = texture2D(niri_tex, coords_tex.st);
-
-		return color;
-	  }
-	   vec4 close_color(vec3 coords_geo, vec3 size_geo) {
-		return fall_and_rotate(coords_geo, size_geo);
-	  }
-    "
-   }
+		duration-ms 200
+		curve "ease-out-quad"
+		custom-shader "
+		vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+			float progress = niri_clamped_progress;
+			
+			// Completely random angle (0 to 2*PI)
+			float random_angle = niri_random_seed * 6.28318;
+			
+			// Rotate the coordinates to create tilted ribbons
+			vec2 coords = coords_geo.xy - 0.5; // center
+			float cos_a = cos(random_angle);
+			float sin_a = sin(random_angle);
+			vec2 rotated = vec2(
+				coords.x * cos_a - coords.y * sin_a,
+				coords.x * sin_a + coords.y * cos_a
+			);
+			
+			// Now work with rotated Y position for ribbon indexing
+			float y_pos = rotated.y + 0.5;
+			
+			// Equal-sized ribbons (20 total)
+			float ribbon_count = 20.0;
+			float ribbon_index = floor(y_pos * ribbon_count);
+			
+			// Alternating pattern: even = left, odd = right
+			float direction = mod(ribbon_index, 2.0) == 0.0 ? -1.0 : 1.0;
+			
+			// Cascading delay
+			float delay = ribbon_index / ribbon_count * 0.5;
+			float ribbon_progress = clamp((progress - delay) / (1.0 - delay), 0.0, 1.0);
+			
+			// Slide along the rotated X axis
+			rotated.x += ribbon_progress * direction * 2.0;
+			
+			// Rotate back to get final coordinates
+			coords = vec2(
+				rotated.x * cos_a + rotated.y * sin_a,
+				-rotated.x * sin_a + rotated.y * cos_a
+			);
+			coords += 0.5; // uncenter
+			
+			// Regular sampling
+			vec3 coords_tex = niri_geo_to_tex * vec3(coords.x, coords.y, 1.0);
+			vec4 color = texture2D(niri_tex, coords_tex.xy);
+			
+			// Check if ribbon has moved out of bounds
+			if (coords.x < 0.0 || coords.x > 1.0) {
+				return vec4(0.0);
+			}
+			
+			return color;
+		}"
+    }
 
     window-resize {
 		// damping-ratio 回弹幅度，越小越大
 		// stiffness 越大速度越快
 		spring damping-ratio=0.5 stiffness=800 epsilon=0.0001
     }
+    horizontal-view-movement {
+        spring damping-ratio=0.75 stiffness=523 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.75 stiffness=523 epsilon=0.0001
+    }
 
 	workspace-switch {
+        spring damping-ratio=0.65 stiffness=600 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
         spring damping-ratio=0.65 stiffness=600 epsilon=0.0001
     }
 }
@@ -263,9 +404,14 @@ layer-rule {
     place-within-backdrop true
 }
 
+layer-rule {
+    match namespace="dms:blurwallpaper"
+    place-within-backdrop true
+}
+
 
 window-rule {
-  opacity 0.75
+  opacity 0.83
 }
 
 window-rule {
@@ -279,6 +425,10 @@ window-rule {
     clip-to-geometry true
     tiled-state true
     draw-border-with-background false
+}
+window-rule {
+    open-maximized false
+    open-maximized-to-edges false
 }
 // tweak opacity for inactive windows
 window-rule {
@@ -444,10 +594,12 @@ binds {
         spawn "menu"
     }
     Mod+ALT+Right repeat=false {
-        spawn "next-wallpaper"
+        // spawn "next-wallpaper"
+		spawn "dms" "ipc" "call" "wallpaper" "next"
     }
     Mod+ALT+Left repeat=false {
-        spawn "prev-wallpaper"
+        // spawn "prev-wallpaper"
+		spawn "dms" "ipc" "call" "wallpaper" "prev"
     }
     Mod+P repeat=false {
         // spawn "flameshot" "gui" "-r" "|" "wl-copy" "-t" "image/png"
@@ -457,7 +609,8 @@ binds {
 		spawn "flameshot" "gui"
 	}
     Mod+L repeat=false {
-        spawn "hyprlock"
+        // spawn "hyprlock"
+		spawn "dms" "ipc" "call" "lock" "lock"
     }
 	Mod+Tab repeat=false {
 		toggle-overview
@@ -465,18 +618,26 @@ binds {
     Mod+K repeat=false {
         spawn "wl-kbptr"
     }
+    Alt+K repeat=false {
+        spawn "wl-kbptr" "-c" "/home/zerone/.config/wl-kbptr/config-tile"
+    }
+    Alt+C repeat=false {
+        spawn "wl-kbptr" "-c" "/home/zerone/.config/wl-kbptr/config-right-click"
+    }
     Mod+J  {
         spawn "wlrctl" "pointer" "scroll" "20" "0"
     }
     Mod+U  {
         spawn "wlrctl" "pointer" "scroll" "-20" "0"
-    }
+	}
 
     XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+        // spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
+		spawn "dms" "ipc" "call" "audio" "increment" "1"
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+        // spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
+		spawn "dms" "ipc" "call" "audio" "decrement" "1"
     }
     XF86AudioMute allow-when-locked=true {
         spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
@@ -496,7 +657,7 @@ binds {
     Mod+Up {
         focus-window-up
     }
-    Alt+Tab {
+    Alt+Tab repeat=false {
         focus-column-right-or-first
     }
     // Ctrl+Tab {
@@ -622,17 +783,17 @@ binds {
     Mod+Period {
         expel-window-from-column
     }
-    Mod+W {
+    Mod+W repeat=false {
 		maximize-column
     }
-    Mod+Shift+W {
+    Mod+Shift+W repeat=false {
         switch-preset-window-height
     }
     // Expand the focused column to space not taken up by other fully visible columns.
-    Mod+Shift+F {
+    Mod+Shift+F repeat=false {
         fullscreen-window
     }
-    Mod+C {
+    Mod+C repeat=false {
         center-column
     }
     Mod+Shift+Left {
@@ -647,21 +808,21 @@ binds {
     Mod+Shift+Down {
         set-window-height "+5%"
     }
-    Mod+V {
+    Mod+V repeat=false {
         toggle-window-floating
     }
     Mod+Shift+V {
         switch-focus-between-floating-and-tiling
     }
-    Mod+Ctrl+R {
-        screenshot
-    }
-    Mod+Ctrl+M {
-        screenshot-screen
-    }
-    Mod+Ctrl+W {
-        screenshot-window
-    }
+    // Mod+Ctrl+R {
+    //     screenshot
+    // }
+    // Mod+Ctrl+M {
+    //     screenshot-screen
+    // }
+    // Mod+Ctrl+W {
+    //     screenshot-window
+    // }
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
     // so they may, for example, forward the key presses as-is to a remote machine.
@@ -684,5 +845,8 @@ binds {
     }
 }
 include "./dms/colors.kdl"
-include "./layout.kdl"
 include "./dms/wpblur.kdl"
+
+include "./layout.kdl"
+
+include "./nirimation/animations/glass.kdl"
