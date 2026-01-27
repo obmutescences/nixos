@@ -52,17 +52,17 @@
 
 	# niri wm
     niri = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:obmutescences/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	my-niri-src = {
-      url = "github:akass-org/niri/feat/blur";
-      # flake = false;
-    };
-	my-fork-niri = {
-      url = "github:obmutescences/niri/feat/blur";
-      # flake = false;
-    };
+	# my-niri-src = {
+ #      url = "github:akass-org/niri/feat/blur";
+ #      # flake = false;
+ #    };
+	# my-fork-niri = {
+ #      url = "github:obmutescences/niri/feat/blur";
+ #      # flake = false;
+ #    };
 	quickshell = {
       # add ?ref=<tag> to track a tag
       url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";

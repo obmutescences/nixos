@@ -63,7 +63,8 @@ in {
           };
         };
       };
-      sessionPackages = [ inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
+      sessionPackages = [ pkgs.niri-unstable inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
+	  defaultSession = "niri";
     };
   };
 

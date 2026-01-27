@@ -5,13 +5,13 @@
     wlr.enable = true;
     # xdgOpenUsePortal = true;
 	config.niri = {
-		  default = "wlr";
+		  # default = "wlr";
 		  "org.freedesktop.impl.portal.Access" = "gtk";
 		  "org.freedesktop.impl.portal.Notification" = "gtk";
 		  "org.freedesktop.impl.portal.FileChooser" = "gtk";
-		  "org.freedesktop.impl.portal.Secret" = "kwallet"; # needs to be tested
-		  "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-		  "org.freedesktop.impl.portal.Screenshot" = "wlr";
+		  # "org.freedesktop.impl.portal.Secret" = "kwallet"; # needs to be tested
+		  # "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+		  # "org.freedesktop.impl.portal.Screenshot" = "wlr";
     };
     extraPortals =
       [ 
