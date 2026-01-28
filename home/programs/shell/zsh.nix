@@ -41,6 +41,7 @@ in {
 	  fi
 	  export PATH="$HOME/.cargo/bin:$PATH"
 	  export PATH="$HOME/.npm/bin:$PATH"
+	  export PATH="$HOME/.local/bin:$PATH"
 
 	  # ---rust 项目开发所需,后续不用可删除
 	  export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
