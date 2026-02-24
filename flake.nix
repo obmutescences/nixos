@@ -73,7 +73,7 @@
     };
 
 	# quickshell bar theme
-	dankmaterialshell.url = "github:AvengeMedia/DankMaterialShell";
+	dms.url = "github:AvengeMedia/DankMaterialShell";
 
 	# sddm theme
 	silentSDDM = {

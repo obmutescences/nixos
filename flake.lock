@@ -127,25 +127,6 @@
         "type": "github"
       }
     },
-    "dankmaterialshell": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "quickshell": "quickshell"
-      },
-      "locked": {
-        "lastModified": 1771893891,
-        "narHash": "sha256-AbzGP/5mjuKswBO12jlMtkk5ZAeK3EFPkmr3LbEILGc=",
-        "owner": "AvengeMedia",
-        "repo": "DankMaterialShell",
-        "rev": "07460f6e1f8cd7bbe7223d08ea59e079202685d2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AvengeMedia",
-        "repo": "DankMaterialShell",
-        "type": "github"
-      }
-    },
     "devenv": {
       "inputs": {
         "cachix": "cachix",
@@ -165,6 +146,25 @@
       "original": {
         "owner": "cachix",
         "repo": "devenv",
+        "type": "github"
+      }
+    },
+    "dms": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2",
+        "quickshell": "quickshell"
+      },
+      "locked": {
+        "lastModified": 1771913031,
+        "narHash": "sha256-Gpxi0bDyZh1uhK0/cCXF9gtRHYrHGdxPCkmlnZQHvhU=",
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
+        "rev": "51f6f37925853c2921684819bd1a91f89142841e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AvengeMedia",
+        "repo": "DankMaterialShell",
         "type": "github"
       }
     },
@@ -1996,7 +1996,7 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
-          "dankmaterialshell",
+          "dms",
           "nixpkgs"
         ]
       },
@@ -2038,7 +2038,7 @@
     "root": {
       "inputs": {
         "apple-fonts": "apple-fonts",
-        "dankmaterialshell": "dankmaterialshell",
+        "dms": "dms",
         "go-musicfox": "go-musicfox",
         "home-manager": "home-manager",
         "hyprfocus": "hyprfocus",

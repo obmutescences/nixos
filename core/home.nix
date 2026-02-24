@@ -17,6 +17,7 @@
 	../home/programs/neovim
 	../home/programs/wl-kbptr
 	../home/programs/ghostty
+	../home/programs/dms
 
 
     # Scripts
