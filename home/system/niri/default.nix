@@ -47,7 +47,7 @@
 	  xdg-desktop-portal-gtk
 	  xdg-desktop-portal
 	  xdg-desktop-portal-gnome
-	  xdg-desktop-portal-wlr
+	  # xdg-desktop-portal-wlr
 	  slurp
   ];
 }

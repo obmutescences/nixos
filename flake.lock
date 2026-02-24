@@ -1510,11 +1510,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1769494027,
-        "narHash": "sha256-xkBBSIPc3Il3Zi1RDPXW0WMlLB1EXV3fVD6CKPqjvJQ=",
+        "lastModified": 1771904107,
+        "narHash": "sha256-z0+ySH/jVieksARxrH02mNRFsVVCHYflGSoU0F0/n/E=",
         "owner": "obmutescences",
         "repo": "niri-flake",
-        "rev": "8ab2db83ee1fd4f60c100739f7731fab8b030131",
+        "rev": "82167bd64104f2711d1c1dec319e5c2bd2daaa70",
         "type": "github"
       },
       "original": {
@@ -1543,16 +1543,16 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1771862940,
-        "narHash": "sha256-KdddmMYiiO+ohYDCTiDTFpS2PyM2pXVUxASAjk2MGLk=",
-        "owner": "akass-org",
+        "lastModified": 1771749270,
+        "narHash": "sha256-ZJCM1XOHIdud6Jfpl4jYQOzbOJId9wmXT+hNJ1IPBIY=",
+        "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "979222f670a920872c3d49b396f14e96672dddbc",
+        "rev": "734d86ec061d15d1980c5b940b2f4dc9aee80cf5",
         "type": "github"
       },
       "original": {
-        "owner": "akass-org",
-        "ref": "feat/blur",
+        "owner": "YaLTeR",
+        "ref": "wip/branch",
         "repo": "niri",
         "type": "github"
       }

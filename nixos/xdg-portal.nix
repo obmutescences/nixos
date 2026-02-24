@@ -1,9 +1,9 @@
 { pkgs, ... }: {
   xdg.portal = {
     enable = true;
-    config.common.default = "wlr";
-    wlr.enable = true;
-    # xdgOpenUsePortal = true;
+    config.common.default = "gnome";
+    # wlr.enable = true;
+    xdgOpenUsePortal = true;
 	config.niri = {
 		  # default = "wlr";
 		  "org.freedesktop.impl.portal.Access" = "gtk";
@@ -16,7 +16,7 @@
     extraPortals =
       [ 
 	  # pkgs.xdg-desktop-portal-hyprland
-	  pkgs.xdg-desktop-portal-wlr
+	  # pkgs.xdg-desktop-portal-wlr
 	  pkgs.xdg-desktop-portal-gtk
 	  pkgs.xdg-desktop-portal-gnome
 	  # pkgs.xdg-desktop-portal
