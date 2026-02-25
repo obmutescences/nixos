@@ -63,6 +63,8 @@ in
 {
   # 添加到系统包（或 home.packages，如果是 home-manager 模块）
   environment.systemPackages = with pkgs; [
+	qt6.qt5compat       # 或 kdePackages.qt5compat
+	libsForQt5.qt5.qtgraphicaleffects
     wrappedQuickshell  # 使用 wrapped 版本以确保环境正确
     # 如果不需要 wrapping，直接用 myQuickshell
   ];

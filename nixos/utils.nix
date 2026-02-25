@@ -197,5 +197,8 @@ in {
 
 	# recording and streaming
 	obs-studio
+
+	# Chinese calendar viewer
+	ccal
   ];
 }
