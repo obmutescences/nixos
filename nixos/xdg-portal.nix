@@ -3,15 +3,15 @@
     enable = true;
     config.common.default = "gnome";
     # wlr.enable = true;
-    xdgOpenUsePortal = true;
+    # xdgOpenUsePortal = true;
 	config.niri = {
 		  # default = "wlr";
 		  "org.freedesktop.impl.portal.Access" = "gtk";
 		  "org.freedesktop.impl.portal.Notification" = "gtk";
 		  "org.freedesktop.impl.portal.FileChooser" = "gtk";
 		  # "org.freedesktop.impl.portal.Secret" = "kwallet"; # needs to be tested
-		  # "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-		  # "org.freedesktop.impl.portal.Screenshot" = "wlr";
+		  "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+		  "org.freedesktop.impl.portal.Screenshot" = "gnome";
     };
     extraPortals =
       [ 
