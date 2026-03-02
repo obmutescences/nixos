@@ -54,6 +54,19 @@ let
 			  pkgs.kdePackages.qtwebsockets
 			  pkgs.kdePackages.syntax-highlighting
 			  pkgs.kdePackages.kirigami
+			  pkgs.kdePackages.kdialog
+			
+			# KDE components for bluetooth and network management
+			pkgs.kdePackages.kcmutils  # Provides kcmshell6
+			pkgs.kdePackages.kde-cli-tools  # KDE CLI tools
+			pkgs.kdePackages.bluez-qt  # Bluetooth QML module
+			pkgs.kdePackages.bluedevil  # KDE bluetooth manager
+			pkgs.kdePackages.plasma-nm  # KDE network manager
+			pkgs.kdePackages.networkmanager-qt  # NetworkManager QML bindings
+			pkgs.kdePackages.modemmanager-qt  # ModemManager QML bindings
+			pkgs.kdePackages.kconfig  # KDE config module
+			pkgs.kdePackages.kcoreaddons  # KDE core addons
+			pkgs.kdePackages.ki18n  # KDE internationalization
             ]}"
         fi
       done
@@ -63,6 +76,40 @@ in
 {
   # 添加到系统包（或 home.packages，如果是 home-manager 模块）
   environment.systemPackages = with pkgs; [
+	kdePackages.qtbase
+	kdePackages.qt6ct
+	kdePackages.qtpositioning
+	kdePackages.qt5compat
+	kdePackages.qtwayland
+	kdePackages.qtlocation
+	kdePackages.qtutilities
+	kdePackages.qtdeclarative
+	kdePackages.qtimageformats # WEBP and other image formats
+	kdePackages.qtmultimedia   # Media playback
+	kdePackages.qtquicktimeline
+	kdePackages.qtsensors
+	kdePackages.qtsvg          # SVG image support
+	kdePackages.qttools
+	kdePackages.qttranslations
+	kdePackages.qtvirtualkeyboard
+	kdePackages.qtwebsockets
+	kdePackages.syntax-highlighting
+	kdePackages.kirigami
+	kdePackages.kirigami.unwrapped
+    kdePackages.kdialog
+    kdePackages.qtpositioning  # For Weather service location features
+    
+    # KDE components for bluetooth and network management
+    kdePackages.kcmutils  # Provides kcmshell6
+    kdePackages.kde-cli-tools  # KDE CLI tools
+    kdePackages.bluez-qt  # Bluetooth QML module
+    kdePackages.bluedevil  # KDE bluetooth manager
+    kdePackages.plasma-nm  # KDE network manager
+    kdePackages.networkmanager-qt  # NetworkManager QML bindings
+    kdePackages.modemmanager-qt  # ModemManager QML bindings
+    kdePackages.kconfig  # KDE config module
+    kdePackages.kcoreaddons  # KDE core addons
+    kdePackages.ki18n  # KDE internationalization
 	qt6.qt5compat       # 或 kdePackages.qt5compat
 	libsForQt5.qt5.qtgraphicaleffects
     wrappedQuickshell  # 使用 wrapped 版本以确保环境正确
