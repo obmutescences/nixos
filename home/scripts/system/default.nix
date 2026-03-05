@@ -63,46 +63,6 @@ let
       fi
     '';
 
-  quickmenu = pkgs.writeShellScriptBin "quickmenu"
-    # bash
-    ''
-      if pgrep wofi; then
-      	pkill wofi
-      # if pgrep tofi; then
-      #   pkill tofi
-      else
-        options=(
-          "󰅶 Caffeine"
-          "󰖔 Night-shift"
-          " Nixy"
-          "󰈊 Hyprpicker"
-          "󰸉 Next-Wallpaper"
-        )
-
-        selected=$(printf '%s\n' "''${options[@]}" | wofi -p " Quickmenu" --dmenu)
-        # selected=$(printf '%s\n' "''${options[@]}" | tofi --prompt-text "> ")
-        selected=''${selected:2}
-
-        case $selected in
-          "Caffeine")
-            caffeine
-            ;;
-          "Night-shift")
-            night-shift
-            ;;
-          "Nixy")
-            kitty zsh -c nixy
-            ;;
-          "Hyprpicker")
-            sleep 0.2 && ${pkgs.hyprpicker}/bin/hyprpicker -a
-            ;;
-          "Next-Wallpaper")
-            next-wallpaper
-            ;;
-        esac
-      fi
-    '';
-
   lock = pkgs.writeShellScriptBin "lock"
     # bash
     ''
@@ -131,4 +91,4 @@ let
 	flameshot gui -r | wl-copy -t image/png
     '';
 
-in { home.packages = [ menu powermenu lock quickmenu start-neovide keyboard-sound-alpacas keyboard-sound-nkcream screenshot-pin ]; }
+in { home.packages = [ menu powermenu lock start-neovide keyboard-sound-alpacas keyboard-sound-nkcream screenshot-pin ]; }

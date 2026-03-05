@@ -11,15 +11,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprspace = { url = "github:KZDKM/Hyprspace"; };
 	# hyprland
     hyprland = {
       url = "github:hyprwm/hyprland";
@@ -29,16 +20,11 @@
  #      url = "github:hyprwm/hyprland-plugins";
  #      inputs.hyprland.follows = "hyprland";
  #    };
-	hyprscroller = {
-      url = "github:cpiber/hyprscroller";
-      inputs.hyprland.follows = "hyprland";
-    };
 	hyprfocus = {
       url = "github:daxisunder/hyprfocus";
       inputs.hyprland.follows = "hyprland";
     };
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";

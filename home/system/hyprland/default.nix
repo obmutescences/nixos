@@ -118,9 +118,7 @@ in {
         gaps_in = gaps-in;
         gaps_out = gaps-out;
         border_size = border-size;
-        # layout = "dwindle";
-		# layout = "scrolling";
-		layout = "scroller";
+        layout = "dwindle";
 		"col.active_border" = "rgba(e67e80ff) rgba(dbbc7fff) 45deg";
 		"col.inactive_border" = "rgba(1e8b50d9) rgba(50b050d9) 45deg";
       };

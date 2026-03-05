@@ -126,11 +126,11 @@ in {
 	libreoffice
 
 	# music
-	spotube
-	spotify
+	# spotube
+	# spotify
 
 	# bar
-	waybar
+	# waybar
 
 	# niri need
 	xwayland-satellite
@@ -162,7 +162,7 @@ in {
 
 	# ---dev---
 	# editor
-	zed-editor
+	# zed-editor
 	protobuf
 	# cli http request
 	xh
