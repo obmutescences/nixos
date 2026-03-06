@@ -49,7 +49,7 @@ in {
 		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
 		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
 		# (pkgs.callPackage ./hyprscroller.nix {})
-		# (pkgs.callPackage ./hyprfocus.nix {})
+		(pkgs.callPackage ./hyprfocus.nix {})
 
 		# inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.hyprscroller
 		# inputs.hyprfocus.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
@@ -57,10 +57,19 @@ in {
     xwayland.enable = true;
     systemd.enable = true;
 
+	extraConfig = "
+scrolling {
+  column_width = 0.4
+  fullscreen_on_one_column = false
+}
+source = /home/zerone/.config/hypr/dms/colors.conf
+source = /home/zerone/.config/hypr/dms/shadow.conf
+	";
+
     settings = {
       "$mod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
-	  "$browser" = "zen";
+	  "$browser" = "zen-beta";
 
       exec-once = [
 		"gsettings set org.gnome.desktop.interface gtk-theme adwaita-dark"
@@ -68,15 +77,9 @@ in {
         "dbus-update-activation-environment --all"
 		"sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 		"fcitx5 -d --replace"
-		# "waybar &"
-		# "qs -p /home/zerone/projects/dots-hyprland/.config/quickshell/ii"
-		# "qs -c dms"
-		"qs -p /home/zerone/Downloads/DankMaterialShell"
-		# "FlClash"
-		"clash-verge"
-		# "dunst"
-		"keybord-sound"
-		# "set-wallpaper"
+		"dms run"
+		"FlClash"
+		"keybord-sound-nkcream"
       ];
 
       monitor = [
@@ -118,7 +121,7 @@ in {
         gaps_in = gaps-in;
         gaps_out = gaps-out;
         border_size = border-size;
-        layout = "dwindle";
+        layout = "scrolling";
 		"col.active_border" = "rgba(e67e80ff) rgba(dbbc7fff) 45deg";
 		"col.inactive_border" = "rgba(1e8b50d9) rgba(50b050d9) 45deg";
       };
@@ -137,7 +140,6 @@ in {
 			enabled = true;
 			size = 4;
 			passes = 3;
-			vibrancy = 0.7;
 			new_optimizations = true;
 			ignore_opacity = true;
 			xray = false;
@@ -146,6 +148,9 @@ in {
 			input_methods = true;
 			input_methods_ignorealpha = 0.5;
 			special = true;
+			vibrancy=0.500000;
+			vibrancy_darkness=0.7;
+
 	     };
 	   };
 
@@ -164,82 +169,50 @@ in {
 
       windowrule =
         [
-		"opacity 0.8 0.8,class:.*"
-		"opacity 0.99 0.99,class:^(neovide)$"
-		"float,class:^(org.kde.dolphin)$,title:^(Progress Dialog — Dolphin)$"
-		"float,class:^(org.kde.dolphin)$,title:^(Copying — Dolphin)$"
-		"float,class:^(firefox)$,title:^(Picture-in-Picture)$"
-		"float,class:^(firefox)$,title:^(Library)$"
-		"float,class:^(kitty)$,title:^(top)$"
-		"float,class:^(kitty)$,title:^(btop)$"
-		"float,class:^(kitty)$,title:^(htop)$"
-		"float,class:^(vlc)$"
-		"float,class:^(kvantummanager)$"
-		"float,class:^(qt5ct)$"
-		"float,class:^(qt6ct)$"
-		"float,class:^(nwg-look)$"
-		"float,class:^(org.kde.ark)$"
-		"float,class:^(org.pulseaudio.pavucontrol)$"
-		"float,class:^(blueman-manager)$"
-		"float,class:^(.blueman-manager-wrapped)$"
-		"float,class:^(nm-applet)$"
-		"float,class:^(nm-connection-editor)$"
-		"float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
-		"float,title:^(flameshot-pin)$"
-		"pin,title:^(flameshot-pin)$"
-		"float,class:^(Alacritty)$"
-		"float,class:^(com.mitchellh.ghostty)$"
-		"float, title:^(illogical-impulse Settings)$"
-		"float, title:.*Shell conflicts.*"
-		"float, class:org.freedesktop.impl.portal.desktop.kde"
-		"size 60% 65%, class:org.freedesktop.impl.portal.desktop.kde"
-		"float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"keepaspectratio, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"move 73% 72%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"size 25%, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"float, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"pin, title:^([Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture)(.*)$"
-		"opacity 0.99 0.99,class:^(firefox)$"
-		"tile, class:^(QQ)$,title:^(QQ)$"
-		"opacity 0.96 0.96,class:^(wechat)$"
-		"tile, class:^(wechat)$,title:^(图片和视频)$"
-		"float, class:^(wechat)$,title:^(图片和视频)$"
-		"noborder, class:^(wechat)$,title:negative:^(朋友圈)$"
-		"noblur, class:^(wechat)$,title:negative:^(朋友圈)$"
-		"noshadow, class:^(wechat)$, title:negative:^(朋友圈)$"
-		];
+          "match:class .*, opacity 0.8"
+          "match:class ^(neovide)$, opacity 0.99 0.99"
+          "match:class ^(org.kde.dolphin)$ title:^(Progress Dialog — Dolphin)$, float on"
+          "match:class ^(org.kde.dolphin)$ title:^(Copying — Dolphin)$, float on"
+          "match:class ^(firefox)$ title:^(Picture-in-Picture)$, float on"
+          "match:class ^(firefox)$ title:^(Library)$, float on"
+          "match:class ^(kitty)$ title:^(top)$, float on"
+          "match:class ^(kitty)$ title:^(btop)$, float on"
+          "match:class ^(kitty)$ title:^(htop)$, float on"
+          "match:class ^(vlc)$, float on"
+          "match:class ^(kvantummanager)$, float on"
+          "match:class ^(qt5ct)$, float on"
+          "match:class ^(qt6ct)$, float on"
+          "match:class ^(nwg-look)$, float on"
+          "match:class ^(org.kde.ark)$, float on"
+          "match:class ^(org.pulseaudio.pavucontrol)$, float on"
+          "match:class ^(blueman-manager)$, float on"
+          "match:class ^(.blueman-manager-wrapped)$, float on"
+          "match:class ^(nm-applet)$, float on"
+          "match:class ^(nm-connection-editor)$, float on"
+          "match:class ^(org.kde.polkit-kde-authentication-agent-1)$, float on"
+          "match:class ^(flameshot-pin)$, float on"
+          "match:class ^(flameshot-pin)$, pin on"
+          "match:class ^(Alacritty)$, float on"
+          "match:class ^(com.mitchellh.ghostty)$, float on"
+          "match:title ^(illogical-impulse Settings)$, float on"
+          "match:title .*Shell conflicts.*, float on"
+          "match:class ^(org.freedesktop.impl.portal.desktop.kde)$, float on"
+          "match:class ^(org.freedesktop.impl.portal.desktop.kde)$, size 60% 65%"
+          "match:title ^([Pp]icture[-s]?[Ii]n[-s]?[Pp]icture)(.*)$, float on"
+          "match:title ^([Pp]icture[-s]?[Ii]n[-s]?[Pp]icture)(.*)$, move 73% 72%"
+          "match:title ^([Pp]icture[-s]?[Ii]n[-s]?[Pp]icture)(.*)$, size 25%"
+          "match:title ^([Pp]icture[-s]?[Ii]n[-s]?[Pp]icture)(.*)$, pin on"
+          "match:class ^(firefox)$, opacity 0.99 0.99"
+          "match:class ^(QQ)$ title:^(QQ)$, tile on"
+          "match:class ^(wechat)$, opacity 0.96 0.96"
+          "match:class ^(wechat)$ title:^(图片和视频)$, tile on"
+          "match:class ^(wechat)$ title:^(图片和视频)$, float on"
+        ];
 
       layerrule = [
-			"blur, waybar"
-			"blur, quickshell:bar"
-			# quickshell
-			# "blur, quickshell"
-			"blurpopups, quickshell:.*"
-			"blur, quickshell:.*"
-			"ignorealpha 0.79, quickshell:.*"
-			"animation slide, quickshell:bar"
-			"animation slide, quickshell:verticalBar"
-			"animation fade, quickshell:screenCorners"
-			"animation slide right, quickshell:sidebarRight"
-			"animation slide left, quickshell:sidebarLeft"
-			"animation slide top, quickshell:wallpaperSelector"
-			"animation slide bottom, quickshell:osk"
-			"animation slide bottom, quickshell:dock"
-			"animation slide bottom, quickshell:cheatsheet"
-			"blur, quickshell:session"
-			"noanim, quickshell:session"
-			"ignorealpha 0, quickshell:session"
-			"animation fade, quickshell:notificationPopup"
-			"blur, quickshell:backgroundWidgets"
-			"ignorealpha 0.05, quickshell:backgroundWidgets"
-			"noanim, quickshell:screenshot"
-			"animation popin 120%, quickshell:screenCorners"
-			"noanim, quickshell:lockWindowPusher"
-			"noanim, quickshell:overview"
-			"noanim, gtk4-layer-shell"
-			"blur, shell:bar"
-			"ignorezero, shell:bar"
-			"blur, shell:notifications"
+			"blur on, match:namespace dms:bar"
+			"blur_popups on, match:namespace quickshell:.*"
+			"blur on, match:namespace quickshell:.*"
 	  ];
 
       input = {
@@ -249,49 +222,38 @@ in {
         repeat_delay = 200;
         repeat_rate = 80;
 
-      };
-	  "plugin:hyprscrolling" = {
-		enabled = false;
-		column_width = 0.40;
 	  };
-	  "plugin:scroller" = {
-		column_default_width = "threeeighths";
-	  };
-	  # "plugin:hyprfocus" = {
-		# enabled = false;
-		# mode = "bounce"; # slide bounce
-		# bounce_strength = 0.80;
-		# slide_height = 40;
-	  # };
-	  "plugin:hyprfocus" = {
-		enabled = true;
-		keyboard_focus_animation = "shrink";
-		mouse_focus_animation = "shrink";
-		animate_floating = false;
-		animate_workspacechange = true;
-		focus_animation = "shrink";
-		bezier = [
-		  "bezIn, 0.5,0.0,1.0,0.5"
-		  "bezOut, 0.0,0.5,0.5,1.0"
-		  "overshot, 0.05, 0.9, 0.1, 1.05"
-		  "smoothOut, 0.36, 0, 0.66, -0.56"
-		  "smoothIn, 0.25, 1, 0.5, 1"
-		  "realsmooth, 0.28,0.29,.69,1.08"
-        ];
-		flash = {
-			flash_opacity = 0.7;
-			in_bezier = "realsmooth";
-			in_speed = 0.5;
-			out_bezier = "realsmooth";
-			out_speed = 3;
-		};
-		shrink = {
-			shrink_percentage = 0.85;
-			in_bezier = "realsmooth";
-			in_speed = "6.5";
-			out_bezier = "realsmooth";
-			out_speed = "6.0";
-		};
+	  plugin = {
+		  hyprfocus = {
+			enabled = true;
+			keyboard_focus_animation = "shrink";
+			mouse_focus_animation = "shrink";
+			animate_floating = false;
+			animate_workspacechange = true;
+			focus_animation = "shrink";
+			bezier = [
+			  "bezIn, 0.5,0.0,1.0,0.5"
+			  "bezOut, 0.0,0.5,0.5,1.0"
+			  "overshot, 0.05, 0.9, 0.1, 1.05"
+			  "smoothOut, 0.36, 0, 0.66, -0.56"
+			  "smoothIn, 0.25, 1, 0.5, 1"
+			  "realsmooth, 0.28,0.29,0.69,1.08"
+			];
+			flash = {
+				flash_opacity = 0.7;
+				in_bezier = "realsmooth";
+				in_speed = 0.5;
+				out_bezier = "realsmooth";
+				out_speed = 3;
+			};
+			shrink = {
+				shrink_percentage = 0.85;
+				in_bezier = "realsmooth";
+				in_speed = "6.5";
+				out_bezier = "realsmooth";
+				out_speed = "6.0";
+			};
+		  };
 	  };
     };
   };

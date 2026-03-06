@@ -6,15 +6,15 @@
   nix-update-script,
 }:
 
-hyprlandPlugins.mkHyprlandPlugin hyprland {
+hyprlandPlugins.mkHyprlandPlugin (finalAttrs: {
   pluginName = "hyprfocus";
-  version = "0-unstable-2025-09-15";
+  version = "0-unstable-2026-03-06";
 
   src = fetchFromGitHub {
     owner = "daxisunder";
     repo = "hyprfocus";
-    rev = "48c7f12baa605cf97bd90a5863446a0695943931";
-    hash = "sha256-uQ+MhBucFs4hlqZetzgLsIl8FhEy2B1EIZoLTn4Daz8=";
+    rev = "126bfa4d528d08770807700f9fd65a6bef9420b4";
+    hash = "sha256-VNQ23Mq0lYXgYTWcMXHMxB8c89mws1GdKtgY0YZim4g=";
   };
 
   installPhase = ''
@@ -35,4 +35,4 @@ hyprlandPlugins.mkHyprlandPlugin hyprland {
     platforms = lib.platforms.linux;
     # broken = true; # Doesn't work on Hyprland v0.47.0+
   };
-}
+})

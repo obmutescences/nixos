@@ -10,7 +10,7 @@
 		"easeOutCirc, 0, 0.55, 0.45, 1"
 		"md3_decel, 0.05, 0.7, 0.1, 1"
 		"md3_accel, 0.3, 0, 0.8, 0.15"
-		"realsmooth, 0.28,0.29,.69,1.08"
+		"realsmooth, 0.28,0.29,0.69,1.08"
       ];
       animation = [
 		"windows, 1, 8, md3_decel, popin 5%"

@@ -3,15 +3,15 @@
     bind = [
 		"$mod,RETURN, exec, ${pkgs.kitty}/bin/kitty" # Kitty
 		"$mod,E, exec, ${pkgs.thunar}/bin/thunar" # Thunar
-		"$mod,F, exec, zen" # Qutebrowser
-		"$mod,L, exec, ${pkgs.hyprlock}/bin/hyprlock" # Lock
+		"$mod,F, exec, zen-beta" # Qutebrowser
+		"$mod,L, exec, dms ipc call lock lock" # Lock
 		"$mod,X, exec, powermenu" # Powermenu
 		"$mod,SPACE, exec, menu" # Launcher
 		"$mod,C, exec, quickmenu" # Quickmenu
 
 		"$mod,Q, killactive," # Close window
 		"$ALT,T, togglefloating," # Toggle Floating
-		"$mod,W, exec, hyprctl dispatch fullscreen 1" # Toggle Fullscreen
+		"$mod,W, exec, hyprctl dispatch fullscreenstate 1" # Toggle Fullscreen
 		"$mod,left, movefocus, l" # Move focus left
 		"$mod,right, movefocus, r" # Move focus Right
 		"$mod,up, movefocus, u" # Move focus Up
@@ -22,18 +22,18 @@
 		"$mod CTRL, P, exec, flameshot gui"
 
 		"$shiftMod,C, exec, clipboard" # Clipboard picker with wofi
-		"ALT, Tab, movefocus, r"
-		"ALT, C, scroller:alignwindow, c"
+		"ALT, Tab, cyclenext, prev"
 		"ALT, F, togglefloating"
 		"$mod, N, exec, start-neovide"
 
 		# wallpapers
-		"$mod ALT, right, exec, next-wallpaper"
-		"$mod ALT, left, exec, prev-wallpaper"
+		"$mod ALT, right, exec, dms ipc call wallpaper next"
+		"$mod ALT, left, exec, dms ipc call wallpaper prev"
 
 		"$mod, K, exec, ${pkgs.wl-kbptr}/bin/wl-kbptr"
 		"$mod, J, exec, wlrctl pointer scroll 20 0"
 		"$mod, U, exec, wlrctl pointer scroll -20 0"
+		"$mod, A, exec, dms ipc call plugins toggle aiAssistant"
 
 		"$mod SHIFT, right, resizeactive, 100 0"
 		"$mod SHIFT, left, resizeactive, -100 0"
