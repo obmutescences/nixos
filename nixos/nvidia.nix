@@ -5,15 +5,15 @@ let
 in {
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers =
-    [ "nvidia" "displayLink" ]; # or "nvidiaLegacy470 etc.
+    [ "nvidia" ]; # or "nvidiaLegacy470 etc.
   boot.kernelParams =
     lib.optionals (lib.elem "nvidia" config.services.xserver.videoDrivers) [
-      "nvidia-drm.modeset=1"
+      # "nvidia-drm.modeset=1"
       "nvidia_drm.fbdev=1"
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
   environment.variables = {
-    # GBM_BACKEND = "nvidia-drm"; # If crash in firefox, remove this line
+    GBM_BACKEND = "nvidia-drm"; # If crash in firefox, remove this line
     LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NVD_BACKEND = "direct";
@@ -43,7 +43,7 @@ in {
       enable32Bit = true;
       extraPackages = with pkgs; [
         nvidia-vaapi-driver
-        vaapiVdpau
+        libva-vdpau-driver
         libvdpau-va-gl
         mesa
         egl-wayland
