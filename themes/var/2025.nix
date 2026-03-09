@@ -7,7 +7,6 @@
   blur = true;
   border-size = 2;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
-  fetch = "none"; # "nerdfetch" | "neofetch" | "pfetch" | "none"
   font = "Monofur Nerd Font Mono";
   fontSize = "13";
 

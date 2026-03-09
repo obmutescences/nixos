@@ -1,7 +1,5 @@
 # My shell configuration
-{ pkgs, lib, config, ... }:
-let fetch = config.var.theme.fetch; # neofetch, nerdfetch, pfetch
-in {
+{ pkgs, lib, config, ... }:{
 
   home.packages = with pkgs; [ bat ripgrep tldr sesh ];
 
@@ -17,22 +15,6 @@ in {
     historySubstringSearch.enable = false;
 
     initContent = lib.mkBefore ''
-      bindkey -e
-      ${if fetch == "neofetch" then
-        pkgs.neofetch + "/bin/neofetch"
-      else
-        ""}
-
-      function sesh-sessions() {
-        session=$(sesh list -t -c | fzf --height 70% --reverse)
-        [[ -z "$session" ]] && return
-        sesh connect $session
-      }
-
-      zle     -N             sesh-sessions
-      bindkey -M emacs '\es' sesh-sessions
-      bindkey -M vicmd '\es' sesh-sessions
-      bindkey -M viins '\es' sesh-sessions
 	  # 在自动补全时忽略大小写
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 	  # 读取密钥环境变量

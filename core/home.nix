@@ -4,7 +4,6 @@
     # Programs
     ../home/programs/kitty
     ../home/programs/shell
-    ../home/programs/fetch
     ../home/programs/git
     ../home/programs/thunar
     ../home/programs/lazygit

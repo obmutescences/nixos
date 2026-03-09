@@ -31,6 +31,8 @@
 	extraConfig = "
 scrollback_pager nvim -u NONE -R -M -c 'lua require(\"kitty+page\")(INPUT_LINE_NUMBER)' -
 cursor_trail_decay 0.5 1
+map ctrl+f send_key right
+map ctrl+b send_key left
 modify_font cell_width 120%
 modify_font cell_height 4px
 foreground                      #d3c6aa
