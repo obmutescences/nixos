@@ -1,0 +1,180 @@
+animations {
+  window-open {
+    duration-ms 180
+    curve "ease-out-expo"
+    custom-shader "
+    vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+      float t = niri_clamped_progress;
+      vec2 uv = coords_geo.xy;
+      
+      // 涟漪中心点（随机偏移）
+      vec2 center = vec2(0.5 + sin(niri_random_seed*10.0)*0.2, 0.5 + cos(niri_random_seed*17.0)*0.2);
+      float dist = distance(uv, center);
+      
+      // 双层涟漪波纹
+      float wave1 = sin((dist * 15.0 - t * 80.0) * 3.141592) * 0.15 * (1.0 - t);
+      float wave2 = sin((dist * 25.0 - t * 120.0) * 3.141592) * 0.08 * (1.0 - t);
+      
+      // 坐标扭曲
+      vec2 distorted = uv + (wave1 + wave2) * normalize(uv - center);
+      
+      // 边缘发光（仅用于开窗）
+      float glow = smoothstep(0.95, 0.98, 1.0 - dist*1.5) * (1.0 - t);
+      
+      vec3 tex_coord = niri_geo_to_tex * vec3(distorted, 1.0);
+      vec4 col = texture2D(niri_tex, tex_coord.xy);
+      col.rgb += vec3(0.15, 0.4, 0.8) * glow; // 蓝色辉光
+      col.a *= smoothstep(0.2, 0.8, t); // 渐入
+      return col;
+    }
+    "
+  }
+
+
+    window-close {
+        duration-ms 120
+        curve "ease-out-quad"
+        custom-shader "
+        float hash21(vec2 p){
+            vec3 p3 = fract(vec3(p.xyx)*.1031);
+            p3 += dot(p3, p3.yzx + 33.33);
+            return fract((p3.x+p3.y)*p3.z);
+        }
+        
+        // 流体模拟的噪音函数
+        float noise(vec2 p) {
+            return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+        }
+
+        vec4 close_color(vec3 coords_geo, vec3 size_geo){
+            float t = niri_clamped_progress;
+            vec2 uv = coords_geo.xy;
+            
+            float blocks = 180.0; // 更少的块状，更流体化
+            vec2 id = floor(uv * blocks);
+            float h1 = hash21(id + niri_random_seed);
+            float h2 = hash21(id + niri_random_seed * 2.0);
+            
+            // 流体核心参数
+            float fluid_speed = 3.5;
+            float fluid_time = t * fluid_speed;
+            float viscosity = 0.8; // 粘度系数
+            
+            // 创建复杂的流体涡旋场
+            vec2 center = vec2(0.5, 0.5);
+            vec2 dir = uv - center;
+            float dist = length(dir);
+            float angle = atan(dir.y, dir.x);
+            
+            // 多重涡旋效果
+            float vortex_count = 3.0;
+            vec2 vortex_flow = vec2(0.0);
+            
+            for(float i = 0.0; i < vortex_count; i += 1.0) {
+                float vortex_angle = i * 2.0944 + fluid_time * 0.5; // 120度间隔
+                vec2 vortex_center = center + vec2(
+                    cos(vortex_angle) * 0.3,
+                    sin(vortex_angle) * 0.3
+                );
+                
+                vec2 to_vortex = uv - vortex_center;
+                float vortex_dist = length(to_vortex);
+                float vortex_strength = exp(-vortex_dist * 4.0) * 0.4;
+                
+                // 涡旋方向（顺时针或逆时针交替）
+                float vortex_dir = mod(i, 2.0) * 2.0 - 1.0;
+                vec2 vortex_vec = vec2(-to_vortex.y, to_vortex.x) * vortex_dir;
+                
+                vortex_flow += normalize(vortex_vec) * vortex_strength * t;
+            }
+            
+            // 重力流动（向下）
+            vec2 gravity_flow = vec2(0.0, 1.0) * t * 0.7;
+            
+            // 噪音扰动（模拟流体湍流）
+            vec2 noise_uv = uv * 4.0 + fluid_time;
+            vec2 turbulent_flow = vec2(
+                sin(noise_uv.y * 3.0 + fluid_time) * 0.1,
+                cos(noise_uv.x * 2.5 + fluid_time) * 0.1
+            ) * t;
+            
+            // 向外扩散的波纹
+            float ripple_freq = 25.0;
+            float ripple_speed = 10.0;
+            float ripple = sin(dist * ripple_freq - fluid_time * ripple_speed) * 0.08 * t;
+            vec2 ripple_flow = normalize(dir) * ripple;
+            
+            // 组合所有流体效应
+            vec2 total_flow = (vortex_flow + gravity_flow + turbulent_flow + ripple_flow) * viscosity;
+            
+            // 流体表面张力效果（边缘收缩）
+            float surface_tension = smoothstep(0.0, 0.2, dist) * 0.3 * t;
+            total_flow += -normalize(dir) * surface_tension;
+            
+            // 应用流体变形
+            vec2 sample_uv = uv + total_flow;
+            
+            // 流体分裂效果（模拟液滴分离）
+            float split_threshold = 0.8;
+            if(t > split_threshold) {
+                float split_time = (t - split_threshold) / (1.0 - split_threshold);
+                float split_strength = sin(uv.x * 50.0 + fluid_time * 10.0) * 0.05 * split_time;
+                sample_uv.x += split_strength;
+                sample_uv.y += split_strength * 0.5; // 垂直分裂更弱
+            }
+            
+            // 边界检查
+            if(sample_uv.x < 0.0 || sample_uv.x > 1.0 || sample_uv.y < 0.0 || sample_uv.y > 1.0) {
+                // 超出边界的部分使用流体颜色混合
+                float edge_fade = 1.0 - smoothstep(0.0, 0.1, abs(sample_uv.x - 0.5) - 0.5);
+                edge_fade *= 1.0 - smoothstep(0.0, 0.1, abs(sample_uv.y - 0.5) - 0.5);
+                return vec4(0.2, 0.4, 0.8, 0.3) * edge_fade * (1.0 - t);
+            }
+            
+            // 采样纹理
+            vec3 coords_tex = niri_geo_to_tex * vec3(sample_uv, 1.0);
+            vec4 col = texture2D(niri_tex, coords_tex.xy);
+            
+            // 流体透明度效果
+            float fluid_opacity = 1.0;
+            
+            // 根据位置渐变透明度
+            float vertical_fade = 1.0 - smoothstep(0.3, 1.0, uv.y + t * 0.5);
+            float radial_fade = 1.0 - smoothstep(0.4, 0.8, dist + t * 0.6);
+            
+            // 涡旋区域更透明
+            float vortex_fade = 1.0;
+            for(float i = 0.0; i < vortex_count; i += 1.0) {
+                float vortex_angle = i * 2.0944;
+                vec2 vortex_center = center + vec2(
+                    cos(vortex_angle) * 0.3,
+                    sin(vortex_angle) * 0.3
+                );
+                float vortex_dist = length(uv - vortex_center);
+                vortex_fade *= 1.0 - exp(-vortex_dist * 10.0) * 0.5 * t;
+            }
+            
+            // 时间渐变
+            float time_fade = 1.0 - smoothstep(0.6, 1.0, t);
+            
+            // 组合所有透明度因子
+            fluid_opacity = vertical_fade * radial_fade * vortex_fade * time_fade;
+            
+            // 添加流体色彩效果
+            float fluid_color_mix = t * 0.3;
+            vec3 fluid_color = mix(col.rgb, vec3(0.2, 0.5, 0.9), fluid_color_mix * (1.0 - vertical_fade));
+            
+            // 流体高光效果
+            float highlight = sin(uv.x * 30.0 - fluid_time * 5.0) * 0.2 + 0.8;
+            fluid_color *= highlight;
+            
+            // 运动模糊效果（模拟流体速度）
+            float motion_blur = 1.0 - length(total_flow) * 2.0;
+            fluid_color *= motion_blur;
+            
+            return vec4(fluid_color, col.a * fluid_opacity);
+        }
+        "
+    }
+  
+}

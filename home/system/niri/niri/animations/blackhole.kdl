@@ -1,0 +1,82 @@
+animations {
+    window-open {
+        duration-ms 250
+        curve "ease-out-expo"
+        custom-shader "
+        vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+            float progress = niri_clamped_progress;
+            vec2 uv = coords_geo.xy;
+            vec2 center = vec2(0.5, 0.5);
+            
+            vec2 delta = uv - center;
+            float dist = length(delta);
+            float angle = atan(delta.y, delta.x);
+            
+            float inv_progress = 1.0 - progress;
+            
+            // 旋转：距离中心越近旋转越多
+            float rotation = inv_progress * 6.28318 * 2.0 * (1.0 - dist * 0.8);
+            
+            // 缩放从0到1
+            float scale = progress * progress;
+            
+            float new_angle = angle + rotation;
+            float new_dist = dist / max(scale, 0.001);
+            
+            vec2 sample_uv = center + vec2(cos(new_angle), sin(new_angle)) * new_dist;
+            
+            if (sample_uv.x < 0.0 || sample_uv.x > 1.0 || sample_uv.y < 0.0 || sample_uv.y > 1.0) {
+                return vec4(0.0);
+            }
+            
+            vec3 coords_tex = niri_geo_to_tex * vec3(sample_uv, 1.0);
+            vec4 color = texture2D(niri_tex, coords_tex.xy);
+            
+            // 中心发光效果
+            float glow = (1.0 - dist * 2.0) * inv_progress * 0.3;
+            color.rgb += vec3(0.4, 0.6, 1.0) * max(glow, 0.0);
+            
+            return color * smoothstep(0.0, 0.25, progress);
+        }
+        "
+    }
+
+    window-close {
+        duration-ms 200
+        curve "ease-out-cubic"
+        custom-shader "
+        vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+            float progress = niri_clamped_progress;
+            vec2 uv = coords_geo.xy;
+            vec2 center = vec2(0.5, 0.5);
+            
+            vec2 delta = uv - center;
+            float dist = length(delta);
+            float angle = atan(delta.y, delta.x);
+            
+            // 旋转吸入
+            float rotation = progress * 6.28318 * 3.0 * (1.0 - dist * 0.5);
+            
+            // 缩放到0
+            float scale = 0.5 - progress * progress;
+            
+            float new_angle = angle - rotation;
+            float new_dist = dist / max(scale, 0.001);
+            
+            vec2 sample_uv = center + vec2(cos(new_angle), sin(new_angle)) * new_dist;
+            
+            if (sample_uv.x < 0.0 || sample_uv.x > 1.0 || sample_uv.y < 0.0 || sample_uv.y > 1.0) {
+                return vec4(0.0);
+            }
+            
+            vec3 coords_tex = niri_geo_to_tex * vec3(sample_uv, 1.0);
+            vec4 color = texture2D(niri_tex, coords_tex.xy);
+            
+            // 拉伸变暗效果
+            color.rgb *= (1.0 - progress * 0.5);
+            
+            return color * (1.0 - smoothstep(0.7, 1.0, progress));
+        }
+        "
+    }
+}

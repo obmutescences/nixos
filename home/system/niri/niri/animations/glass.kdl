@@ -1,0 +1,219 @@
+animations {
+
+	window-open {
+    duration-ms 250 // 稍微给多一点时间让碎片飞行轨迹可见
+    curve "ease-out-expo" // 使用 expo 曲线，让最后的“卡入”动作更干脆有力
+    custom-shader "
+    // 伪随机数生成器
+    float hash22(vec2 p) {
+        vec3 p3  = fract(vec3(p.xyx) * .1031);
+        p3 += dot(p3, p3.yzx + 33.33);
+        return fract((p3.x + p3.y) * p3.z);
+    }
+
+    // 生成随机向量
+    vec2 random_dir(vec2 p, float seed) {
+        float h = hash22(p + seed);
+        float a = h * 6.28318;
+        return vec2(cos(a), sin(a));
+    }
+
+    vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+        float progress = niri_clamped_progress;
+        vec2 uv = coords_geo.xy;
+        
+        // --- 配置参数 ---
+        float density = 20.0;      // 碎片密度 (值越大碎片越细碎)
+        float max_distance = 3.2;  // 碎片初始散开的最大距离
+        float rotation_str = 0.5;  // 碎片旋转强度
+        // ----------------
+        
+        // 反转进度：1.0 代表开始(散开)，0.0 代表结束(合成)
+        // 这样我们就可以复用破碎的逻辑，只是方向反了
+        float inv_progress = 1.0 - progress;
+        
+        // 处理长宽比，保证碎片形状正常
+        vec2 aspect = vec2(size_geo.x / size_geo.y, 1.0);
+        vec2 uv_scaled = uv * aspect;
+        
+        vec2 grid_uv = uv_scaled * density;
+        vec2 grid_id = floor(grid_uv);
+        
+        // Voronoi: 寻找归属的碎片中心
+        vec2 closest_id = vec2(0.0);
+        vec2 closest_center = vec2(0.0);
+        float min_dist = 100.0;
+        
+        for (float y = -1.0; y <= 1.0; y++) {
+            for (float x = -1.0; x <= 1.0; x++) {
+                vec2 neighbor = vec2(x, y);
+                vec2 id = grid_id + neighbor;
+                vec2 center = id + vec2(hash22(id + niri_random_seed), hash22(id + niri_random_seed * 2.0));
+                
+                float dist = distance(grid_uv, center);
+                if (dist < min_dist) {
+                    min_dist = dist;
+                    closest_id = id;
+                    closest_center = center;
+                }
+            }
+        }
+        
+        // 计算偏移量
+        vec2 dir = random_dir(closest_id, niri_random_seed);
+        
+        // 关键逻辑：偏移量随着 progress 增加而减小
+        // 我们让不同的碎片飞行速度稍微不同 (hash22(closest_id) * 0.5 + 0.5)
+        float speed_var = hash22(closest_id) * 0.4 + 0.6;
+        vec2 offset = dir * max_distance * inv_progress * speed_var;
+
+        // (可选) 旋转效果: 让碎片一边飞一边转正
+        // 这是一个简化的旋转，围绕当前像素点偏移
+        float angle = (hash22(closest_id) - 0.5) * rotation_str * inv_progress;
+        float s = sin(angle);
+        float c = cos(angle);
+        vec2 rotated_offset = vec2(
+            offset.x * c - offset.y * s,
+            offset.x * s + offset.y * c
+        );
+
+        // 采样位置 = 当前位置 - 偏移量
+        // 因为我们是从结果反推来源，所以当 inv_progress 为 0 时，采样位置就是原位
+        vec2 sample_uv = uv - rotated_offset;
+        
+        // 边界检查：如果碎片原来的位置在屏幕外，则不显示
+        if (sample_uv.x < 0.0 || sample_uv.x > 1.0 || sample_uv.y < 0.0 || sample_uv.y > 1.0) {
+            return vec4(0.0);
+        }
+        
+        vec3 coords_tex = niri_geo_to_tex * vec3(sample_uv, 1.0);
+        vec4 color = texture2D(niri_tex, coords_tex.xy);
+        
+        // 增加一点透明度变化，让远处的碎片稍微透明一点，增加层次感
+        float alpha = smoothstep(0.0, 0.2, progress);
+        
+        return color * alpha;
+    }
+    "
+	}
+
+	window-close {
+    duration-ms 350 // 稍微增加一点时间让碎片下落更自然
+    curve "ease-out-cubic"
+    custom-shader "
+    // 伪随机数生成器
+    float hash22(vec2 p) {
+        vec3 p3  = fract(vec3(p.xyx) * .1031);
+        p3 += dot(p3, p3.yzx + 33.33);
+        return fract((p3.x + p3.y) * p3.z);
+    }
+
+    // 生成随机向量（用于碎片飞散方向）
+    vec2 random_dir(vec2 p, float seed) {
+        float h = hash22(p + seed);
+        float a = h * 6.28318; // 0 到 2PI
+        return vec2(cos(a), sin(a));
+    }
+
+    vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+        float progress = niri_clamped_progress;
+        vec2 uv = coords_geo.xy;
+        
+        // --- 配置参数 ---
+        float density = 30.0;     // 碎片数量密度 (越大碎片越小)
+        float spread_force = 0.9; // 爆炸扩散力度
+        float gravity = 0.5;      // 下落重力
+        float rotation_str = 2.0; // 碎片旋转强度
+        // ----------------
+        
+        // 调整 UV 以适应长宽比，保证碎片不是被拉伸的
+        vec2 aspect = vec2(size_geo.x / size_geo.y, 1.0);
+        vec2 uv_scaled = uv * aspect;
+        
+        vec2 grid_uv = uv_scaled * density;
+        vec2 grid_id = floor(grid_uv);
+        
+        // Voronoi 算法：寻找当前像素属于哪个“碎片”
+        vec2 closest_id = vec2(0.0);
+        vec2 closest_center = vec2(0.0);
+        float min_dist = 100.0;
+        
+        // 搜索 3x3 邻域
+        for (float y = -1.0; y <= 1.0; y++) {
+            for (float x = -1.0; x <= 1.0; x++) {
+                vec2 neighbor = vec2(x, y);
+                vec2 id = grid_id + neighbor;
+                
+                // 每个网格内的随机中心点
+                vec2 center = id + vec2(hash22(id + niri_random_seed), hash22(id + niri_random_seed * 2.0));
+                
+                float dist = distance(grid_uv, center);
+                if (dist < min_dist) {
+                    min_dist = dist;
+                    closest_id = id;
+                    closest_center = center;
+                }
+            }
+        }
+        
+        // 计算该碎片的运动轨迹
+        // 1. 随机爆炸方向
+        vec2 explode_dir = random_dir(closest_id, niri_random_seed);
+        // 2. 结合重力 (Y轴向下)
+        vec2 offset = explode_dir * spread_force * progress;
+        offset.y += gravity * progress * progress; // 重力加速
+        
+        // 计算采样坐标（当前像素位置 - 碎片位移 = 原始纹理位置）
+        // 简单的位移模拟
+        vec2 sample_uv = uv - offset * 0.5; // *0.5 稍微减缓纹理移动速度，产生透视感
+
+        // (可选) 简单的碎片旋转模拟 - 会增加计算开销，这里使用简化版
+        // 如果需要更复杂的旋转，需要以 closest_center 为轴心旋转 sample_uv
+        
+        // 边界检查：如果采样点跑出了原始窗口范围，就透明
+        if (sample_uv.x < 0.0 || sample_uv.x > 1.0 || sample_uv.y < 0.0 || sample_uv.y > 1.0) {
+            return vec4(0.0);
+        }
+        
+        // 这里有一个特殊的处理：
+        // 为了让碎片之间产生“裂缝”，我们可以比较当前像素位移后的位置
+        // 如果只是简单位移，画面会看起来像是在平移。
+        // 为了增加破碎感，我们根据碎片ID稍微扰动一下采样的位置，让图像错位。
+        sample_uv += (hash22(closest_id) - 0.5) * 0.05 * progress;
+
+        vec3 coords_tex = niri_geo_to_tex * vec3(sample_uv, 1.0);
+        vec4 color = texture2D(niri_tex, coords_tex.xy);
+        
+        // 随着进度淡出，避免最后残留硬边
+        return color * (1.0 - smoothstep(0.8, 1.0, progress));
+    }
+    "
+	}
+		
+    
+    horizontal-view-movement {
+        spring damping-ratio=0.75 stiffness=523 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.75 stiffness=523 epsilon=0.0001
+    }
+    // window-resize {
+    //     custom-shader r"
+    //         vec4 resize_color(vec3 coords_curr_geo, vec3 size_curr_geo) {
+    //             vec3 coords_tex_next = niri_geo_to_tex_next * coords_curr_geo;
+    //             vec4 color = texture2D(niri_tex_next, coords_tex_next.st);
+    //             return color;
+    //         }
+    //     "
+    // }
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=0.65 stiffness=600 epsilon=0.0001
+    }
+}

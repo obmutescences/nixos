@@ -1,0 +1,102 @@
+animations {
+
+window-open {
+    duration-ms 350
+    curve "ease-out-quad" // 使用回弹曲线，让百叶窗展开时更有弹性
+    custom-shader "
+    vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+        float progress = niri_clamped_progress;
+        vec2 uv = coords_geo.xy;
+        
+        float blinds_count = 10.0;
+        
+        // 这里的逻辑和 Close 相反
+        // local_scale 从 0 变成 1
+        
+        float blind_y = uv.y * blinds_count;
+        float blind_id = floor(blind_y);
+        float local_y = fract(blind_y);
+        
+        // 错位展开：中间的先展开，两边的后展开
+        // 或者简单的顺序展开
+        float delay = blind_id / blinds_count * 0.2;
+        float local_progress = clamp((progress - delay) / (1.0 - 0.2), 0.0, 1.0);
+        
+        float local_scale = local_progress;
+        
+        // 避免除以0
+        if (local_scale < 0.001) return vec4(0.0);
+
+        float scaled_y = (local_y - 0.5) / local_scale + 0.5;
+        
+        if (scaled_y < 0.0 || scaled_y > 1.0) {
+            return vec4(0.0);
+        }
+        
+        float final_y = (blind_id + scaled_y) / blinds_count;
+        vec2 final_uv = vec2(uv.x, final_y);
+
+        vec3 coords_tex = niri_geo_to_tex * vec3(final_uv, 1.0);
+        return texture2D(niri_tex, coords_tex.xy);
+    }
+    "
+}
+
+
+window-close {
+    duration-ms 350
+    curve "ease-out-quad"
+    custom-shader "
+    vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+        float progress = niri_clamped_progress;
+        vec2 uv = coords_geo.xy;
+        
+        // --- 参数 ---
+        float blinds_count = 10.0; // 切割成多少条
+        // -----------
+
+        // 这里的逻辑是将 UV.y 放大 10 倍，然后取小数部分
+        // 这样就把画面分成了 10 个 0.0-1.0 的小区间
+        float blind_y = uv.y * blinds_count;
+        float blind_id = floor(blind_y); // 第几条
+        float local_y = fract(blind_y);  // 条内的局部 Y 坐标
+        
+        // 计算每个条的中心
+        float center_y = 0.5;
+        
+        // 核心逻辑：压缩
+        // 随着 progress 增加，每个条的高度(scale)从 1 变成 0
+        float scale = 1.0 - progress;
+        
+        // 稍微错开每条的关闭时间，产生波浪感
+        // 下面的条比上面的条稍微晚一点关闭
+        float delay = blind_id / blinds_count * 0.3;
+        float local_progress = clamp((progress - delay) / (1.0 - 0.3), 0.0, 1.0);
+        float local_scale = 1.0 - local_progress;
+
+        // 根据缩放调整局部坐标
+        // (local_y - 0.5) / scale + 0.5 实现了围绕中心缩放
+        float scaled_y = (local_y - 0.5) / max(0.001, local_scale) + 0.5;
+        
+        // 如果超出了缩放后的范围，就裁掉（产生缝隙）
+        if (scaled_y < 0.0 || scaled_y > 1.0) {
+            return vec4(0.0);
+        }
+        
+        // 映射回全局 UV 坐标
+        // 恢复成 global y: (id + new_local_y) / count
+        float final_y = (blind_id + scaled_y) / blinds_count;
+        vec2 final_uv = vec2(uv.x, final_y);
+
+        vec3 coords_tex = niri_geo_to_tex * vec3(final_uv, 1.0);
+        vec4 color = texture2D(niri_tex, coords_tex.xy);
+        
+        // 增加一点阴影，增强立体感
+        // 离中心越远越暗
+        float shadow = 1.0 - abs(scaled_y - 0.5) * 0.8 * progress;
+        
+        return vec4(color.rgb * shadow, color.a);
+    }
+    "
+}
+}
