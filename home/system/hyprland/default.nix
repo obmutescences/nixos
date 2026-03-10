@@ -46,13 +46,7 @@ in {
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 	plugins = [
-		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
-		# inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
-		# (pkgs.callPackage ./hyprscroller.nix {})
-		(pkgs.callPackage ./hyprfocus.nix {})
-
-		# inputs.hyprscroller.packages.${pkgs.stdenv.hostPlatform.system}.hyprscroller
-		# inputs.hyprfocus.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
+		inputs.hyprfocus.packages.${pkgs.stdenv.hostPlatform.system}.hyprfocus
 	];
     xwayland.enable = true;
     systemd.enable = true;
