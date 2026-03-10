@@ -26,16 +26,9 @@ layout {
         softness 25
         spread 6
         offset x=0 y=0
-		color "#a1d57aff"
+		color "#93db00ff"
     }
     struts {
 
-    }
-
-	blur {
-        on
-        passes 3
-        radius 4
-        noise 0.04
     }
 }

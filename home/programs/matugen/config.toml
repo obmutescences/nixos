@@ -5,3 +5,10 @@ version_check = false
 input_path = "/home/zerone/.config/niri/layout_template.kdl"
 output_path = "/home/zerone/.config/niri/layout.kdl"
 mode = "Dark"  # Or "light" if you prefer; defaults to system scheme if omitted
+# post_hook = "bash -c 'kitty @ set-colors --all /home/zerone/.config/kitty/dank-theme.conf'"
+
+
+[templates.hyprland_layout]
+input_path = "/home/zerone/.config/hypr/dms/shadow_template.conf"
+output_path = "/home/zerone/.config/hypr/dms/shadow.conf"
+mode = "Dark"  # Or "light" if you prefer; defaults to system scheme if omitted

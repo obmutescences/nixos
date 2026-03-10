@@ -107,25 +107,6 @@ layout {
 
     }
 
-	blur {
-        on
-        passes 3
-        radius 4
-        noise 0
-    }
-	// focus-animation {
-	// 		on
-	// 		// 使用弹簧动画实现回弹效果
-	// 		// damping-ratio 回弹幅度，越小越大
-	// 		// stiffness 越大速度越快
-	// 		spring damping-ratio=0.4 stiffness=800 epsilon=0.0001
-	// 		
-	// 		scale {
-	// 			on
-	// 			flash-scale 0.85
-	// 			disable-on-solo true
-	// 		}
-	// }
 }
 
 spawn-at-startup "xwayland-satellite"
@@ -134,12 +115,7 @@ spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" 
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-// spawn-at-startup "qs" "-p" "/home/zerone/Downloads/DankMaterialShell/quickshell"
-spawn-at-startup "dms" "run"
 spawn-at-startup "FlClash"
-// spawn-at-startup "swww-daemon"
-// spawn-at-startup "waybar"
-// spawn-at-startup "dunst"
 spawn-at-startup "keyboard-sound-nkcream"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
@@ -410,8 +386,35 @@ layer-rule {
 }
 
 
+layer-rule {
+    match namespace="dms:bar"
+  background-effect {
+	  xray false
+	  blur true
+	  noise 0.01
+	  saturation 1.5
+  }
+}
+
+
+blur {
+	passes 3
+	offset 2.5
+	noise 0.05
+	saturation 2.0
+}
+
 window-rule {
-  opacity 0.83
+  opacity 0.80
+  // force-render true
+  // force-render-fps 180
+  // rounding-exponent 2.5
+  background-effect {
+	  xray false
+	  blur true
+	  noise 0.05
+	  saturation 2.0
+  }
 }
 
 window-rule {
@@ -582,7 +585,7 @@ binds {
         spawn "thunar"
     }
     Mod+F repeat=false {
-        spawn "zen"
+        spawn "zen-beta"
     }
     Mod+X repeat=false {
         spawn "powermenu"
@@ -629,6 +632,10 @@ binds {
     }
     Mod+U  {
         spawn "wlrctl" "pointer" "scroll" "-20" "0"
+	}
+
+	Mod+A { 
+		spawn "dms" "ipc" "call" "plugins" "toggle" "aiAssistant"
 	}
 
     XF86AudioRaiseVolume allow-when-locked=true {
@@ -844,9 +851,11 @@ binds {
         power-off-monitors
     }
 }
+
+
 include "./dms/colors.kdl"
 include "./dms/wpblur.kdl"
 
 include "./layout.kdl"
 
-include "./nirimation/animations/glass.kdl"
+include "./nirimation/animations/quantum-ripple.kdl"

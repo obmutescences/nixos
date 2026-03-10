@@ -31,11 +31,4 @@ layout {
     struts {
 
     }
-
-	blur {
-        on
-        passes 3
-        radius 4
-        noise 0.04
-    }
 }
