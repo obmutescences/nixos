@@ -2,9 +2,6 @@
 let
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
-  sddm-theme = inputs.silentSDDM.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      theme = "everforest"; # select the config of your choice
-  };
   myAlure = pkgs.callPackage ../home/programs/deps/alure.nix {};
   myBucklespring = pkgs.callPackage ../home/programs/buckle/default.nix { alure = myAlure; };
 in {
@@ -57,21 +54,6 @@ in {
     power-profiles-daemon.enable = true;
     udisks2.enable = true;
 	displayManager = {
-      sddm = {
-        enable = false;
-        wayland = {
-          enable = true;
-        };
-        package = pkgs.kdePackages.sddm;
-		extraPackages = sddm-theme.propagatedBuildInputs;
-		theme = sddm-theme.pname;
-        settings = {
-          General = {
-			GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
-			InputMethod = "qtvirtualkeyboard";
-          };
-        };
-      };
       sessionPackages = [ pkgs.niri-unstable inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
 	  defaultSession = "niri";
     };
@@ -111,9 +93,6 @@ in {
     wl-clipboard
 	cliphist
     brightnessctl
-	# sddm-theme
-	sddm-theme
-	sddm-theme.test
 	# qt
 	adwaita-qt6
 	adwaita-qt

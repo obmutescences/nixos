@@ -61,12 +61,6 @@
 	# quickshell bar theme
 	dms.url = "github:AvengeMedia/DankMaterialShell";
 
-	# sddm theme
-	silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-   };
-	
    # nest music cli
    go-musicfox.url = "github:go-musicfox/go-musicfox";
 
