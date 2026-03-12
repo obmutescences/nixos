@@ -33,6 +33,15 @@ in {
 	  # 在此添加 `rye` 所需的动态库
 	];
 
+  services.displayManager.dms-greeter = {
+	enable = true;
+	compositor.name = "niri";  # Or "hyprland" or "sway"
+	configHome = "/home/zerone";
+	configFiles = [
+		"/home/zerone/.config/DankMaterialShell/settings.json"
+	];
+  };
+
   qt.enable = true;
 
   services = {
@@ -49,7 +58,7 @@ in {
     udisks2.enable = true;
 	displayManager = {
       sddm = {
-        enable = true;
+        enable = false;
         wayland = {
           enable = true;
         };
