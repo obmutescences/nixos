@@ -118,11 +118,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1773269713,
-        "narHash": "sha256-hwr4CCaunTCGwXPMlfKu88F0rJ3yBoMpkCLSyO+7VZU=",
+        "lastModified": 1773559279,
+        "narHash": "sha256-Jivazp9OsIISX0lPuu2S3X0SNnsUlIC0B70jGttB0iQ=",
         "owner": "AvengeMedia",
         "repo": "DankMaterialShell",
-        "rev": "e78ba77def35924ab96a7e99a32dc2e32ac637e5",
+        "rev": "0e2162cf2969e943e4573d23bc56be7faff91dc6",
         "type": "github"
       },
       "original": {
@@ -994,11 +994,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1771904107,
-        "narHash": "sha256-z0+ySH/jVieksARxrH02mNRFsVVCHYflGSoU0F0/n/E=",
+        "lastModified": 1773368495,
+        "narHash": "sha256-zvQ5M0FVGS7EAjaGrvsDSQ+ny1T/S+aQoX3j5keGzW8=",
         "owner": "obmutescences",
         "repo": "niri-flake",
-        "rev": "82167bd64104f2711d1c1dec319e5c2bd2daaa70",
+        "rev": "ef1779fc6f68fc4631ec71952b6b42b8c1552aad",
         "type": "github"
       },
       "original": {
@@ -1027,16 +1027,16 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1773171230,
-        "narHash": "sha256-ZiGGjRL2H67GcL6BvZV99khW++aHpJ2NA4n71qZiJ9A=",
-        "owner": "YaLTeR",
+        "lastModified": 1773506388,
+        "narHash": "sha256-xcFM4j8ycVhHHua/tSNp060eLK96zJMuFKe4VwPHoko=",
+        "owner": "akass-org",
         "repo": "niri",
-        "rev": "4a7e443b6c816e4f673f6e25cc0a5aa37697d667",
+        "rev": "a59906533a8391716a426ba0030231caf5796c9f",
         "type": "github"
       },
       "original": {
-        "owner": "YaLTeR",
-        "ref": "wip/branch",
+        "owner": "akass-org",
+        "ref": "feat/blur",
         "repo": "niri",
         "type": "github"
       }
