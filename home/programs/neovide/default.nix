@@ -2,7 +2,7 @@
   programs.neovide = {
 	enable = true;
 	settings = {
-		vsync = false;
+		vsync = true;
 		no-multigrid = false;
 		maximized = false;
 		idle = true;
