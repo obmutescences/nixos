@@ -47,7 +47,6 @@
       curtail
 
       # Dev
-      go
       nodejs
       python314
       jq

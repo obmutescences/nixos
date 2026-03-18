@@ -188,5 +188,8 @@ in {
 
 	# Chinese calendar viewer
 	ccal
+
+	# go
+	go_1_26
   ];
 }
