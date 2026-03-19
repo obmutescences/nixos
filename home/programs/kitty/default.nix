@@ -9,8 +9,8 @@
 	  "ctrl+shift+f" = "show_scrollback";
     };
 	# font.name = "Comic Code";
-	font.name = "Monofur Nerd font Mono Italic";
-	font.size = 14;
+	# font.name = "Monofur Nerd font Mono Italic";
+	# font.size = 11;
     settings = {
       scrollback_lines = 10000;
       initial_window_width = 1200;
@@ -29,11 +29,18 @@
 	  allow_remote_control = true;
     };
 	extraConfig = "
+# MonaspiceRn font settings
+font_size 11
+font_family      family='MonaspiceRn Nerd Font Mono' postscript_name=MonaspiceRnNFM-Light style='Light Italic'
+bold_font        auto
+italic_font      family='MonaspiceRn Nerd Font Mono' style='Light Italic'
+bold_italic_font auto
+
 scrollback_pager nvim -u NONE -R -M -c 'lua require(\"kitty+page\")(INPUT_LINE_NUMBER)' -
 cursor_trail_decay 0.5 1
 map ctrl+f send_key right
 map ctrl+b send_key left
-modify_font cell_width 120%
+modify_font cell_width 110%
 modify_font cell_height 4px
 foreground                      #d3c6aa
 background                      #272e33

@@ -7,7 +7,8 @@
   blur = true;
   border-size = 2;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
-  font = "Monofur Nerd Font Mono";
+  # font = "Monofur Nerd Font Mono";
+  font = "Monaspace Radon NF";
   fontSize = "13";
 
   bar = {
