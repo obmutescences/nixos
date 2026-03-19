@@ -60,7 +60,7 @@ in {
           '';
         };
 		font = {
-		  name = "Monofur Nerd Font Mono";
+		  name = "Monaspace Radon NF";
 		  size = 13;
 		};
       };
