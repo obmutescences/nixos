@@ -204,5 +204,8 @@ in {
 	xdg-desktop-portal
 	gnome-keyring
 	nautilus
+
+	# fetch
+	fastfetch
   ];
 }
