@@ -12,18 +12,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 	# hyprland
-    hyprland = {
-      url = "github:hyprwm/hyprland";
-    };
+    # hyprland = {
+    # url = "github:hyprwm/hyprland";
+    # };
 	# hyprland = { url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.49.0"; };
 	# hyprland-plugins = {
  #      url = "github:hyprwm/hyprland-plugins";
  #      inputs.hyprland.follows = "hyprland";
  #    };
-	hyprfocus = {
-      url = "github:daxisunder/hyprfocus";
-      inputs.hyprland.follows = "hyprland";
-    };
+	#hyprfocus = {
+    #  url = "github:daxisunder/hyprfocus";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
     hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
     apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
     nur.url = "github:nix-community/NUR";

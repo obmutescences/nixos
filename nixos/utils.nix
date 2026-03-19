@@ -54,7 +54,8 @@ in {
     power-profiles-daemon.enable = true;
     udisks2.enable = true;
 	displayManager = {
-      sessionPackages = [ pkgs.niri-unstable inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
+      # sessionPackages = [ pkgs.niri-unstable inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland ];
+      sessionPackages = [ pkgs.niri-unstable ];
 	  defaultSession = "niri";
     };
   };
@@ -69,7 +70,12 @@ in {
     nixos.enable = false;
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables = {
+	XDG_CURRENT_DESKTOP = "niri";
+	XDG_SESSION_TYPE = "wayland";
+	XDG_SESSION_DESKTOP = "niri";
+	NIXOS_OZONE_WL = "1";
+  };
 
   environment.systemPackages = with pkgs; [
     fd
@@ -191,5 +197,12 @@ in {
 
 	# go
 	go_1_26
+	
+	# xdg
+	xdg-desktop-portal-gnome
+	xdg-desktop-portal-gtk
+	xdg-desktop-portal
+	gnome-keyring
+	nautilus
   ];
 }
