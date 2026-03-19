@@ -9,7 +9,7 @@
   animation-speed = "fast"; # "fast" | "medium" | "slow"
   # font = "Monofur Nerd Font Mono";
   font = "Monaspace Radon NF";
-  fontSize = "13";
+  fontSize = "11";
 
   bar = {
     position = "top"; # "top" | "bottom"

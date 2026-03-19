@@ -23,7 +23,7 @@
 			# 	style = "Italic";
 			# };
 
-			size = 13;
+			size = 11;
 			width = 1.1;
 			normal = {
 				family =  "MonaspiceRn Nerd Font Mono";

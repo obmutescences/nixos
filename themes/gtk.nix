@@ -61,7 +61,7 @@ in {
         };
 		font = {
 		  name = "Monaspace Radon NF";
-		  size = 13;
+		  size = 11;
 		};
       };
 }
