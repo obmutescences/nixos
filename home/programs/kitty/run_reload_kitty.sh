@@ -14,6 +14,8 @@ ANIMATIONS=(
     'include "./nirimation/animations/quantum-ripple.kdl"'
     'include "./nirimation/animations/burn-ashes.kdl"'
     'include "./nirimation/animations/roll-drop.kdl"'
+    'include "./nirimation/animations/glitch.kdl"'
+    'include "./nirimation/animations/smoke.kdl"'
 )
 
 # 读取当前索引，如果不存在则从0开始
