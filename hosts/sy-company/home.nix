@@ -13,7 +13,7 @@
     file.".face.icon" = { source = ./profile_picture.png; };
 
     # Don't touch this
-    stateVersion = "24.05";
+    stateVersion = "26.05";
   };
 
   programs.home-manager.enable = true;
