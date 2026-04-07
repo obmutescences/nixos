@@ -56,7 +56,7 @@ environment {
 	CLUTTER_BACKEND "wayland"
 	QT_QPA_PLATFORMTHEME "qt6ct"
 	QT_QPA_PLATFORMTHEME_QT6 "qt6ct"
-	// GDK_BACKEND "wayland"
+	GDK_BACKEND "wayland"
 	OZONE_PLATFORM "wayland"
 	EGL_PLATFORM "wayland"
 	// GDK_SCALE "1"
@@ -290,7 +290,7 @@ animations {
     }
 
 	workspace-switch {
-        spring damping-ratio=0.65 stiffness=600 epsilon=0.0001
+        spring damping-ratio=0.70 stiffness=650 epsilon=0.0001
     }
     config-notification-open-close {
         spring damping-ratio=0.65 stiffness=923 epsilon=0.001
@@ -393,6 +393,7 @@ layer-rule {
 	  blur true
 	  noise 0.01
 	  saturation 1.5
+	  ignore-alpha 0.1
   }
 }
 
@@ -401,7 +402,18 @@ blur {
 	passes 3
 	offset 2.5
 	noise 0.05
-	saturation 2.0
+	ignore-alpha 0.1
+	saturation 1.0
+}
+
+layer-rule{
+    background-effect{
+        xray false
+        blur true
+        noise 0.01 // 噪点
+        ignore-alpha 0.1 // 透明度剔除
+        saturation 1.0 // 饱和度
+    }
 }
 
 window-rule {
@@ -413,7 +425,8 @@ window-rule {
 	  xray false
 	  blur true
 	  noise 0.05
-	  saturation 2.0
+	  saturation 1.0
+	  ignore-alpha 0.1
   }
 }
 
@@ -540,7 +553,12 @@ window-rule {
 window-rule {
 	match app-id="neovide"
 	open-on-workspace "code"
-    opacity 0.85
+    opacity 1.0
+	background-effect {
+	  xray false
+	  blur true
+	  saturation 0.5
+	}
 }
 
 window-rule {
@@ -569,6 +587,13 @@ window-rule {
 
 window-rule {
 	match app-id="org.quickshell"
+	open-floating true
+	open-focused true
+}
+
+
+window-rule {
+	match app-id="com.danklinux.dms"
 	open-floating true
 	open-focused true
 }
@@ -858,4 +883,4 @@ include "./dms/wpblur.kdl"
 
 include "./layout.kdl"
 
-include "./nirimation/animations/quantum-ripple.kdl"
+include "./nirimation/animations/glitch.kdl"

@@ -150,7 +150,7 @@ in {
 	# quickshell need
 	kdePackages.kdialog
 	ddcutil
-	libsForQt5.qt5ct
+	# libsForQt5.qt5ct
 	kdePackages.qt6ct
 	matugen
 
