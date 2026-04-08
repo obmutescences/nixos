@@ -60,7 +60,10 @@
     };
 
 	# quickshell bar theme
-	dms.url = "github:AvengeMedia/DankMaterialShell";
+	dms = {
+		url = "github:AvengeMedia/DankMaterialShell";
+		inputs.quickshell.follows = "quickshell";
+	};
 
    # nest music cli
    go-musicfox.url = "github:go-musicfox/go-musicfox";

@@ -82,7 +82,9 @@
     "dms": {
       "inputs": {
         "nixpkgs": "nixpkgs_2",
-        "quickshell": "quickshell"
+        "quickshell": [
+          "quickshell"
+        ]
       },
       "locked": {
         "lastModified": 1775589766,
@@ -931,11 +933,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1775626943,
-        "narHash": "sha256-M5Jid7oSBCn54Op1kxEWJLL0sICXXSSy7IPEpndL6js=",
+        "lastModified": 1775634926,
+        "narHash": "sha256-0Wfk7ZQmiHC8b4zpTSyKOXbIwf3iUxFNYcc4yz2ebnI=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "01dcf58d4ea71f975d93602f0bb6ea28f341e434",
+        "rev": "40b9b8ebb53b94947694a8d8fe9c85ef83f4279f",
         "type": "github"
       },
       "original": {
@@ -959,37 +961,15 @@
     "quickshell": {
       "inputs": {
         "nixpkgs": [
-          "dms",
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1766725085,
-        "narHash": "sha256-O2aMFdDUYJazFrlwL7aSIHbUSEm3ADVZjmf41uBJfHs=",
-        "ref": "refs/heads/master",
-        "rev": "41828c4180fb921df7992a5405f5ff05d2ac2fff",
-        "revCount": 715,
-        "type": "git",
-        "url": "https://git.outfoxxed.me/quickshell/quickshell"
-      },
-      "original": {
-        "rev": "41828c4180fb921df7992a5405f5ff05d2ac2fff",
-        "type": "git",
-        "url": "https://git.outfoxxed.me/quickshell/quickshell"
-      }
-    },
-    "quickshell_2": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1775461526,
-        "narHash": "sha256-pRQ1g7YpFrYBB8B6QUSKb3ttGzcQs3Guu8GwDuuSBt0=",
+        "lastModified": 1775634538,
+        "narHash": "sha256-w+mqL1IAJdfPJW42gOX/A4dfVTzweIHlYUy7jhjpa44=",
         "owner": "quickshell-mirror",
         "repo": "quickshell",
-        "rev": "7c5a6c4bd4be1f258aa47626cf5cde02215adad2",
+        "rev": "f0d0216b3d293f2813112cd74d74d4e7de57931e",
         "type": "github"
       },
       "original": {
@@ -1010,7 +990,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_9",
         "nur": "nur",
-        "quickshell": "quickshell_2",
+        "quickshell": "quickshell",
         "rust-overlay": "rust-overlay",
         "swww": "swww",
         "zen-browser": "zen-browser"
