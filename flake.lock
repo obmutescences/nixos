@@ -308,11 +308,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1775977757,
-        "narHash": "sha256-GZD3+KTgJEso56tmgw7yAw+7wV568D5+f/RqezNPlo4=",
+        "lastModified": 1776007501,
+        "narHash": "sha256-m8Hps69aLWu5YQvmOk4HChtilWLH/YX04l8Tx5/ctaA=",
         "owner": "go-musicfox",
         "repo": "go-musicfox",
-        "rev": "20a8f0c38e85414ac9a2947768ebbf24c24dbf87",
+        "rev": "b1a96cb5f09f73020ba365643a48e7d20899a878",
         "type": "github"
       },
       "original": {
@@ -328,11 +328,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775983377,
-        "narHash": "sha256-ZeRjipGQnVtQ/6batI+yVOrL853FZsL0m9A63OaSfgM=",
+        "lastModified": 1776030105,
+        "narHash": "sha256-b4cNpWPDSH+/CTTiw8++yGh1UYG2kQNrbIehV2iGoeo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e0ca734ffc85d25297715e98010b93303fa165c4",
+        "rev": "49088dc2e7a876e338e510c5f5f60f659819c650",
         "type": "github"
       },
       "original": {
@@ -933,11 +933,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1775985376,
-        "narHash": "sha256-OIA1EnidzLPVivp+2r88fq0xhPOv5aU7Yqoam+1GTpc=",
+        "lastModified": 1776043265,
+        "narHash": "sha256-9nAT0CiwSaKbRjiAkWyNxp0xkISC03cB0k3eY3iwsQQ=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "e0b58e8a52675551e2e63bb5568ad2bcd7da78fe",
+        "rev": "ca70c2c3cd9bd9c31a60326e2999ebb0adae932a",
         "type": "github"
       },
       "original": {

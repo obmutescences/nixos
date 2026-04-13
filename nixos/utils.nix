@@ -146,7 +146,6 @@ in {
 	# mp4 压缩
 	ffmpeg
 
-	# inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell
 	# quickshell need
 	kdePackages.kdialog
 	ddcutil
@@ -168,19 +167,12 @@ in {
 	stylua
 	lldb_20
 	# mysql cli tools
-	# mycli
+	mycli
 	# mysql backup tools
-	# TODO: using
-	# mydumper
-	(callPackage ../home/programs/mydumper/default.nix {})
+	mydumper
+	# (callPackage ../home/programs/mydumper/default.nix {})
 
 	rustup
-	# ---rust 项目开发所需,后续不用可删除
-    stdenv.cc          # 提供 gcc/linker 等基础工具
-    clang
-    libclang.lib
-    llvmPackages.libcxxClang
-	# ---rust 项目开发所需,后续不用可删除
 	# ---dev---
 
 	# sql cli tools
@@ -196,6 +188,7 @@ in {
 	ccal
 
 	# go
+	# TODO: locking with 1.26. update when upgrade.
 	go_1_26
 	
 	# xdg
@@ -207,5 +200,8 @@ in {
 
 	# fetch
 	fastfetch
+
+	# new nix cli tools
+	nh
   ];
 }
