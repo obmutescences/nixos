@@ -77,6 +77,33 @@ in {
 	NIXOS_OZONE_WL = "1";
   };
 
+  systemd.services.mouseless = {
+    description = "Keyboard-driven mouse for Wayland";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "graphical-session.target" ];
+    
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "/home/zerone/.local/bin/mouseless --config /home/zerone/.config/mouseless/config.yaml";
+      
+      # 运行用户：需要能访问输入设备（通常为 root 或 input 组）
+      User = "root";  # 或 "your-username"
+      
+      # 如果需要访问 Wayland socket 和输入设备：
+      SupplementaryGroups = [ "input" "wheel" ];
+      
+      # 环境变量（如果需要）
+      # Environment = [
+      #   "XDG_RUNTIME_DIR=/run/user/1000"  # 替换为你的 UID
+      #   "WAYLAND_DISPLAY=wayland-1"
+      # ];
+      
+      # 重启策略
+      Restart = "on-failure";
+      RestartSec = "3s";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     fd
     bc
