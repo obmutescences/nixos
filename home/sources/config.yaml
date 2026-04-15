@@ -19,11 +19,11 @@
 mouseLoopInterval: 10
 
 # the default speed for mouse movement and scrolling
-baseMouseSpeed: 1000.0
-baseScrollSpeed: 20.0
+baseMouseSpeed: 2000.0
+baseScrollSpeed: 40.0
 
 # the time it takes to accelerate to baseMouseSpeed (in ms), 0 to reach top speed immediately
-mouseAccelerationTime: 500.0
+mouseAccelerationTime: 400.0
 # the shape of the acceleration curve, 1.0 is linear, higher values have more time at low speeds
 mouseAccelerationCurve: 1.5
 # speed of the mouse when it starts moving
@@ -45,9 +45,10 @@ layers:
       # when tab is held and another key pressed, activate mouse layer
       # tab: tap-hold-next tab ; toggle-layer mouse ; 1000
       # when a is held for 300ms, activate mouse layer
-      leftshift: tap-hold leftshift ; toggle-layer mouse ; 1000
+      # a: tap-hold a ; toggle-layer mouse ; 1000
+      rightalt: tap-hold rightalt ; toggle-layer mouse ; 300
       # right alt key toggles arrows layer
-      rightalt: toggle-layer arrows
+      # rightalt: toggle-layer arrows
       # switch escape with capslock
       # esc: capslock
       # capslock: esc
@@ -58,7 +59,7 @@ layers:
   # a layer for mouse movement
   - name: mouse
     # when true, keys that are not mapped keep their original meaning
-    passThrough: true
+    passThrough: false
     # these commands are executed when the layer is entered/exited
     # enterCommand: "notify-send 'mouse layer entered'"
     # exitCommand: "notify-send 'mouse layer exited'"

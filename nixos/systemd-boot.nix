@@ -6,12 +6,13 @@
       systemd-boot = {
         enable = true;
         consoleMode = "auto";
-        configurationLimit = 2;
+        configurationLimit = 5;
       };
     };
     tmp.cleanOnBoot = true;
     kernelPackages =
-      pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
+      # pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
+	  pkgs.linuxKernel.packages.linux_testing;
 	# kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_15.override {
 	# 	argsOverride = rec {
 	# 		src = pkgs.fetchurl {
