@@ -29,7 +29,7 @@
     nur.url = "github:nix-community/NUR";
 	zen-browser.url = "github:0xc000022070/zen-browser-flake";
 	swww.url = "github:LGFae/swww";
-	neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
 	rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -37,18 +37,14 @@
     };
 
 	# niri wm
+    # niri = {
+    #   url = "github:obmutescences/niri-flake";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     niri = {
-      url = "github:obmutescences/niri-flake";
+      url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	# my-niri-src = {
- #      url = "github:akass-org/niri/feat/blur";
- #      # flake = false;
- #    };
-	# my-fork-niri = {
- #      url = "github:obmutescences/niri/feat/blur";
- #      # flake = false;
- #    };
 	quickshell = {
       # add ?ref=<tag> to track a tag
       # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";

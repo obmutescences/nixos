@@ -16,9 +16,9 @@ layout {
     focus-ring {
         // off
         width 2
-		active-gradient from="{{ colors.primary.dark.hex }}ff" to="#e67e80ff" angle=20
-		fade-duration-ms 1000
-		gradient-spin-speed 1200
+		// active-gradient from="{{ colors.primary.dark.hex }}ff" to="#e67e80ff" angle=20
+		// fade-duration-ms 1000
+		// gradient-spin-speed 400
     }
     border {
         width 1

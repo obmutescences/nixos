@@ -349,72 +349,54 @@ xwayland-satellite {
     path "xwayland-satellite"
 }
 
-layer-rule {
-    match namespace="waybar"
-    match at-startup=true
 
-    // Properties that apply continuously.
-    opacity 0.65
-    block-out-from "screencast"
-    // block-out-from "screen-capture"
+blur {
+	passes 3
+	offset 3
+	noise 0.02
+	// ignore-alpha 0.1
+	saturation 1.2
+}
 
-    shadow {
-        // on
-        off
-        softness 5
-        spread 2
-        offset x=1 y=1
-        draw-behind-window true
-        color "#3E432E"
-        // inactive-color "#00000064"
+layer-rule{
+	geometry-corner-radius 12
+	place-within-backdrop true
+	// block-out-from "screencast"
+    background-effect{
+        xray false
+        // blur true
+        // noise 0.01 // 噪点
+        // ignore-alpha 0.1 // 透明度剔除
+        // saturation 1.4 // 饱和度
     }
-
-    geometry-corner-radius 12
-    place-within-backdrop true
-}
-
-layer-rule {
-    // This is for swaybg; change for other wallpaper tools.
-    // Find the right namespace by running niri msg layers.
-    match namespace="^quickshell$"
-    place-within-backdrop true
-}
-
-layer-rule {
-    match namespace="dms:blurwallpaper"
-    place-within-backdrop true
 }
 
 
 layer-rule {
-    match namespace="dms:bar"
-  background-effect {
+    match namespace="dms:desktop-widget:*"
+
+	background-effect {
 	  xray false
 	  blur true
 	  noise 0.01
-	  saturation 1.5
-	  ignore-alpha 0.1
+	  saturation 1.0
+	  // ignore-alpha 0.1
   }
 }
 
 
-blur {
-	passes 3
-	offset 2.5
-	noise 0.05
-	ignore-alpha 0.1
-	saturation 1.0
+layer-rule {
+    match namespace="dms:desktop-widget:dankAudioVisualizer:*"
+
+	background-effect {
+	  xray false
+	  blur false
+	  noise 0.01
+	  saturation 1.0
+	  // ignore-alpha 0.1
+  }
 }
 
-layer-rule{
-    background-effect{
-        xray false
-        blur true
-        noise 0.01 // 噪点
-        ignore-alpha 0.1 // 透明度剔除
-        saturation 1.0 // 饱和度
-    }
-}
 
 window-rule {
   opacity 0.80
@@ -424,10 +406,22 @@ window-rule {
   background-effect {
 	  xray false
 	  blur true
-	  noise 0.05
-	  saturation 1.0
-	  ignore-alpha 0.1
+	  noise 0.02
+	  saturation 1.2
+	  // ignore-alpha 0.1
   }
+
+  popups {
+			opacity 0.8
+			geometry-corner-radius 12
+
+			background-effect {
+				xray false
+				blur true
+				noise 0.01
+				saturation 1.0
+			}
+	}
 }
 
 window-rule {
@@ -584,13 +578,6 @@ window-rule {
 	open-floating true
 	open-focused true
 }
-
-window-rule {
-	match app-id="org.quickshell"
-	open-floating true
-	open-focused true
-}
-
 
 window-rule {
 	match app-id="com.danklinux.dms"
@@ -883,4 +870,4 @@ include "./dms/wpblur.kdl"
 
 include "./layout.kdl"
 
-include "./nirimation/animations/glitch.kdl"
+include "./nirimation/animations/burn-ashes.kdl"

@@ -13,7 +13,7 @@
 	../home/programs/alacritty
 	../home/programs/yazi
 	../home/programs/bat
-	../home/programs/neovim
+	# ../home/programs/neovim
 	../home/programs/wl-kbptr
 	../home/programs/ghostty
 	../home/programs/dms

@@ -189,6 +189,7 @@ in {
 	# manager docker in term
 	oxker
 	# neovim need
+	neovim
 	tree-sitter
 	prettierd
 	stylua
