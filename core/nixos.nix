@@ -17,6 +17,7 @@
 	../home/system/dae/default.nix
 	../home/programs/quickshell/default.nix
 	# ./fhs.nix
+    ../nixos/programs.nix
 
 	# niri
 	../home/system/niri
