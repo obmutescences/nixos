@@ -94,7 +94,7 @@ in {
 	stylua
 	lldb_20
 	# mysql cli tools
-	mycli
+	# mycli
 	# mysql backup tools
 	mydumper
 	# (callPackage ../home/programs/mydumper/default.nix {})
@@ -104,9 +104,6 @@ in {
 
 	# sql cli tools
 	rainfrog
-
-	# music cli
-	go-musicfox
 
 	# recording and streaming
 	obs-studio
