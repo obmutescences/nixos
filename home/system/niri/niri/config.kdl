@@ -353,7 +353,7 @@ xwayland-satellite {
 blur {
 	passes 3
 	offset 3
-	noise 0.02
+	noise 0.01
 	// ignore-alpha 0.1
 	saturation 1.2
 }
@@ -397,6 +397,14 @@ layer-rule {
   }
 }
 
+layer-rule {
+    match namespace="^dms-clipboardPlus-panel"
+
+    background-effect {
+        blur true
+        xray false
+    }
+}
 
 window-rule {
   opacity 0.80
@@ -606,7 +614,8 @@ binds {
         spawn "start-neovide"
     }
     Mod+SPACE repeat=false {
-        spawn "menu"
+        // spawn "menu"
+		spawn "dms" "ipc" "call" "spotlight" "toggle"
     }
     Mod+ALT+Right repeat=false {
         // spawn "next-wallpaper"
@@ -624,8 +633,8 @@ binds {
 		spawn "flameshot" "gui"
 	}
     Mod+L repeat=false {
-        // spawn "hyprlock"
-		spawn "dms" "ipc" "call" "lock" "lock"
+		// spawn "dms" "ipc" "call" "lock" "lock"
+		spawn "qylock-lock"
     }
 	Mod+Tab repeat=false {
 		toggle-overview
@@ -649,6 +658,10 @@ binds {
 	Mod+A { 
 		spawn "dms" "ipc" "call" "plugins" "toggle" "aiAssistant"
 	}
+
+    Alt+P repeat=false {
+		spawn "dms" "ipc" "call" "clipboardPlus" "togglePanel"
+    }
 
     XF86AudioRaiseVolume allow-when-locked=true {
         // spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
@@ -870,4 +883,4 @@ include "./dms/wpblur.kdl"
 
 include "./layout.kdl"
 
-include "./nirimation/animations/burn-ashes.kdl"
+include "./nirimation/animations/pixel-drift.kdl"
