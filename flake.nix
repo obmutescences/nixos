@@ -60,9 +60,11 @@
 		url = "github:AvengeMedia/DankMaterialShell";
 		# inputs.quickshell.follows = "quickshell";
 	};
+
+	qylock.url  = "github:obmutescences/qylock-nix";
    };
 
-  outputs = inputs@{ nixpkgs, ... }: {
+  outputs = inputs@{ nixpkgs, qylock, ... }: {
     nixosConfigurations = {
       zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
@@ -70,6 +72,7 @@
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
             inputs.home-manager.nixosModules.home-manager
+			qylock.nixosModules.default
             ./hosts/sy-company/configuration.nix # CHANGEME: change the path to match your host folder
           ];
         };

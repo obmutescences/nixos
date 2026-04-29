@@ -39,6 +39,21 @@ in {
 	];
   };
 
+  programs.qylock = {
+    enable    = true;
+    theme     = "clockwork";     # Quickshell lockscreen theme
+    sddmTheme = "clockwork";     # optional: also sets services.displayManager.sddm.theme
+
+    # Optional: fonts for themes that require licensed fonts not in the repo.
+    # Drop the font file(s) in your config directory and reference them here.
+    # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
+  };
+
+  services.displayManager.sddm = {
+    enable         = true;
+    wayland.enable = true;
+  };
+
   qt.enable = true;
 
   services = {
