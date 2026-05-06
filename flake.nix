@@ -57,7 +57,8 @@
 
 	# quickshell bar theme
 	dms = {
-		url = "github:AvengeMedia/DankMaterialShell";
+		# url = "github:AvengeMedia/DankMaterialShell";
+		url = "github:obmutescences/DankMaterialShell";
 		# inputs.quickshell.follows = "quickshell";
 	};
 
