@@ -53,6 +53,7 @@
       figlet
       just
 	  rye
+	  uv
 	  python314Packages.pip
 	  python314Packages.ipython
 	  python314Packages.pylatexenc

@@ -79,6 +79,7 @@ in {
 	kdePackages.qt6ct
 	kdePackages.qtmultimedia
 	matugen
+	cairo
 
 	# ---dev---
 	# editor

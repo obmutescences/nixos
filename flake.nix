@@ -45,21 +45,21 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	# quickshell = {
-	#      # add ?ref=<tag> to track a tag
-	#      # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-	#   url = "github:quickshell-mirror/quickshell";
-	#
-	#      # THIS IS IMPORTANT
-	#      # Mismatched system dependencies will lead to crashes and other issues.
-	#      inputs.nixpkgs.follows = "nixpkgs";
-	#    };
+	quickshell = {
+	     # add ?ref=<tag> to track a tag
+	     # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+	  url = "github:quickshell-mirror/quickshell";
+
+	     # THIS IS IMPORTANT
+	     # Mismatched system dependencies will lead to crashes and other issues.
+	  inputs.nixpkgs.follows = "nixpkgs";
+	};
 
 	# quickshell bar theme
 	dms = {
 		# url = "github:AvengeMedia/DankMaterialShell";
 		url = "github:obmutescences/DankMaterialShell";
-		# inputs.quickshell.follows = "quickshell";
+		inputs.quickshell.follows = "quickshell";
 	};
 
 	qylock.url  = "github:obmutescences/qylock-nix";
