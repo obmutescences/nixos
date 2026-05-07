@@ -33,11 +33,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1778058673,
-        "narHash": "sha256-Y32S+frphtM5jB/7f21d0STVyWbW6x+13y4ieaMPH3s=",
+        "lastModified": 1778138701,
+        "narHash": "sha256-FPlIsBq1n9CZvSvPniMGDrBkoeN9GTwun7aqGU61HQo=",
         "owner": "obmutescences",
         "repo": "DankMaterialShell",
-        "rev": "42a6230d46c1789ac39633ed06da8999df66831e",
+        "rev": "09e918daf31aac85a86bbd91f792cf8e49081a2e",
         "type": "github"
       },
       "original": {
