@@ -119,7 +119,9 @@ spawn-at-startup "FlClash"
 spawn-at-startup "keyboard-sound-nkcream"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
+
 // Animation settings.
+
 animations {
 	slowdown 3
   //   window-open {
@@ -412,7 +414,7 @@ window-rule {
   // force-render-fps 180
   // rounding-exponent 2.5
   background-effect {
-	  xray false
+	  xray true
 	  blur true
 	  noise 0.02
 	  saturation 1.2
@@ -882,5 +884,6 @@ include "./dms/colors.kdl"
 include "./dms/wpblur.kdl"
 
 include "./layout.kdl"
+include "./focus_flash.kdl"
 
-include "./nirimation/animations/pixel-drift.kdl"
+include "./animations_config/liquid-flow.kdl"

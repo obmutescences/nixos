@@ -15,16 +15,16 @@ layout {
     }
     focus-ring {
         // off
-        width 2
+        width 1
 		// active-gradient from="{{ colors.primary.dark.hex }}ff" to="#e67e80ff" angle=20
 		// fade-duration-ms 1000
 		// gradient-spin-speed 400
     }
     border {
-        width 1
+        width 0
     }
     shadow {
-        // off
+        off
         draw-behind-window false
         softness 25
         spread 6

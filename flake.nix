@@ -37,14 +37,14 @@
     };
 
 	# niri wm
-    # niri = {
-    #   url = "github:obmutescences/niri-flake";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     niri = {
-      url = "github:sodiboo/niri-flake";
+      url = "github:obmutescences/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # niri = {
+    #   url = "github:sodiboo/niri-flake";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 	quickshell = {
 	     # add ?ref=<tag> to track a tag
 	     # url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
