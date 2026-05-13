@@ -1,6 +1,6 @@
 layout {
-    gaps 10
-    center-focused-column "never"
+    gaps 12
+    center-focused-column "always"
 	always-center-single-column
     preset-column-widths {
         proportion 0.5
@@ -15,20 +15,33 @@ layout {
     }
     focus-ring {
         // off
-        width 2
+        width 0
+		// active-gradient from="#00e551ff" to="#e67e80ff" angle=20
+		// fade-duration-ms 1000
+		// gradient-spin-speed 400
     }
     border {
-        width 1
+        width 0
+		active-gradient from="#00e551ff" to="#dbbc7fff"
+
     }
     shadow {
-        // off
+        off
         draw-behind-window false
         softness 25
         spread 6
         offset x=0 y=0
-		color "#93db00ff"
+		color "#00e551ff"
     }
-    struts {
+    struts {}
+}
 
+overview {
+	workspace-shadow {
+        on
+        softness 20
+        spread 1
+        offset x=0 y=0
+		color "#00e551ff"
     }
 }
