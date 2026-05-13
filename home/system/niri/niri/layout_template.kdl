@@ -22,6 +22,8 @@ layout {
     }
     border {
         width 0
+		active-gradient from="{{ colors.primary.dark.hex }}ff" to="#dbbc7fff"
+
     }
     shadow {
         off
