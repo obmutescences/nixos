@@ -32,7 +32,7 @@
 	../home/system/mime
 	../home/system/niri/config.nix
 	# ../home/system/waybar
-	../home/system/niri/dunst.nix
+	# ../home/system/niri/dunst.nix
 
 	../themes/gtk.nix
 

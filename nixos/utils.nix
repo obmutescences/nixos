@@ -54,7 +54,7 @@ in {
 
 	# niri need
 	xwayland-satellite
-	dunst
+	# dunst
 
 	# keyboard control cursor
 	wl-kbptr
