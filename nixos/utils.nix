@@ -127,7 +127,7 @@ in {
 	# fetch
 	fastfetch
 
-	# new nix cli tools
-	nh
+	# editor
+	vscode
   ];
 }
