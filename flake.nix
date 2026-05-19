@@ -63,6 +63,8 @@
 	};
 
 	qylock.url  = "github:obmutescences/qylock-nix";
+
+	nsticky.url = "github:lonerOrz/nsticky";
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

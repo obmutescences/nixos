@@ -129,5 +129,8 @@ in {
 
 	# editor
 	vscode
+
+	# niri sticky windows
+	inputs.nsticky.packages.${system}.nsticky
   ];
 }
