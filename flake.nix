@@ -65,6 +65,8 @@
 	qylock.url  = "github:obmutescences/qylock-nix";
 
 	nsticky.url = "github:lonerOrz/nsticky";
+
+	zlaunch.url = "github:zortax/zlaunch/0.5.1";
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

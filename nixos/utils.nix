@@ -132,5 +132,7 @@ in {
 
 	# niri sticky windows
 	inputs.nsticky.packages.${system}.nsticky
+
+	inputs.zlaunch.packages.${pkgs.system}.default
   ];
 }
