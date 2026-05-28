@@ -49,6 +49,8 @@ in {
     # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
   };
 
+  services.geoclue2.enable = true;  # For QtPositioning
+
   services.displayManager.sddm = {
     enable         = true;
     wayland.enable = true;
@@ -83,13 +85,6 @@ in {
     dev.enable = false;
     info.enable = false;
     nixos.enable = false;
-  };
-
-  environment.sessionVariables = {
-	XDG_CURRENT_DESKTOP = "niri";
-	XDG_SESSION_TYPE = "wayland";
-	XDG_SESSION_DESKTOP = "niri";
-	NIXOS_OZONE_WL = "1";
   };
 
   systemd.services.mouseless = {

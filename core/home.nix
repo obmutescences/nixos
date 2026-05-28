@@ -23,7 +23,7 @@
     ../home/scripts # All scripts
 
     # System (Desktop environment like stuff)
-    #../home/system/hyprland
+    # ../home/system/hyprland
     #../home/system/hyprlock
     ../home/system/wofi
     ../home/system/zathura
