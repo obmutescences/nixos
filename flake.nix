@@ -6,7 +6,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,11 +27,23 @@
 	#     url = "github:daxisunder/hyprfocus";
 	#     inputs.hyprland.follows = "hyprland";
 	# };
-    hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
-    apple-fonts.url = "github:Lyndeno/apple-fonts.nix";
-    nur.url = "github:nix-community/NUR";
-	zen-browser.url = "github:0xc000022070/zen-browser-flake";
-	swww.url = "github:LGFae/swww";
+    # hyprpolkitagent.url = "github:hyprwm/hyprpolkitagent";
+    apple-fonts = {
+      url = "github:Lyndeno/apple-fonts.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+	zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+	# swww = {
+	#      url = "github:LGFae/swww";
+	#      inputs.nixpkgs.follows = "nixpkgs";
+	#    };
 	# neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
 	rust-overlay = {
@@ -60,13 +75,23 @@
 		url = "github:AvengeMedia/DankMaterialShell";
 		# url = "github:obmutescences/DankMaterialShell";
 		# inputs.quickshell.follows = "quickshell";
+		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
-	qylock.url  = "github:obmutescences/qylock-nix";
+	qylock = {
+      url = "github:obmutescences/qylock-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-	nsticky.url = "github:lonerOrz/nsticky";
+	nsticky = {
+      url = "github:lonerOrz/nsticky";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-	zlaunch.url = "github:zortax/zlaunch/0.5.1";
+	zlaunch = {
+      url = "github:zortax/zlaunch/0.5.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

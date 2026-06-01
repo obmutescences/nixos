@@ -41,7 +41,7 @@ in {
 	flclash
 	clash-verge-rev
 	# wallerpaper
-	inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
+	# inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
 	# office
 	libreoffice
 
