@@ -1,13 +1,11 @@
 # vim:fileencoding=utf-8:foldmethod=marker
 
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
 # : Manager {{{
 
 [mgr]
 cwd = { fg = "#83a598" }
-
-# Hovered
-hovered         = { fg = "#282828", bg = "#83a598" }
-preview_hovered = { underline = true }
 
 # Find
 find_keyword  = { fg = "#b8bb26", italic = true }
@@ -17,11 +15,6 @@ find_position = { fg = "#fe8019", bg = "reset", italic = true }
 marker_selected = { fg = "#b8bb26", bg = "#b8bb26" }
 marker_copied   = { fg = "#b8bb26", bg = "#b8bb26" }
 marker_cut      = { fg = "#fb4934", bg = "#fb4934" }
-
-# Tab
-tab_active   = { fg = "#282828", bg = "#504945" }
-tab_inactive = { fg = "#a89984", bg = "#3c3836" }
-tab_width    = 1
 
 # Border
 border_symbol = "│"
@@ -33,29 +26,59 @@ border_style  = { fg = "#665c54" }
 # : }}}
 
 
-# : Status {{{
+# : Tabs {{{
+
+[tabs]
+active   = { fg = "#282828", bg = "#504945" }
+inactive = { fg = "#a89984", bg = "#3c3836" }
+sep_inner = { open = "", close = "" }
+sep_outer = { open = "", close = "" }
+
+# : }}}
+
+
+# : Indicator of hovered file {{{
+
+[indicator]
+parent  = { fg = "#282828", bg = "#83a598" }
+current = { fg = "#282828", bg = "#83a598" }
+preview = { underline = true }
+padding = { open = "", close = "" }
+
+# : }}}
+
+
+# : Mode {{{
+
+[mode]
+normal_main = { fg = "#282828", bg = "#A89984", bold = true }
+normal_alt  = { fg = "#282828", bg = "#A89984", bold = true }
+select_main = { fg = "#282828", bg = "#b8bb26", bold = true }
+select_alt  = { fg = "#282828", bg = "#b8bb26", bold = true }
+unset_main  = { fg = "#282828", bg = "#d3869b", bold = true }
+unset_alt   = { fg = "#282828", bg = "#d3869b", bold = true }
+
+# : }}}
+
+
+# : Status bar {{{
 
 [status]
-separator_open  = ""
-separator_close = ""
-separator_style = { fg = "#3c3836", bg = "#3c3836" }
+overall   = {}
+sep_left  = { open = "", close = "" }
+sep_right = { open = "", close = "" }
 
-# Mode
-mode_normal = { fg = "#282828", bg = "#A89984", bold = true }
-mode_select = { fg = "#282828", bg = "#b8bb26", bold = true }
-mode_unset  = { fg = "#282828", bg = "#d3869b", bold = true }
+# Permissions
+perm_type  = { fg = "#504945" }
+perm_read  = { fg = "#b8bb26" }
+perm_write = { fg = "#fb4934" }
+perm_exec  = { fg = "#b8bb26" }
+perm_sep   = { fg = "#665c54" }
 
 # Progress
 progress_label  = { fg = "#ebdbb2", bold = true }
 progress_normal = { fg = "#504945", bg = "#3c3836" }
 progress_error  = { fg = "#fb4934", bg = "#3c3836" }
-
-# Permissions
-permissions_t = { fg = "#504945" }
-permissions_r = { fg = "#b8bb26" }
-permissions_w = { fg = "#fb4934" }
-permissions_x = { fg = "#b8bb26" }
-permissions_s = { fg = "#665c54" }
 
 # : }}}
 
@@ -71,7 +94,7 @@ selected = { reversed = true }
 # : }}}
 
 
-# : Select {{{
+# : Picker {{{
 
 [pick]
 border   = { fg = "#504945" }
@@ -81,7 +104,7 @@ inactive = {}
 # : }}}
 
 
-# : Tasks {{{
+# : Task manager {{{
 
 [tasks]
 border  = { fg = "#504945" }
@@ -98,17 +121,17 @@ mask            = { bg = "#3c3836" }
 cand            = { fg = "#83a598" }
 rest            = { fg = "#928374" }
 desc            = { fg = "#fe8019" }
-separator       = "  "
+separator       = "  "
 separator_style = { fg = "#504945" }
 
 # : }}}
 
 
-# : Help {{{
+# : Help menu {{{
 
 [help]
 on      = { fg = "#fe8019" }
-exec    = { fg = "#83a598" }
+run     = { fg = "#83a598" }
 desc    = { fg = "#928374" }
 hovered = { bg = "#504945", bold = true }
 footer  = { fg = "#3c3836", bg = "#a89984" }
@@ -138,9 +161,8 @@ rules = [
     { mime = "application/rar",           fg = "#fe8019" },
 
     # Fallback
-    { name = "*", fg = "#a89984" },
-    { name = "*/", fg = "#83a598" }
+    { url = "*", fg = "#a89984" },
+    { url = "*/", fg = "#83a598" }
 ]
 
 # : }}}
-
