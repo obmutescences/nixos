@@ -49,8 +49,6 @@ macos_titlebar_color            system
 
 include dank-tabs.conf
 include dank-theme.conf
-
-background  #2a322a
 ";
   };
 }
