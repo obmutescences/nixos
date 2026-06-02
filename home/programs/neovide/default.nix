@@ -22,9 +22,11 @@
 			# 	family =  "Monofur Nerd Font Mono";
 			# 	style = "Italic";
 			# };
+			hinting = "full";
+			edging = "subpixelantialias";
 
 			size = 11;
-			width = 1.1;
+			width = 0.5;
 			normal = {
 				family =  "MonaspiceRn Nerd Font Mono";
 				style = "Light Italic";
