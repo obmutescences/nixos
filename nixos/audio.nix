@@ -12,10 +12,10 @@
       "context.properties" = {
         "default.clock.rate" = 48000;
         "default.clock.allowed-rates" = [ 48000 ];
-        "default.clock.quantum" = 512;
-        "default.clock.min-quantum" = 256;
-        "default.clock.max-quantum" = 1024;
-        "default.clock.quantum-limit" = 1024;
+        "default.clock.quantum" = 128;
+        "default.clock.min-quantum" = 128;
+        "default.clock.max-quantum" = 256;
+        "default.clock.quantum-limit" = 256;
         "default.clock.allow-resampling" = true;
       };
     };
