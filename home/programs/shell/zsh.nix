@@ -69,22 +69,23 @@
 	  du = "dust";
 	  ping = "gping";
 	  cat = "bat --theme=dracula";
+	  nbs = "sudo nixos-rebuild boot -L --flake ~/.config/nixos#zerone-company --show-trace";
+	  cnf = "cd ~/.config/nixos";
 
       # git
       # g = "lazygit";
-      ga = "git add";
-      gc = "git commit";
+      # ga = "git add";
+      # gc = "git commit";
       gcu = "git add . && git commit -m 'Update'";
       gp = "git push";
       gpl = "git pull";
       gs = "git status";
       gd = "git diff";
-      gco = "git checkout";
-      gcb = "git checkout -b";
+      # gco = "git checkout";
+      # gcb = "git checkout -b";
       gbr = "git branch";
-      grs = "git reset HEAD~1";
-      grh = "git reset --hard HEAD~1";
-
+      # grs = "git reset HEAD~1";
+      # grh = "git reset --hard HEAD~1";
       gaa = "git add .";
       gcm = "git commit -m";
     };

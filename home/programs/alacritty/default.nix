@@ -2,13 +2,19 @@
   programs.alacritty = {
     enable = true;
 	settings = {
-		window.decorations = "none";
+		window = {
+			decorations = "none";
+			padding = {
+				x = 15;
+				y = 8;
+			};
+		};
 		scrolling.history = 10000;
 		font = {
-			size = 12;
-			normal.family = "Comic Code";
+			size = 11;
+			normal.family = "MonaspiceRn Nerd Font Mono";
 			offset = {
-				x = 2;
+				x = 1;
 				y = 1;
 			};
 		};
@@ -16,12 +22,9 @@
 			blinking = "Always";
 			shape = "Beam";
 		};
-		colors = {
-			primary = {
-				background = "#2d353b";
-				foreground = "#d3c6aa";
-			};
-		};
+		general.import = [
+			"~/.config/alacritty/dank-theme.toml"
+		];
 	};
   };
 }
