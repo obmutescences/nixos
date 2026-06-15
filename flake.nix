@@ -79,7 +79,8 @@
 	};
 
 	qylock = {
-      url = "github:obmutescences/qylock-nix";
+      # url = "github:obmutescences/qylock-nix";
+	  url = "github:Darkkal44/qylock";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
