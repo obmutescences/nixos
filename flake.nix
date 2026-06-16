@@ -89,10 +89,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-	zlaunch = {
-      url = "github:zortax/zlaunch/0.5.1";
+	# inir quickshell
+	# inir.url = "github:snowarch/inir";
+
+	noctalia = {
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+	noctalia-greeter = {
+		url = "github:noctalia-dev/noctalia-greeter";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+	
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

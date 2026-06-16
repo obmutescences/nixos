@@ -30,14 +30,30 @@ in {
 	];
   };
 
-  services.displayManager.dms-greeter = {
-	enable = true;
-	compositor.name = "niri";  # Or "hyprland" or "sway"
-	configHome = "/home/zerone";
-	configFiles = [
-		"/home/zerone/.config/DankMaterialShell/settings.json"
-	];
-  };
+   imports = [
+	  inputs.noctalia-greeter.nixosModules.default
+   ];
+
+	programs.noctalia-greeter = {
+	  enable = true;
+	  package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+	  # Optional configuration
+	  greeter-args = "";
+	  settings.cursor = {
+		theme = "Adwaita";
+		size = 24;
+		package = pkgs.adwaita-icon-theme;
+	  };
+	};
+	#  services.displayManager.dms-greeter = {
+	# enable = true;
+	# compositor.name = "niri";  # Or "hyprland" or "sway"
+	# configHome = "/home/zerone";
+	# configFiles = [
+	# 	"/home/zerone/.config/DankMaterialShell/settings.json"
+	# ];
+	#  };
 
   programs.qylock = {
     enable    = true;

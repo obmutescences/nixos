@@ -133,10 +133,11 @@ in {
 	# niri sticky windows
 	inputs.nsticky.packages.${system}.nsticky
 
-	# app launch
-	inputs.zlaunch.packages.${pkgs.system}.default
-
 	# codex deps
 	bubblewrap
+	
+	# noctalia shell
+	inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+
   ];
 }
