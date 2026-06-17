@@ -47,8 +47,9 @@ visual_bell_color               none
 wayland_titlebar_color          system
 macos_titlebar_color            system
 
-include dank-tabs.conf
-include dank-theme.conf
+# include dank-tabs.conf
+# include dank-theme.conf
+include themes/noctalia.conf
 ";
   };
 }
