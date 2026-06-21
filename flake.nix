@@ -121,6 +121,7 @@
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
             inputs.home-manager.nixosModules.home-manager
+			qylock.nixosModules.default
             ./hosts/home-desktop/configuration.nix # CHANGEME: change the path to match your host folder
           ];
         };
