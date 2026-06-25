@@ -97,7 +97,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 	noctalia-greeter = {
-		url = "github:noctalia-dev/noctalia-greeter";
+		url = "github:noctalia-dev/noctalia-greeter/fca79eb56d45370949d20beb6f740e7e5daaee5b";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	
