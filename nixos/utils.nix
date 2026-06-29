@@ -17,7 +17,7 @@ in {
     zip
 	unzip
 	cmake
-	dust
+	dua
 	gping
 	openssl
 	xclip

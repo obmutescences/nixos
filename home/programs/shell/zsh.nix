@@ -66,7 +66,7 @@
       open = "${pkgs.xdg-utils}/bin/xdg-open";
       icat = "${pkgs.kitty}/bin/kitty +kitten icat";
       ssh = "kitty +kitten ssh";
-	  du = "dust";
+	  du = "dua i";
 	  ping = "gping";
 	  cat = "bat --theme=dracula";
 	  nbs = "sudo nixos-rebuild boot -L --flake ~/.config/nixos#zerone-company --show-trace";
