@@ -39,7 +39,7 @@ in {
 	# net proxy
     dae
 	flclash
-	clash-verge-rev
+	# clash-verge-rev
 	# wallerpaper
 	# inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
 	# office
