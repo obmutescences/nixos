@@ -20,6 +20,10 @@ in {
 	package = pkgs.appimage-run.override  {
 		extraPkgs = pkgs: [
 			pkgs.libepoxy
+			pkgs.gtk3
+			pkgs.webkitgtk_4_1
+			pkgs.wayland
+			pkgs.libglvnd
 		];
 	};
   };
