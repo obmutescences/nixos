@@ -50,6 +50,8 @@ routing {
   pname(FlClashCore) -> direct
   pname(clash-verge) -> direct
   pname(verge-mihomo) -> direct
+  pname(nautilus-core) -> direct
+  pname(XFLASH) -> direct
 
   domain(geosite:category-ads) -> block
   domain(geosite:cn) -> direct
