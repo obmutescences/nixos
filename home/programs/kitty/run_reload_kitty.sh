@@ -1,4 +1,4 @@
-sleep 0.5 && killall -USR1 kitty
+# sleep 0.5 && killall -USR1 kitty
 
 # 配置文件路径
 CONFIG_FILE="/home/zerone/.config/niri/config.kdl"
@@ -6,16 +6,17 @@ INDEX_FILE="/home/zerone/.config/niri/current_animation_index"
 
 # 动画配置数组
 ANIMATIONS=(
-    'include "./nirimation/animations/ribbons.kdl"'
-    'include "./nirimation/animations/glass.kdl"'
-    'include "./nirimation/animations/blackhole.kdl"'
-    'include "./nirimation/animations/pixel-drift.kdl"'
-    'include "./nirimation/animations/liquid-flow.kdl"'
-    'include "./nirimation/animations/quantum-ripple.kdl"'
-    'include "./nirimation/animations/burn-ashes.kdl"'
-    'include "./nirimation/animations/roll-drop.kdl"'
-    'include "./nirimation/animations/glitch.kdl"'
-    'include "./nirimation/animations/smoke.kdl"'
+    'include "./animations_config/ribbons.kdl"'
+    'include "./animations_config/glass.kdl"'
+    'include "./animations_config/blackhole.kdl"'
+    'include "./animations_config/pixel-drift.kdl"'
+    'include "./animations_config/liquid-flow.kdl"'
+    'include "./animations_config/quantum-ripple.kdl"'
+    'include "./animations_config/burn-ashes.kdl"'
+    'include "./animations_config/roll-drop.kdl"'
+    'include "./animations_config/glitch.kdl"'
+    'include "./animations_config/smoke.kdl"'
+    'include "./animations_config/throw.kdl"'
 )
 
 # 读取当前索引，如果不存在则从0开始
@@ -41,7 +42,7 @@ ANIMATION_LINE="${ANIMATIONS[$CURRENT_INDEX]}"
 cp "$CONFIG_FILE" "${CONFIG_FILE}.backup"
 
 # 删除所有包含 nirimation/animations 的行
-sed -i '/nirimation\/animations/d' "$CONFIG_FILE"
+sed -i '/animations_config/d' "$CONFIG_FILE"
 
 # 在文件末尾添加新的动画配置
 echo "$ANIMATION_LINE" >> "$CONFIG_FILE"

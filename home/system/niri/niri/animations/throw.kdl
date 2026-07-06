@@ -1,0 +1,80 @@
+animations {
+    // Uncomment to turn off all animations.
+    // off
+    window-close {
+        duration-ms 200
+        curve "linear"
+        custom-shader "vec4 fall_and_rotate(vec3 coords_geo, vec3 size_geo) {
+                // === 可调参数 ===
+                float fall_distance = 1200.0;       // 下落像素距离
+                float rotation_amplitude = 0.5;     // 旋转幅度系数
+                float fade_speed = 2.0;             // 淡出速度 (0.5-2.0)
+                float progress_curve = 2.0;         // 进度曲线指数 (1.0=线性, 2.0=二次)
+                // === 可调参数结束 ===
+
+                // 进度曲线：可调整下落和旋转的加速度
+                float progress = pow(niri_clamped_progress, progress_curve);
+
+                vec2 coords = (coords_geo.xy - vec2(0.5, 1.0)) * size_geo.xy;
+
+                // 垂直下落
+                coords.y -= progress * fall_distance;
+
+                // 随机旋转
+                float random = (niri_random_seed - 0.5) / 2.0;
+                random = sign(random) - random;
+                float max_angle = rotation_amplitude * random;
+                float angle = progress * max_angle;
+
+                mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+                coords = rotate * coords;
+
+                coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 1.0), 1.0);
+                vec3 coords_tex = niri_geo_to_tex * coords_geo;
+                vec4 color = texture2D(niri_tex, coords_tex.st);
+
+                // 淡出效果
+                color.a *= (1.0 - progress * fade_speed);
+                // 限制 alpha 不低于 0
+                color.a = max(color.a, 0.0);
+
+                return color;
+            }
+            vec4 close_color(vec3 coords_geo, vec3 size_geo) {
+                return fall_and_rotate(coords_geo, size_geo);
+            }"
+    }
+    window-open {
+        duration-ms 250
+        curve "linear"
+        custom-shader "vec4 fall_from_top(vec3 coords_geo, vec3 size_geo) {
+            // === 缓和回弹参数 ===
+            float overshoot_strength = 1.25;     // 曲线超出
+            float bounce_amplitude = 0.15;       // 旋转回弹
+            float bounce_frequency = 1.0;        // 震荡次数
+            float max_rotation = 3.8;            // 旋转幅度
+            float fall_distance = 1200.0;        // 下落距离
+            // === 可调参数结束 ===
+
+            float c1 = overshoot_strength * 0.85;
+            float c3 = c1 + 1.0;
+            float progress = 1.0 + c3 * pow(niri_clamped_progress - 1.0, 3.0) + c1 * pow(niri_clamped_progress - 1.0, 2.0);
+
+            vec2 coords = (coords_geo.xy - vec2(0.5, 0.0)) * size_geo.xy;
+            coords.y += (1.0 - progress) * fall_distance;
+
+            float angle_factor = 1.0 - progress;
+            float overshoot = 1.0 + bounce_amplitude * sin(progress * 3.14159 * bounce_frequency) * (1.0 - progress);
+            float angle = angle_factor * max_rotation * overshoot;
+
+            mat2 rotate = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+            coords = rotate * coords;
+            coords_geo = vec3(coords / size_geo.xy + vec2(0.5, 0.0), 1.0);
+            vec3 coords_tex = niri_geo_to_tex * coords_geo;
+            return texture2D(niri_tex, coords_tex.st);
+        }
+        vec4 open_color(vec3 coords_geo, vec3 size_geo) {
+            return fall_from_top(coords_geo, size_geo);
+        }"
+    }
+}
