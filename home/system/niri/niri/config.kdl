@@ -92,11 +92,11 @@ spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "noctalia"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "FlClash"
+// spawn-at-startup "FlClash"
 // spawn-at-startup "keyboard-sound-alpacas"
-// spawn-at-startup "appimage-run" "/home/zerone/projects/soft/Keyboard_Dances.AppImage"
-spawn-at-startup "sh" "/home/zerone/projects/soft/keyboard_dances.sh"
-spawn-at-startup "sh" "-c" "sleep 3 && /home/zerone/projects/soft/wechat-tray-notifier"
+spawn-at-startup "appimage-run" "/home/zerone/projects/soft/Keyboard_Dances.AppImage"
+spawn-at-startup "sh" "-c" "sleep 3 && /home/zerone/projects/soft/wechat-tray-notifier --log-file ~/.cache/wechat-tray-notifier.log"
+spawn-at-startup "sh" "/home/zerone/projects/soft/start-xflash.sh"
 spawn-at-startup "nsticky"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
@@ -179,9 +179,9 @@ xwayland-satellite {
 blur {
 	passes 3
 	offset 3
-	noise 0.01
+	noise 0.0
 	// ignore-alpha 0.1
-	saturation 1.2
+	saturation 1.0
 }
 
 layer-rule{
@@ -190,7 +190,6 @@ layer-rule{
 	// block-out-from "screencast"
     background-effect{
         xray false
-        // blur true
     }
 }
 
@@ -237,19 +236,55 @@ layer-rule {
 layer-rule {
   match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
   background-effect {
-    xray false
+    xray true
     blur true
+	liquid-glass {
+		refraction-strength 20.0
+		power-factor 1
+		refraction-power 1.0
+	}
+  }
+}
+
+layer-rule {
+  match namespace="^noctalia-(desktop-[^\"]+)$"
+  background-effect {
+    xray true
+    blur true
+	liquid-glass {
+		refraction-strength 15.0
+		power-factor 5
+		refraction-power 1.0
+	}
+  }
+}
+
+layer-rule {
+  match namespace="noctalia-desktop-widget-fancy_audio_visualizer:*"
+  background-effect {
+    xray false
+    blur false
+	liquid-glass {
+		refraction-strength 0
+		power-factor 1
+		refraction-power 1.0
+	}
   }
 }
 
 
 window-rule {
-  opacity 0.80
+  opacity 0.65
   background-effect {
 	  xray false
 	  blur true
-	  noise 0.02
-	  saturation 1.8
+	  noise 0.0
+	  saturation 1.2
+	  liquid-glass {
+            refraction-strength 20.0
+            power-factor 4
+            refraction-power 1.0
+       }
   }
 
   popups {
@@ -259,10 +294,15 @@ window-rule {
 	background-effect {
 		xray true
 		blur true
-		noise 0.01
+		noise 0.0
 		saturation 1.8
-	}
-	}
+		liquid-glass {
+			refraction-strength 10.0
+			power-factor 7
+			refraction-power 1.0
+		}
+	 }
+   }
 }
 
 window-rule {
@@ -433,7 +473,7 @@ window-rule {
 }
 
 window-rule {
-  match app-id="dev.noctalia.Noctalia.Settings"
+  match app-id="dev.noctalia.Noctalia"
   open-floating true
   default-column-width { fixed 1080; }
   default-window-height { fixed 920; }
@@ -507,7 +547,8 @@ binds {
 	}
 
     Alt+P repeat=false {
-		spawn "dms" "ipc" "call" "clipboardPlus" "togglePanel"
+		// spawn "dms" "ipc" "call" "clipboardPlus" "togglePanel"
+		spawn "noctalia" "msg" "panel-toggle" "clipboard"
     }
 
     XF86AudioRaiseVolume allow-when-locked=true {
@@ -730,4 +771,4 @@ binds {
 include "./layout.kdl"
 include "./focus_flash.kdl"
 
-include "./animations_config/glitch.kdl"
+include "./animations_config/throw.kdl"
