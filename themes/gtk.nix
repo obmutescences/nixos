@@ -5,16 +5,8 @@
   ...
 }:
 let
-  catppuccin-gtk = pkgs.catppuccin-gtk.overrideAttrs {
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "gtk";
-      rev = "v1.0.3";
-      fetchSubmodules = true;
-      hash = "sha256-q5/VcFsm3vNEw55zq/vcM11eo456SYE5TQA3g2VQjGc=";
-    };
-    postUnpack = "";
-  };
+  # 检查 dracula-theme 支持的变体名称
+  # dracula-theme = pkgs.dracula-theme;
 in {
       dconf.settings = {
         "org/gnome/desktop/interface" = {
@@ -23,6 +15,7 @@ in {
       };
 
       home.pointerCursor = {
+		enable = true;
         gtk.enable = true;
         x11.enable = true;
         package = pkgs.bibata-cursors;
@@ -32,18 +25,14 @@ in {
 
       qt = {
         enable = true;
-        platformTheme.name = "gtk";
+        platformTheme.name = "gtk2";
       };
 
       gtk = {
         enable = true;
         theme = {
-          name = "catppuccin-mocha-mauve-compact";
-          package = catppuccin-gtk.override {
-            accents = ["mauve"];
-            variant = "mocha";
-            size = "compact";
-          };
+          name = "Dracula";
+          package = pkgs.dracula-theme;
         };
         iconTheme = {
 		  name = "Dracula";
