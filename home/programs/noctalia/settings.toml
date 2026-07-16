@@ -1,39 +1,33 @@
+config_version = 2
+
 [backdrop]
 blur_intensity = 0.0
 tint_intensity = 0.0
 
 [bar.default]
-background_opacity = 0.54999998770654202
+background_opacity = 0.39999999105930328
+border = "primary"
 capsule_fill = "hover"
 capsule_foreground = "primary"
 capsule_thickness = 0.99999998137354851
-center = [ "clock", "calendar", "weather" ]
+center = [ "clock", "calendar" ]
 color = "primary"
-end = [
-    "network_rx",
-    "network_tx",
-    "tray",
-    "notifications",
-    "clipboard",
-    "bluetooth",
-    "volume",
-    "brightness",
-    "control-center",
-    "session"
-]
+end = [ "tray", "notifications", "clipboard", "bluetooth", "cpu", "ram", "volume", "control-center", "session" ]
 font_family = "Monofur Nerd Font Mono"
 font_weight = 300
-icon_color = "primary"
+icon_color = "secondary"
 margin_edge = 6
-margin_ends = 450
+margin_ends = 800
 padding = 15
-radius = 9
+radius = 16
+scale = 0.90000000596046448
 shadow = false
-start = [ "wallpaper", "ram", "cpu", "workspaces", "audio_visualizer" ]
-thickness = 24
+start = [ "wallpaper", "wallhaven", "todo", "workspaces", "network_rx", "network_tx" ]
+thickness = 30
 widget_spacing = 10
 
     [[bar.default.capsule_group]]
+    enabled = true
     fill = "on_surface"
     foreground = "primary"
     id = "g1"
@@ -43,6 +37,7 @@ widget_spacing = 10
 
 [control_center]
 compact = false
+hidden_tabs = [ "media", "monitor", "power", "network", "screen-time" ]
 sidebar = "full"
 sidebar_section = "full"
 
@@ -81,6 +76,9 @@ widget_order = [ "desktop-widget-0000000000000001", "desktop-widget-000000000000
 
         [desktop_widgets.widget.desktop-widget-0000000000000001.settings]
         background = false
+        background_opacity = 0.0
+        background_padding = 0
+        background_radius = 14
         bar_width = 0.5
         bloom_intensity = 0.55000000000000004
         inner_diameter = 0.65000000000000002
@@ -101,9 +99,9 @@ widget_order = [ "desktop-widget-0000000000000001", "desktop-widget-000000000000
         [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
         background = true
         background_color = "outline"
-        background_opacity = 0.87
+        background_opacity = 0.0
         background_padding = 24.0
-        background_radius = 25.0
+        background_radius = 8
         color = "primary"
         forecast_days = 5
         show_forecast = true
@@ -120,9 +118,9 @@ widget_order = [ "desktop-widget-0000000000000001", "desktop-widget-000000000000
         [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
         background = true
         background_color = "outline"
-        background_opacity = 0.87
+        background_opacity = 0.0
         background_padding = 18.0
-        background_radius = 26.0
+        background_radius = 8
 
 [hooks]
 wallpaper_changed = "sh /home/zerone/.config/kitty/run_reload_kitty.sh"
@@ -131,9 +129,8 @@ wallpaper_changed = "sh /home/zerone/.config/kitty/run_reload_kitty.sh"
 address = "GuangZhou"
 
 [lockscreen_widgets]
-enabled = false
 schema_version = 2
-widget_order = [ "lockscreen-login-box@DP-1" ]
+widget_order = [ "lockscreen-login-box@DP-1", "lockscreen-widget-0000000000000001", "lockscreen-widget-0000000000000002" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
@@ -141,10 +138,10 @@ widget_order = [ "lockscreen-login-box@DP-1" ]
     visible = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@DP-1"]
-    box_height = 0.0
-    box_width = 0.0
-    cx = 1280.0
-    cy = 1317.0
+    box_height = 70.0
+    box_width = 400.0
+    cx = 1264.0
+    cy = 1037.0
     output = "DP-1"
     rotation = 0.0
     type = "login_box"
@@ -155,7 +152,28 @@ widget_order = [ "lockscreen-login-box@DP-1" ]
         background_radius = 12.0
         input_opacity = 1.0
         input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
         show_login_button = true
+        show_password_hint = true
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000001]
+    box_height = 240.0
+    box_width = 464.0
+    cx = 1264.0
+    cy = 776.0
+    output = "DP-1"
+    rotation = 0.0
+    type = "clock"
+
+    [lockscreen_widgets.widget.lockscreen-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 2207.0
+    cy = 884.5
+    output = "DP-1"
+    rotation = 0.0
+    type = "noctalia/ccal:calendar_desktop"
 
 [notification]
 background_opacity = 0.63999998569488525
@@ -163,14 +181,18 @@ position = "top_center"
 scale = 0.85000000521540642
 
 [plugin_settings."noctalia/ccal"]
+events = [ "L 06-05 妈", "L 09-24 Dear", "L 10-30 恬", "L 04-12 爸" ]
 refresh_interval = 2512
 
 [plugin_settings."noctalia/screen_recorder"]
 directory = ""
 video_source = "focused"
 
+[plugin_settings."noctalia/wallhaven"]
+download_dir = ""
+
 [plugins]
-enabled = [ "noctalia/example", "noctalia/bongocat", "noctalia/translator", "noctalia/screen_recorder", "noctalia/ccal" ]
+enabled = [ "noctalia/translator", "noctalia/screen_recorder", "noctalia/ccal", "noctalia/wallhaven", "nightwatch75/todo" ]
 
     [[plugins.source]]
     kind = "git"
@@ -190,6 +212,7 @@ enabled = [ "noctalia/example", "noctalia/bongocat", "noctalia/translator", "noc
 [shell]
 app_icon_color = "primary"
 app_icon_colorize = true
+clipboard_history_max_entries = 500
 font_family = "Monofur Nerd Font Mono"
 settings_show_advanced = true
 telemetry_enabled = false
@@ -197,6 +220,12 @@ time_format = "{:%H:%M:%S}"
 
     [shell.animation]
     speed = 0.40000000596046448
+
+    [shell.greeter_sync]
+    auto_sync = true
+
+    [shell.launcher]
+    session_search = true
 
     [shell.panel]
     borders = false
@@ -253,8 +282,8 @@ source = "wallpaper"
 wallpaper_scheme = "faithful"
 
     [theme.templates]
-    builtin_ids = [ "alacritty", "btop", "ghostty", "kitty" ]
-    community_ids = [ "telegram" ]
+    builtin_ids = [ "btop", "cava", "gtk3", "gtk4", "ghostty", "kcolorscheme", "kitty", "qt" ]
+    community_ids = [ "pi-agent", "telegram", "zathura" ]
 
 [wallpaper]
 directory = "/home/zerone/Pictures/Wallpapers"
@@ -268,24 +297,35 @@ transition_on_startup = true
     order = "alphabetical"
 
     [wallpaper.default]
-    path = "/home/zerone/Pictures/Wallpapers/0042.png"
+    path = "/home/zerone/Pictures/Wallpapers/0299.jpg"
 
     [wallpaper.last]
-    path = "/home/zerone/Pictures/Wallpapers/0042.png"
+    path = "/home/zerone/Pictures/Wallpapers/0299.jpg"
 
     [wallpaper.monitor.DP-1]
     fill_color = "primary"
 
     [wallpaper.monitors.DP-1]
-    path = "/home/zerone/Pictures/Wallpapers/0042.png"
+    path = "/home/zerone/Pictures/Wallpapers/0299.jpg"
+
+[widget.bluetooth]
+enabled = false
 
 [widget.calendar]
+font_family = "AaNLYDSYY (Non-Commercial Use)"
+scale = 0.90000000000000013
 type = "noctalia/ccal:calendar"
 
 [widget.clock]
-color = "secondary"
+color = "primary"
 font_weight = 700
 format = "{:%H:%M:%S}"
+
+[widget.network_rx]
+scale = 0.90000000000000013
+
+[widget.network_tx]
+scale = 0.90000000000000013
 
 [widget.ram]
 stat = "ram_pct"
@@ -293,7 +333,19 @@ stat = "ram_pct"
 [widget.recorder]
 type = "noctalia/screen_recorder:recorder"
 
+[widget.todo]
+type = "nightwatch75/todo:todo"
+
 [widget.tray]
 color = "primary"
+drawer = true
+drawer_columns = 4
+drawer_item_size = 14.0
+hidden = [ "udiskie" ]
 icon_color = "primary"
+pinned = [ "wechat" ]
 scale = 0.85000000000000009
+
+[widget.wallhaven]
+enabled = false
+type = "noctalia/wallhaven:wallhaven"
