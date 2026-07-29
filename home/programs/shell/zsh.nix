@@ -28,40 +28,6 @@
 	  # ---rust 项目开发所需,后续不用可删除
 	  export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
 	  export BINDGEN_EXTRA_CLANG_ARGS="-isystem ${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.lib.versions.major (pkgs.lib.getVersion pkgs.clang)}/include"
-
-		# Iris Autostart Hook
-		if [ -n "$TMUX" ] && [ -n "$IRIS_PID" ]; then
-			if ps -o comm= -p $PPID 2>/dev/null | grep -q "tmux"; then
-				unset IRIS_PID IRIS_IS_CHILD IRIS_FD
-			fi
-		fi
-
-		if [ -z "$IRIS_PID" ]; then
-			export IRIS_ACTIVE_SHELL="zsh"
-			exec iris
-		fi
-
-		# Iris Autocomplete Hook
-		if [ -n "$IRIS_PID" ] && [ -n "$IRIS_FD" ]; then
-		  _iris_send_lbuffer() {
-			print -u $IRIS_FD -N -r -- "$LBUFFER" 2>/dev/null
-		  }
-
-		  _iris_precmd() {
-			print -u $IRIS_FD -N -r -- "IRIS_CMD_STOP" 2>/dev/null
-		  }
-
-		  _iris_preexec() {
-			print -u $IRIS_FD -N -r -- "IRIS_CMD_START" 2>/dev/null
-		  }
-
-		  autoload -Uz add-zle-hook-widget
-		  autoload -Uz add-zsh-hook
-
-		  add-zle-hook-widget line-pre-redraw _iris_send_lbuffer
-		  add-zsh-hook precmd _iris_precmd
-		  add-zsh-hook preexec _iris_preexec
-		fi
     '';
 
     history = {
