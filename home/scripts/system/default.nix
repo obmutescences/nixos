@@ -72,7 +72,6 @@ let
   start-neovide = pkgs.writeShellScriptBin "start-neovide"
     # bash
     ''
-	source ~/.zshrc
 	exec ${pkgs.neovide}/bin/neovide
     '';
   keyboard-sound-alpacas = pkgs.writeShellScriptBin "keyboard-sound-alpacas"
