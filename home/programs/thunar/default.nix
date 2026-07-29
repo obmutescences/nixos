@@ -7,7 +7,7 @@
     tumbler
     thunar-archive-plugin
     thunar-volman
-	exo
+	# exo
     mousepad
   ];
 
