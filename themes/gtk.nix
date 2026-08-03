@@ -6,7 +6,6 @@
 }:
 let
   # 检查 dracula-theme 支持的变体名称
-  # dracula-theme = pkgs.dracula-theme;
 in {
       dconf.settings = {
         "org/gnome/desktop/interface" = {
@@ -31,12 +30,12 @@ in {
       gtk = {
         enable = true;
         theme = {
-          name = "Dracula";
-          package = pkgs.dracula-theme;
+          name = "Catppuccin";
+          package = pkgs.catppuccin-gtk;
         };
         iconTheme = {
-		  name = "Dracula";
-		  package = pkgs.dracula-icon-theme;
+		  name = "Fluent";
+		  package = pkgs.fluent-icon-theme;
         };
         gtk3.extraConfig = {
           Settings = ''
