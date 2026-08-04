@@ -54,14 +54,15 @@ LAYOUT2_KDL="/home/zerone/.config/niri/layout2.kdl"
 
 # 提取纯颜色值（不带引号）
 ACTIVE_COLOR=$(grep -oP 'active-color\s+"\K[^"]*' "$NOCTALIA_KDL" | head -1)
-brightness=35   # 目标亮度百分比
-alpha=1.0
+brightness=30   # 目标亮度百分比
+alpha=0.7
 
 hsla=$(python3 -c "
 import colorsys
 h = '$ACTIVE_COLOR'.lstrip('#')
 r, g, b = int(h[0:2],16)/255, int(h[2:4],16)/255, int(h[4:6],16)/255
 hue, l, s = colorsys.rgb_to_hls(r, g, b)
+s += 0.2
 print(f'hsla({hue*360:.0f}, {s*100:.0f}%, $brightness%, $alpha)')
 ")
 

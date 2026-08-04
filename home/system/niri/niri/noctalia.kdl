@@ -1,0 +1,35 @@
+layout {
+
+    focus-ring {
+        active-color "hsla(231, 90%, 30%, 0.7)"
+        inactive-color "hsla(231, 90%, 30%, 0.7)"
+        urgent-color   "#fd4663"
+    }
+
+    border {
+        active-color "hsla(231, 90%, 30%, 0.7)"
+        inactive-color "hsla(231, 90%, 30%, 0.7)"
+        urgent-color   "#fd4663"
+    }
+
+    shadow {
+        color "#15182870"
+    }
+
+    tab-indicator {
+        active-color "hsla(231, 90%, 30%, 0.7)"
+        inactive-color "hsla(231, 90%, 30%, 0.7)"
+        urgent-color   "#fd4663"
+    }
+
+    insert-hint {
+        color "#677ae480"
+    }
+}
+
+recent-windows {
+    highlight {
+        active-color "hsla(231, 90%, 30%, 0.7)"
+        urgent-color "#fd4663"
+    }
+}

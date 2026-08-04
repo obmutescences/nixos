@@ -276,13 +276,13 @@ layer-rule {
 window-rule {
   opacity 0.65
   background-effect {
-	  xray false
-	  blur true
-	  noise 0.0
-	  saturation 1.2
-	  liquid-glass {
+   xray false
+   blur true
+   noise 0.0
+   saturation 1.2
+   liquid-glass {
             refraction-strength 20.0
-            power-factor 4
+            power-factor 2
             refraction-power 1.0
        }
   }
@@ -315,7 +315,7 @@ window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
     tiled-state true
-    draw-border-with-background false
+    draw-border-with-background true
 }
 window-rule {
     open-maximized false
@@ -324,17 +324,18 @@ window-rule {
 // tweak opacity for inactive windows
 window-rule {
     match is-active=false
-    opacity 0.8
+    // opacity 0.8
+    opacity 0.76
 
 	shadow {
 			// on
 			off
 			softness 0
-			spread 2
-			offset x=5 y=5
+			spread 0
+			offset x=0 y=0
 			draw-behind-window true
-			color "#00000064"
-			inactive-color "#00000064"
+			// color "#6784e4"
+			inactive-color "#6784e4"
 		}
 }
 // Work around WezTerm's initial configure bug by setting an empty default-column-width.
@@ -346,6 +347,7 @@ window-rule {
 }
 window-rule {
     match app-id="kitty"
+	opacity 0.80
     default-column-width {
         proportion 0.45
     }
@@ -380,16 +382,6 @@ window-rule {
 	open-focused true
 }
 
-// window-rule {
-// 	match app-id="com.mitchellh.ghostty"
-//     default-column-width {
-//         proportion 0.45
-//     }
-// 	default-window-height { 
-// 		proportion 0.75
-// 	}
-// 	open-focused true
-// }
 window-rule {
 	match app-id="flameshot"
 	open-floating true
@@ -418,6 +410,7 @@ window-rule {
 window-rule {
 	match app-id="zen-beta"
 	open-on-workspace "browser"
+    opacity 0.65
 	popups {
         geometry-corner-radius 10
 
@@ -435,7 +428,7 @@ window-rule {
 window-rule {
 	match app-id="neovide"
 	open-on-workspace "code"
-    opacity 1.0
+    opacity 0.75
 	background-effect {
 	  blur true
 	  saturation 0.5
@@ -452,6 +445,7 @@ window-rule {
 window-rule {
 	match app-id=r#"wechat"#
 	open-focused false
+	opacity 0.65
 }
 
 window-rule {
@@ -472,11 +466,36 @@ window-rule {
 	open-focused true
 }
 
+
+window-rule {
+	match app-id="LayaAirIDE"
+	open-floating true
+	open-focused true
+}
+
+
 window-rule {
   match app-id="dev.noctalia.Noctalia"
   open-floating true
   default-column-width { fixed 1080; }
   default-window-height { fixed 920; }
+
+  popups {
+	opacity 1.0
+	geometry-corner-radius 12
+
+	background-effect {
+		xray true
+		blur true
+		noise 0.0
+		saturation 1.0
+		liquid-glass {
+			refraction-strength 10.0
+			power-factor 7
+			refraction-power 1.0
+		}
+	 }
+   }
 }
 
 binds {
@@ -484,8 +503,8 @@ binds {
         close-window
     }
     Mod+Return repeat=false {
-        // spawn "kitty"
-		spawn "ghostty"
+        spawn "kitty"
+		// spawn "ghostty"
     }
     Mod+E repeat=false {
         spawn "nautilus" "-w"
@@ -506,11 +525,13 @@ binds {
     }
     Mod+ALT+Right repeat=false {
         // spawn "next-wallpaper"
-		spawn "dms" "ipc" "call" "wallpaper" "next"
+		// spawn "dms" "ipc" "call" "wallpaper" "next"
+		spawn "noctalia" "msg" "wallpaper-next"
     }
     Mod+ALT+Left repeat=false {
         // spawn "prev-wallpaper"
-		spawn "dms" "ipc" "call" "wallpaper" "prev"
+		// spawn "dms" "ipc" "call" "wallpaper" "prev"
+		spawn "noctalia" "msg" "wallpaper-previous"
     }
     Mod+P repeat=false {
         // spawn "flameshot" "gui" "-r" "|" "wl-copy" "-t" "image/png"
@@ -521,7 +542,7 @@ binds {
 	}
     Mod+L repeat=false {
 		// spawn "dms" "ipc" "call" "lock" "lock"
-		spawn "qylock-lock" "sword"
+		spawn "qylock-lock" "clockwork/orbital"
     }
 	Mod+Tab repeat=false {
 		toggle-overview
@@ -771,4 +792,7 @@ binds {
 include "./layout.kdl"
 include "./focus_flash.kdl"
 
+
+include "noctalia.kdl"
+include "./layout2.kdl"
 include "./animations_config/throw.kdl"

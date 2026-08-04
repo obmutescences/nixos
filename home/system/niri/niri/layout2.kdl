@@ -1,0 +1,27 @@
+
+layout {
+    shadow {
+		// on
+		off
+        draw-behind-window true
+        softness 20
+        spread 10
+        offset x=0 y=5
+		color "#677ae4"
+    }
+}
+
+window-rule {
+    match is-active=false
+    // opacity 0.8
+    opacity 0.65
+
+	shadow {
+			on
+			softness 0
+			spread 0
+			offset x=0 y=0
+			draw-behind-window true
+			inactive-color "hsla(231, 90%, 30%, 0.7)"
+		}
+}
