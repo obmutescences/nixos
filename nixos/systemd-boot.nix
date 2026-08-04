@@ -11,7 +11,8 @@
     tmp.cleanOnBoot = true;
     kernelPackages =
       # pkgs.linuxPackages_latest; # _zen, _hardened, _rt, _rt_latest, etc.
-	  pkgs.linuxKernel.packages.linux_testing;
+	  # pkgs.linuxKernel.packages.linux_testing;
+	  pkgs.linuxKernel.packages.linux_zen;
 	# kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_15.override {
 	# 	argsOverride = rec {
 	# 		src = pkgs.fetchurl {
