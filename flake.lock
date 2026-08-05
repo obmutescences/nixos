@@ -399,17 +399,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1782034411,
-        "narHash": "sha256-euBA1hVVur9znfofjTXsTmrQ4yVyu9AeKWqdm/Qdq9k=",
+        "lastModified": 1785635237,
+        "narHash": "sha256-A0Wc+uUbwRWX1sD+sQ5FpEbsuKg5vqeGQazaBPfs12U=",
         "owner": "noctalia-dev",
         "repo": "noctalia-greeter",
-        "rev": "fca79eb56d45370949d20beb6f740e7e5daaee5b",
+        "rev": "4aa960dcff874dddd4d3d94d931df43a416ea9cf",
         "type": "github"
       },
       "original": {
         "owner": "noctalia-dev",
         "repo": "noctalia-greeter",
-        "rev": "fca79eb56d45370949d20beb6f740e7e5daaee5b",
         "type": "github"
       }
     },
@@ -524,6 +523,7 @@
         "quickshell": "quickshell",
         "qylock": "qylock",
         "rust-overlay": "rust-overlay",
+        "xwayland-satellite": "xwayland-satellite",
         "zen-browser": "zen-browser"
       }
     },
@@ -539,6 +539,27 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "rev": "b6916ba032e02122d6ed3064f40cabe937363d43",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
+      "inputs": {
+        "nixpkgs": [
+          "xwayland-satellite",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769222645,
+        "narHash": "sha256-gu6oZ86zLudBZMq8LL1qdtYt/S69GV5keQVXdvBrVSU=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "22da29e7f3d8cff75009cbbcf992c7cb66920cfd",
         "type": "github"
       },
       "original": {
@@ -661,6 +682,27 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "xwayland-satellite": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1784679892,
+        "narHash": "sha256-Mb7jpqnrcYCfNSItIkkHpuR3YxWFxPuIBfcwNKlRBkk=",
+        "owner": "Supreeeme",
+        "repo": "xwayland-satellite",
+        "rev": "8d135d3b2854b30fd01ea6cd6c27e523dd50a839",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Supreeeme",
+        "repo": "xwayland-satellite",
         "type": "github"
       }
     },

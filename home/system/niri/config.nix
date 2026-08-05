@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 {
 	home.packages = [ 
-		pkgs.xwayland-satellite
+		# pkgs.xwayland-satellite
 		# inputs.matugen-src.packages.${pkgs.stdenv.hostPlatform.system}.default
 		# pkgs.swww
 	];

@@ -53,7 +53,8 @@ in {
 	# waybar
 
 	# niri need
-	xwayland-satellite
+	# xwayland-satellite
+	inputs.xwayland-satellite.packages.${pkgs.stdenv.hostPlatform.system}.default
 	# dunst
 
 	# keyboard control cursor

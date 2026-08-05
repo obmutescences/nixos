@@ -97,7 +97,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 	noctalia-greeter = {
-		url = "github:noctalia-dev/noctalia-greeter/fca79eb56d45370949d20beb6f740e7e5daaee5b";
+		# url = "github:noctalia-dev/noctalia-greeter/fca79eb56d45370949d20beb6f740e7e5daaee5b";
+		url = "github:noctalia-dev/noctalia-greeter";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+
+	xwayland-satellite = {
+		url = "github:Supreeeme/xwayland-satellite";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 	

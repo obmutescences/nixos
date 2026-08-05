@@ -30,7 +30,7 @@
     ../home/system/udiskie
     ../home/system/fctix5
 	../home/system/mime
-	../home/system/niri/config.nix
+	# ../home/system/niri/config.nix
 	# ../home/system/waybar
 	# ../home/system/niri/dunst.nix
 
