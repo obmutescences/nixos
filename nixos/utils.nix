@@ -115,8 +115,7 @@ in {
 	ccal
 
 	# go
-	# TODO: locking with 1.26. update when upgrade.
-	go_1_26
+	go
 	
 	# xdg
 	xdg-desktop-portal-gnome
@@ -132,7 +131,7 @@ in {
 	vscode
 
 	# niri sticky windows
-	inputs.nsticky.packages.${system}.nsticky
+	inputs.nsticky.packages.${pkgs.stdenv.hostPlatform.system}.nsticky
 
 	# codex deps
 	bubblewrap

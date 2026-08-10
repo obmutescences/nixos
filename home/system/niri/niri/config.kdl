@@ -85,18 +85,18 @@ layout {
     }
 }
 
-spawn-at-startup "xwayland-satellite"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
-spawn-at-startup "noctalia"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
+spawn-at-startup "noctalia"
 // spawn-at-startup "FlClash"
 // spawn-at-startup "keyboard-sound-alpacas"
 spawn-at-startup "appimage-run" "/home/zerone/projects/soft/Keyboard_Dances.AppImage"
 spawn-at-startup "sh" "-c" "sleep 3 && /home/zerone/projects/soft/wechat-tray-notifier --log-file ~/.cache/wechat-tray-notifier.log"
 spawn-at-startup "sh" "/home/zerone/projects/soft/start-xflash.sh"
+spawn-at-startup "sh" "/home/zerone/projects/soft/clipboard-sync-watch.sh"
 spawn-at-startup "nsticky"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
@@ -274,7 +274,7 @@ layer-rule {
 
 
 window-rule {
-  opacity 0.65
+  opacity 0.7
   background-effect {
    xray false
    blur true
@@ -325,7 +325,7 @@ window-rule {
 window-rule {
     match is-active=false
     // opacity 0.8
-    opacity 0.76
+    opacity 0.70
 
 	shadow {
 			// on
@@ -410,7 +410,7 @@ window-rule {
 window-rule {
 	match app-id="zen-beta"
 	open-on-workspace "browser"
-    opacity 0.65
+    opacity 0.7
 	popups {
         geometry-corner-radius 10
 
@@ -445,7 +445,7 @@ window-rule {
 window-rule {
 	match app-id=r#"wechat"#
 	open-focused false
-	opacity 0.65
+	opacity 0.7
 }
 
 window-rule {
@@ -467,11 +467,11 @@ window-rule {
 }
 
 
-window-rule {
-	match app-id="LayaAirIDE"
-	open-floating true
-	open-focused true
-}
+// window-rule {
+// 	match app-id="LayaAirIDE"
+// 	open-floating true
+// 	open-focused true
+// }
 
 
 window-rule {
@@ -542,7 +542,8 @@ binds {
 	}
     Mod+L repeat=false {
 		// spawn "dms" "ipc" "call" "lock" "lock"
-		spawn "qylock-lock" "clockwork/orbital"
+		// spawn "qylock-lock" "clockwork/orbital"
+		spawn "noctalia" "msg" "session" "lock"
     }
 	Mod+Tab repeat=false {
 		toggle-overview
@@ -795,4 +796,4 @@ include "./focus_flash.kdl"
 
 include "noctalia.kdl"
 include "./layout2.kdl"
-include "./animations_config/throw.kdl"
+include "./animations_config/liquid-flow.kdl"
