@@ -51,6 +51,7 @@ echo "$ANIMATION_LINE" >> "$CONFIG_FILE"
 sleep 1
 NOCTALIA_KDL="/home/zerone/.config/niri/noctalia.kdl"
 LAYOUT2_KDL="/home/zerone/.config/niri/layout2.kdl"
+WINDOW_PICKER="/home/zerone/.config/niri/window_picker.kdl"
 
 # 提取纯颜色值（不带引号）
 ACTIVE_COLOR=$(grep -oP 'active-color\s+"\K[^"]*' "$NOCTALIA_KDL" | head -1)
@@ -74,8 +75,45 @@ if [ -n "$ACTIVE_COLOR" ]; then
     # 替换 noctalia.kdl 中所有 active-color 为 hsla 值
     sed -i 's/active-color\s\+"[^"]*"/active-color "'"$hsla"'"/' "$NOCTALIA_KDL"
 
+
+    sed -i 's/text-color\s\+"[^"]*"/text-color "'"$hsla"'"/' "$WINDOW_PICKER"
+    sed -i 's/border-color\s\+"[^"]*"/border-color "'"$hsla"'"/' "$WINDOW_PICKER"
     # echo "将 active-color $ACTIVE_COLOR 同步到了 layout2.kdl"
     # echo "将 noctalia.kdl 中所有 active-color 替换为 $hsla"
 else
     echo "警告: 未在 noctalia.kdl 中找到 active-color"
 fi
+
+# oh-my-pi themes: 仅将 .pi 的 vars 同步到 .omp，其余字段保持不动
+python3 - <<'EOF'
+import json
+from pathlib import Path
+
+src = Path.home() / ".pi/agent/themes/noctalia.json"
+dst = Path.home() / ".omp/agent/themes/noctalia.json"
+
+src_text = src.read_text()
+dst_text = dst.read_text()
+decoder = json.JSONDecoder()
+
+def vars_span(text):
+    """返回顶层 'vars' 值的原始 (start, end) 区间"""
+    key = text.index('"vars"')
+    colon = text.index(':', key)
+    start = colon + 1
+    while start < len(text) and text[start] in ' \t\r\n':
+        start += 1
+    _, end = decoder.raw_decode(text, start)
+    return start, end
+
+s_start, s_end = vars_span(src_text)
+d_start, d_end = vars_span(dst_text)
+
+# 用 .pi 的 vars 原文替换 .omp 的 vars 区间，其余字节原样保留
+dst.write_text(dst_text[:d_start] + src_text[s_start:s_end] + dst_text[d_end:])
+print("noctalia.json vars 已同步到 ~/.omp/agent/themes/")
+EOF
+
+#===========fcitx5=================
+fcitx5 -r
+

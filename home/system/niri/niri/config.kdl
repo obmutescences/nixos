@@ -96,7 +96,7 @@ spawn-at-startup "noctalia"
 spawn-at-startup "appimage-run" "/home/zerone/projects/soft/Keyboard_Dances.AppImage"
 spawn-at-startup "sh" "-c" "sleep 3 && /home/zerone/projects/soft/wechat-tray-notifier --log-file ~/.cache/wechat-tray-notifier.log"
 spawn-at-startup "sh" "/home/zerone/projects/soft/start-xflash.sh"
-spawn-at-startup "sh" "/home/zerone/projects/soft/clipboard-sync-watch.sh"
+// spawn-at-startup "sh" "/home/zerone/projects/soft/clipboard-sync-watch.sh"
 spawn-at-startup "nsticky"
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot_%Y-%m-%d_%H-%M-%S.png"
@@ -546,7 +546,8 @@ binds {
 		spawn "noctalia" "msg" "session" "lock"
     }
 	Mod+Tab repeat=false {
-		toggle-overview
+		// toggle-overview
+		toggle-window-picker
 	}
     Mod+K repeat=false {
         spawn "wl-kbptr"
@@ -790,10 +791,12 @@ binds {
     }
 }
 
+
 include "./layout.kdl"
 include "./focus_flash.kdl"
+include "./window_picker.kdl"
 
 
 include "noctalia.kdl"
 include "./layout2.kdl"
-include "./animations_config/liquid-flow.kdl"
+include "./animations_config/roll-drop.kdl"

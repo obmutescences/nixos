@@ -256,11 +256,11 @@
         "xwayland-satellite-unstable": "xwayland-satellite-unstable"
       },
       "locked": {
-        "lastModified": 1786326659,
-        "narHash": "sha256-ulZOLLeWukq7QqmCDhNxt3FmrX/Y5rX9yZ194uwRGV0=",
+        "lastModified": 1786515311,
+        "narHash": "sha256-39cMiDpN3za6f+XZ0uMYq/tpdww8f39QDtFqrYgCJ2o=",
         "owner": "obmutescences",
         "repo": "niri-flake",
-        "rev": "a343bd77e5d78a0faf6e8866e7e44135595304ed",
+        "rev": "0db6324c9679820798ecf6015bb5d846426606a5",
         "type": "github"
       },
       "original": {
@@ -289,16 +289,16 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1786354652,
-        "narHash": "sha256-JFfK5zCbnYnwAsk61uq5k+jX90Yhd1yVxVztk4vw8N0=",
+        "lastModified": 1786522475,
+        "narHash": "sha256-4bSrlijT5SXDQlj/nxxAjzGA+uI0tJEANZpQpwcEEPA=",
         "owner": "obmutescences",
         "repo": "niri",
-        "rev": "fd30418f2f531782876fd950a235ea1bd4ae4bc3",
+        "rev": "b29155b0076a7ae9b5d89e05e917fbe972a1537b",
         "type": "github"
       },
       "original": {
         "owner": "obmutescences",
-        "ref": "glass_effect",
+        "ref": "window-picker",
         "repo": "niri",
         "type": "github"
       }
