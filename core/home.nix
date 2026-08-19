@@ -72,6 +72,7 @@
       # Temp
       mpv
       pnpm
+	  bun
       # realvnc-vnc-viewer
     ];
   };
