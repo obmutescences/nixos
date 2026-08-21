@@ -45,6 +45,7 @@ in {
         gtk4.extraConfig = {
           Settings = ''
             gtk-application-prefer-dark-theme=1
+			gtk-theme-name=catppuccin-frappe-blue-standard
           '';
         };
 		font = {
