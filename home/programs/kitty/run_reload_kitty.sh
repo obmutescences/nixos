@@ -17,6 +17,7 @@ ANIMATIONS=(
     'include "./animations_config/glitch.kdl"'
     'include "./animations_config/smoke.kdl"'
     'include "./animations_config/throw.kdl"'
+	'include "./animations_config/withstar.kdl"'
 )
 
 # 读取当前索引，如果不存在则从0开始
@@ -58,7 +59,13 @@ ACTIVE_COLOR=$(grep -oP 'active-color\s+"\K[^"]*' "$NOCTALIA_KDL" | head -1)
 brightness=30   # 目标亮度百分比
 alpha=0.7
 
-hsla=$(python3 -c "
+# 去掉 ACTIVE_COLOR 首尾空白，避免误判
+ACTIVE_COLOR="$(printf '%s' "$ACTIVE_COLOR" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+
+hsla=""
+# 仅当 ACTIVE_COLOR 是合法的 #RRGGBB 颜色时才计算 hsla
+if [[ "$ACTIVE_COLOR" =~ ^#[0-9a-fA-F]{6}$ ]]; then
+    hsla=$(python3 -c "
 import colorsys
 h = '$ACTIVE_COLOR'.lstrip('#')
 r, g, b = int(h[0:2],16)/255, int(h[2:4],16)/255, int(h[4:6],16)/255
@@ -66,6 +73,20 @@ hue, l, s = colorsys.rgb_to_hls(r, g, b)
 s += 0.2
 print(f'hsla({hue*360:.0f}, {s*100:.0f}%, $brightness%, $alpha)')
 ")
+fi
+
+# 去掉 hsla 首尾空白
+hsla="$(printf '%s' "$hsla" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+
+# 如果 hsla 为空字符串、空或空格等不合法，就用 ACTIVE_COLOR 赋值
+if [ -z "$hsla" ]; then
+    hsla="$ACTIVE_COLOR"
+fi
+
+# 如果 ACTIVE_COLOR 也是空的，hsla 就赋值成默认值 #161a22e6
+if [ -z "$hsla" ]; then
+    hsla="#161a22e6"
+fi
 
 if [ -n "$ACTIVE_COLOR" ]; then
     # 替换 layout2.kdl 中 color 和 inactive-color
