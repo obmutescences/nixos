@@ -64,6 +64,7 @@ in {
 	# wechat-uos
 	wechat
 	telegram-desktop
+	feishu
 	# soc
 	discord
 
