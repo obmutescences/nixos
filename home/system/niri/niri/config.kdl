@@ -83,6 +83,18 @@ layout {
     default-column-width {
         proportion 0.4
     }
+
+    workspace-dip {
+        // Uncomment this line to enable the dip.
+        on
+
+        // Dip strength, i.e. how much to zoom out at the middle of the switch.
+        // 0.04 means the view scales down to 0.96 at most. Range: 0 to 1.
+        strength 0.65
+        duration-ms 200
+		// linear ease-out-quad ease-out-cubic ease-out-expo
+        curve "ease-out-cubic"
+    }
 }
 
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "gtk-theme" "adwaita-dark"
@@ -240,8 +252,10 @@ layer-rule {
     blur true
 	liquid-glass {
 		refraction-strength 20.0
-		power-factor 1
-		refraction-power 1.0
+		power-factor 10      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
+		refraction-power 5   // 现在真正生效
+		bevel-width 2        // 边缘带加宽 2.5 倍，效果面积明显变大
+		fringing 2
 	}
   }
 }
@@ -252,9 +266,11 @@ layer-rule {
     xray true
     blur true
 	liquid-glass {
-		refraction-strength 15.0
-		power-factor 5
-		refraction-power 1.0
+		refraction-strength 20.0
+		power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
+		refraction-power 3.0   // 现在真正生效
+		bevel-width 1        // 边缘带加宽 2.5 倍，效果面积明显变大
+		fringing 0.8
 	}
   }
 }
@@ -266,8 +282,10 @@ layer-rule {
     blur false
 	liquid-glass {
 		refraction-strength 0
-		power-factor 1
-		refraction-power 1.0
+		power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
+		refraction-power 2.5   // 现在真正生效
+		bevel-width 2.5        // 边缘带加宽 2.5 倍，效果面积明显变大
+		fringing 0.8
 	}
   }
 }
@@ -281,9 +299,11 @@ window-rule {
    noise 0.0
    saturation 1.2
    liquid-glass {
-            refraction-strength 20.0
-            power-factor 2
-            refraction-power 1.0
+            refraction-strength 20.0 // 越大边缘玻璃效果越宽越明显
+			power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）越低边缘比例效果面积越大
+			refraction-power 3.0   // 越大玻璃效果越好
+			bevel-width 3.0        // 边缘带加宽 2.5 倍，效果面积明显变大
+			fringing 0.8 // 越大边缘颜色感应越强
        }
   }
 
@@ -297,9 +317,11 @@ window-rule {
 		noise 0.0
 		saturation 1.8
 		liquid-glass {
-			refraction-strength 10.0
-			power-factor 7
-			refraction-power 1.0
+			refraction-strength 20.0
+			power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
+			refraction-power 3.0   // 现在真正生效
+			bevel-width 3.0        // 边缘带加宽 2.5 倍，效果面积明显变大
+			fringing 0.8
 		}
 	 }
    }
@@ -799,4 +821,4 @@ include "./window_picker.kdl"
 
 include "noctalia.kdl"
 include "./layout2.kdl"
-include "./animations_config/roll-drop.kdl"
+include "./animations_config/quantum-ripple.kdl"
