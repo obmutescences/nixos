@@ -57,7 +57,7 @@ WINDOW_PICKER="/home/zerone/.config/niri/window_picker.kdl"
 # 提取纯颜色值（不带引号）
 ACTIVE_COLOR=$(grep -oP 'active-color\s+"\K[^"]*' "$NOCTALIA_KDL" | head -1)
 brightness=30   # 目标亮度百分比
-alpha=0.7
+alpha=0.55
 
 # 去掉 ACTIVE_COLOR 首尾空白，避免误判
 ACTIVE_COLOR="$(printf '%s' "$ACTIVE_COLOR" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
@@ -99,6 +99,7 @@ if [ -n "$ACTIVE_COLOR" ]; then
 
     sed -i 's/text-color\s\+"[^"]*"/text-color "'"$hsla"'"/' "$WINDOW_PICKER"
     sed -i 's/border-color\s\+"[^"]*"/border-color "'"$hsla"'"/' "$WINDOW_PICKER"
+    sed -i 's/active-color\s\+"[^"]*"/active-color "'"$hsla"'"/' "$WINDOW_PICKER"
     # echo "将 active-color $ACTIVE_COLOR 同步到了 layout2.kdl"
     # echo "将 noctalia.kdl 中所有 active-color 替换为 $hsla"
 else

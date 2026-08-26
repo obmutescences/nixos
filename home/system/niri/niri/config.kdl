@@ -285,7 +285,7 @@ layer-rule {
 		power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
 		refraction-power 2.5   // 现在真正生效
 		bevel-width 2.5        // 边缘带加宽 2.5 倍，效果面积明显变大
-		fringing 0.8
+		fringing 0.3
 	}
   }
 }
@@ -302,9 +302,10 @@ window-rule {
             refraction-strength 20.0 // 越大边缘玻璃效果越宽越明显
 			power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）越低边缘比例效果面积越大
 			refraction-power 3.0   // 越大玻璃效果越好
-			bevel-width 3.0        // 边缘带加宽 2.5 倍，效果面积明显变大
-			fringing 0.8 // 越大边缘颜色感应越强
-       }
+			bevel-width 2.0        // 边缘带加宽 2.5 倍，效果面积明显变大
+			fringing 0.3 // 越大边缘颜色感应越强
+			interior-warp 0.3
+    }
   }
 
   popups {
@@ -320,8 +321,8 @@ window-rule {
 			refraction-strength 20.0
 			power-factor 8      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
 			refraction-power 3.0   // 现在真正生效
-			bevel-width 3.0        // 边缘带加宽 2.5 倍，效果面积明显变大
-			fringing 0.8
+			bevel-width 2.0        // 边缘带加宽 2.5 倍，效果面积明显变大
+			fringing 0.3
 		}
 	 }
    }
@@ -813,6 +814,14 @@ binds {
     }
 }
 
+sounds {
+	on
+    window-open "/home/zerone/.config/niri/sounds/open.ogg"
+    window-close "/home/zerone/.config/niri/sounds/close.ogg"
+    focus-change "/home/zerone/.config/niri/sounds/focus.ogg"
+    workspace-switch "/home/zerone/.config/niri/sounds/special_switch.ogg"
+}
+
 
 include "./layout.kdl"
 include "./focus_flash.kdl"
@@ -821,4 +830,4 @@ include "./window_picker.kdl"
 
 include "noctalia.kdl"
 include "./layout2.kdl"
-include "./animations_config/quantum-ripple.kdl"
+include "./animations_config/glitch.kdl"

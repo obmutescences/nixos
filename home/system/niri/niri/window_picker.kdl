@@ -8,9 +8,9 @@ window-picker {
     label {
         font "Sans Bold"
         size 15
-        text-color "hsla(60, 90%, 30%, 0.7)"
+        text-color "hsla(166, 90%, 30%, 0.55)"
         background-color "#161a22e6"
-        border-color "hsla(60, 90%, 30%, 0.7)"
+        border-color "hsla(166, 90%, 30%, 0.55)"
         padding-x 14
         padding-y 7
         gap 12
@@ -31,5 +31,16 @@ window-picker {
     }
 
 	animation-ms-open 220
-	animation-ms-close 110
+	animation-ms-close 210
+
+	stagger-ms 800
+    animation {
+        duration-ms 200
+        curve "ease-out-quad"            // linear | ease-out-quad | ease-out-expo
+    }
+
+	selection {
+        active-color "hsla(166, 90%, 30%, 0.55)"
+        width 2
+    }
 }
