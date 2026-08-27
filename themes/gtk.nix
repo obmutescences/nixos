@@ -24,13 +24,13 @@ in {
 
       qt = {
         enable = true;
-        platformTheme.name = "gtk2";
+        platformTheme.name = "gtk4";
       };
 
       gtk = {
         enable = true;
         theme = {
-          name = "Catppuccin";
+          name = "catppuccin-frappe-blue-standard";
           package = pkgs.catppuccin-gtk;
         };
         iconTheme = {
@@ -38,16 +38,18 @@ in {
 		  package = pkgs.fluent-icon-theme;
         };
         gtk3.extraConfig = {
-          Settings = ''
-            gtk-application-prefer-dark-theme=1
-          '';
+            gtk-application-prefer-dark-theme=1;
         };
         gtk4.extraConfig = {
-          Settings = ''
-            gtk-application-prefer-dark-theme=1
-			gtk-theme-name=catppuccin-frappe-blue-standard
-          '';
+            gtk-application-prefer-dark-theme=1;
         };
+        # noctalia 生成的颜色定义（@import 必须放在最前）
+        gtk3.extraCss = ''
+          @import url("noctalia.css");
+        '';
+        gtk4.extraCss = ''
+          @import url("noctalia.css");
+        '';
 		font = {
 		  name = "Monaspace Radon NF";
 		  size = 11;
