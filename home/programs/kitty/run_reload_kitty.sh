@@ -59,10 +59,15 @@ ACTIVE_COLOR=$(grep -oP 'active-color\s+"\K[^"]*' "$NOCTALIA_KDL" | head -1)
 brightness=30   # 目标亮度百分比
 alpha=0.55
 
+
+b_brightness=10   # 目标亮度百分比
+b_alpha=0.15
+
 # 去掉 ACTIVE_COLOR 首尾空白，避免误判
 ACTIVE_COLOR="$(printf '%s' "$ACTIVE_COLOR" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 
 hsla=""
+b_hsla=""
 # 仅当 ACTIVE_COLOR 是合法的 #RRGGBB 颜色时才计算 hsla
 if [[ "$ACTIVE_COLOR" =~ ^#[0-9a-fA-F]{6}$ ]]; then
     hsla=$(python3 -c "
@@ -73,10 +78,20 @@ hue, l, s = colorsys.rgb_to_hls(r, g, b)
 s += 0.2
 print(f'hsla({hue*360:.0f}, {s*100:.0f}%, $brightness%, $alpha)')
 ")
+
+    b_hsla=$(python3 -c "
+import colorsys
+h = '$ACTIVE_COLOR'.lstrip('#')
+r, g, b = int(h[0:2],16)/255, int(h[2:4],16)/255, int(h[4:6],16)/255
+hue, l, s = colorsys.rgb_to_hls(r, g, b)
+s += 0.2
+print(f'hsla({hue*360:.0f}, {s*100:.0f}%, $b_brightness%, $b_alpha)')
+")
 fi
 
 # 去掉 hsla 首尾空白
 hsla="$(printf '%s' "$hsla" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+b_hsla="$(printf '%s' "$b_hsla" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
 
 # 如果 hsla 为空字符串、空或空格等不合法，就用 ACTIVE_COLOR 赋值
 if [ -z "$hsla" ]; then
@@ -100,6 +115,7 @@ if [ -n "$ACTIVE_COLOR" ]; then
     sed -i 's/text-color\s\+"[^"]*"/text-color "'"$hsla"'"/' "$WINDOW_PICKER"
     sed -i 's/border-color\s\+"[^"]*"/border-color "'"$hsla"'"/' "$WINDOW_PICKER"
     sed -i 's/active-color\s\+"[^"]*"/active-color "'"$hsla"'"/' "$WINDOW_PICKER"
+    sed -i 's/backdrop-color\s\+"[^"]*"/backdrop-color "'"$b_hsla"'"/' "$WINDOW_PICKER"
     # echo "将 active-color $ACTIVE_COLOR 同步到了 layout2.kdl"
     # echo "将 noctalia.kdl 中所有 active-color 替换为 $hsla"
 else

@@ -8,9 +8,9 @@ window-picker {
     label {
         font "Sans Bold"
         size 15
-        text-color "hsla(166, 90%, 30%, 0.55)"
+        text-color "hsla(36, 90%, 30%, 0.55)"
         background-color "#161a22e6"
-        border-color "hsla(166, 90%, 30%, 0.55)"
+        border-color "hsla(36, 90%, 30%, 0.55)"
         padding-x 14
         padding-y 7
         gap 12
@@ -40,7 +40,11 @@ window-picker {
     }
 
 	selection {
-        active-color "hsla(166, 90%, 30%, 0.55)"
+        active-color "hsla(36, 90%, 30%, 0.55)"
         width 2
     }
+}
+
+overview {
+	backdrop-color "hsla(36, 90%, 10%, 0.15)"
 }

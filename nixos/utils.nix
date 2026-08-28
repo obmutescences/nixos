@@ -115,7 +115,7 @@ in {
 	ccal
 
 	# go
-	go
+	go_1_27
 	
 	# xdg
 	xdg-desktop-portal-gnome
