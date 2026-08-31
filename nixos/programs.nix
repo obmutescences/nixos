@@ -59,17 +59,17 @@ in {
 	# ];
 	#  };
 
-  programs.qylock = {
-    enable    = true;
-    theme     = "forest";     # Quickshell lockscreen theme
-	sddm.enable = true; 
-	quickshell.enable = true;
-    # sddmTheme = "clockwork";     # optional: also sets services.displayManager.sddm.theme
-
-    # Optional: fonts for themes that require licensed fonts not in the repo.
-    # Drop the font file(s) in your config directory and reference them here.
-    # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
-  };
+	#  programs.qylock = {
+	#    enable    = true;
+	#    theme     = "forest";     # Quickshell lockscreen theme
+	# sddm.enable = true; 
+	# quickshell.enable = true;
+	#    # sddmTheme = "clockwork";     # optional: also sets services.displayManager.sddm.theme
+	#
+	#    # Optional: fonts for themes that require licensed fonts not in the repo.
+	#    # Drop the font file(s) in your config directory and reference them here.
+	#    # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
+	#  };
 
   services.geoclue2.enable = true;  # For QtPositioning
 
