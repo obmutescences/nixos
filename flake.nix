@@ -78,11 +78,11 @@
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
-	# qylock = {
-	#      # url = "github:obmutescences/qylock-nix";
-	#   url = "github:Darkkal44/qylock";
-	#      inputs.nixpkgs.follows = "nixpkgs";
-	#    };
+	qylock = {
+	     # url = "github:obmutescences/qylock-nix";
+	  url = "github:Darkkal44/qylock";
+	     inputs.nixpkgs.follows = "nixpkgs";
+	   };
 
 	nsticky = {
       url = "github:lonerOrz/nsticky";
@@ -109,7 +109,7 @@
 	
    };
 
-  outputs = inputs@{ nixpkgs, ... }: {
+  outputs = inputs@{ nixpkgs, qylock, ... }: {
     nixosConfigurations = {
       zerone-company = # CHANGEME: This should match the 'hostname' in your variables.nix file
         nixpkgs.lib.nixosSystem {
@@ -117,7 +117,7 @@
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
             inputs.home-manager.nixosModules.home-manager
-			# qylock.nixosModules.default
+			qylock.nixosModules.default
             ./hosts/sy-company/configuration.nix # CHANGEME: change the path to match your host folder
           ];
         };
@@ -127,7 +127,7 @@
 		  specialArgs = { inherit inputs; }; # this is the important part
           modules = [
             inputs.home-manager.nixosModules.home-manager
-			# qylock.nixosModules.default
+			qylock.nixosModules.default
             ./hosts/home-desktop/configuration.nix # CHANGEME: change the path to match your host folder
           ];
         };

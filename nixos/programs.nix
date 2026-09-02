@@ -38,18 +38,19 @@ in {
 	  inputs.noctalia-greeter.nixosModules.default
    ];
 
-	programs.noctalia-greeter = {
-	  enable = true;
-	  package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+	# programs.noctalia-greeter = {
+	#   enable = true;
+	#   package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+	#
+	#   # Optional configuration
+	#   greeter-args = "";
+	#   settings.cursor = {
+	# 	theme = "Adwaita";
+	# 	size = 24;
+	# 	package = pkgs.adwaita-icon-theme;
+	#   };
+	# };
 
-	  # Optional configuration
-	  greeter-args = "";
-	  settings.cursor = {
-		theme = "Adwaita";
-		size = 24;
-		package = pkgs.adwaita-icon-theme;
-	  };
-	};
 	#  services.displayManager.dms-greeter = {
 	# enable = true;
 	# compositor.name = "niri";  # Or "hyprland" or "sway"
@@ -59,17 +60,17 @@ in {
 	# ];
 	#  };
 
-	#  programs.qylock = {
-	#    enable    = true;
-	#    theme     = "forest";     # Quickshell lockscreen theme
-	# sddm.enable = true; 
-	# quickshell.enable = true;
-	#    # sddmTheme = "clockwork";     # optional: also sets services.displayManager.sddm.theme
-	#
-	#    # Optional: fonts for themes that require licensed fonts not in the repo.
-	#    # Drop the font file(s) in your config directory and reference them here.
-	#    # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
-	#  };
+	 programs.qylock = {
+	   enable    = true;
+	   theme     = "forest";     # Quickshell lockscreen theme
+	   sddm.enable = true; 
+	   quickshell.enable = true;
+	   # sddm = "forest";     # optional: also sets services.displayManager.sddm.theme
+
+	   # Optional: fonts for themes that require licensed fonts not in the repo.
+	   # Drop the font file(s) in your config directory and reference them here.
+	   # sddmThemeFonts = [ ./fonts/zhcn.ttf ];
+	 };
 
   services.geoclue2.enable = true;  # For QtPositioning
 
@@ -77,6 +78,8 @@ in {
     enable         = true;
     wayland.enable = true;
   };
+
+  services.desktopManager.plasma6.enable = true;
 
   qt.enable = true;
 

@@ -139,5 +139,15 @@ in {
 	# noctalia shell
 	inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+	# remote control (wrap with xdotool lib so libxdo.so.4 is dlopen-able for X11 input)
+	(pkgs.symlinkJoin {
+	  name = "rustdesk";
+	  paths = [ pkgs.rustdesk ];
+	  buildInputs = [ pkgs.makeWrapper ];
+	  postBuild = ''
+	    wrapProgram $out/bin/rustdesk \
+	      --prefix LD_LIBRARY_PATH : "${pkgs.xdotool}/lib"
+	  '';
+	})
   ];
 }
