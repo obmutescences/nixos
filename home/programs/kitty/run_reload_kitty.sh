@@ -167,5 +167,9 @@ print("noctalia.json vars 已同步到 ~/.omp/agent/themes/")
 EOF
 
 #===========fcitx5=================
+python3 /home/zerone/.local/share/fcitx5/themes/noctalia/generate.py
 fcitx5 -r
 
+
+#===========look 主题同步=================
+python3 /home/zerone/.config/kitty/sync_look_theme.py

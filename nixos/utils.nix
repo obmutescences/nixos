@@ -25,6 +25,7 @@ in {
     wl-clipboard
 	cliphist
     brightnessctl
+	glib
 	# qt
 	adwaita-qt6
 	adwaita-qt
@@ -149,5 +150,8 @@ in {
 	      --prefix LD_LIBRARY_PATH : "${pkgs.xdotool}/lib"
 	  '';
 	})
+
+	# app launch
+	inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

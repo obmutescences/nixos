@@ -106,6 +106,11 @@
 		url = "github:Supreeeme/xwayland-satellite";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
+
+	look = {
+		url = "github:kunkka19xx/look?dir=apps/linows";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
 	
    };
 
