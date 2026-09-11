@@ -128,7 +128,8 @@ if [ -n "$ACTIVE_COLOR" ]; then
 
     sed -i 's/text-color\s\+"[^"]*"/text-color "'"$hsla"'"/' "$WINDOW_PICKER"
     sed -i 's/border-color\s\+"[^"]*"/border-color "'"$hsla"'"/' "$WINDOW_PICKER"
-    sed -i 's/active-color\s\+"[^"]*"/active-color "'"$hsla"'"/' "$WINDOW_PICKER"
+    sed -i 's/focused-color\s\+"[^"]*"/focused-color "'"$hsla"'"/' "$WINDOW_PICKER"
+    sed -i 's/hover-color\s\+"[^"]*"/hover-color "'"$hsla"'"/' "$WINDOW_PICKER"
     sed -i 's/backdrop-color\s\+"[^"]*"/backdrop-color "'"$b_hsla"'"/' "$WINDOW_PICKER"
     # echo "将 active-color $ACTIVE_COLOR 同步到了 layout2.kdl"
     # echo "将 noctalia.kdl 中所有 active-color 替换为 $hsla"
