@@ -1,0 +1,131 @@
+layout {
+    gaps 8
+    center-focused-column "always"
+	always-center-single-column
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+    preset-window-heights {
+        proportion 0.5
+        proportion 1.0
+    }
+    default-column-width {
+        proportion 0.4
+    }
+    focus-ring {
+        // off
+        width 1
+    }
+    border {
+        width 1
+
+    }
+    shadow {
+		on
+		// off
+        draw-behind-window true
+        softness 20
+        spread 10
+        offset x=0 y=5
+		color "#8bc1ac"
+    }
+
+
+	focus-animation {
+	// Uncomment this line to enable focus animation.
+	on
+
+	// Animation configuration for the focus animation.
+	// Supports easing (duration-ms + curve) or spring.
+	// duration-ms 200
+
+	// < 1.0
+	spring damping-ratio=0.5 stiffness=1400 epsilon=0.0001
+
+	// > 1.0
+	// spring damping-ratio=0.5 stiffness=900 epsilon=0.0001
+
+	scale {
+		// Uncomment this line to enable scale flash.
+		on
+
+		// Scale factor to flash to when window gains focus.
+		// 1.0 is normal size, < 1.0 is shrinking, > 1.0 is expanding.
+		// flash-scale 1.7
+		flash-scale 0.4
+
+		// Disable focus animation when there's only one window.
+		disable-on-solo false
+
+		disable-on-floating true
+		}
+	}
+}
+
+
+window-rule {
+    match is-active=false
+    opacity 0.7
+	shadow {
+			on
+			softness 0
+			spread 0
+			offset x=0 y=0
+			draw-behind-window true
+			inactive-color "hsla(157, 50%, 30%, 1.0)"
+	}
+}
+
+
+window-picker {
+    // Maximum portion of the active output used by the centered window grid.
+    area-width 0.8
+    area-height 0.8
+    max-scale 0.4
+    gap 30
+
+    label {
+        font "Comic Code"
+        size 15
+        text-color "#8bc1ac"
+        background-color "hsla(157, 50%, 10%, 1.0)"
+        border-color "#8bc1ac"
+        padding-x 14
+        padding-y 7
+        gap 12
+        corner-radius 12
+    }
+
+    // These effects apply to the desktop as a whole; previews and labels stay sharp.
+    backdrop {
+        brightness 1.0
+        color "#10131a33"
+        saturation 1.2
+
+        blur {
+            on
+            passes 3
+            offset 3
+        }
+    }
+
+	animation-ms-open 220
+	animation-ms-close 210
+
+	stagger-ms 800
+    animation {
+        duration-ms 200
+        curve "ease-out-quad"            // linear | ease-out-quad | ease-out-expo
+    }
+
+	selection {
+		focused-color "#7d92b5"
+		hover-color "#7d92b5"
+		glow true      // false 关闭光晕
+    }
+}
+
+overview {
+	backdrop-color "hsla(157, 50%, 10%, 0.1)"
+}
