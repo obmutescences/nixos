@@ -97,12 +97,6 @@ class ColorMath:
         return f"#{round(r * 255):02X}{round(g * 255):02X}{round(b * 255):02X}"
 
     @staticmethod
-    def clamp_l(hex_color, lo, hi):
-        """保持色相/饱和度, 把亮度钳制到 [lo, hi]。"""
-        h, l, s = ColorMath.hex_to_hls(hex_color)
-        return ColorMath.from_hls(h, min(max(l, lo), hi), s)
-
-    @staticmethod
     def hsla(hex_color, lightness, alpha):
         """run_reload_kitty.sh 的取色算法: 饱和度 +0.2, 指定亮度/透明度。"""
         h, _, s = ColorMath.hex_to_hls(hex_color)
@@ -273,7 +267,7 @@ class NiriColorSyncer:
     DEFAULT_COLOR = "#161a22e6"
 
     HSLA_LIGHTNESS = 30  # 主色亮度 (%)
-    HSLA_ALPHA = 1.0
+    HSLA_ALPHA = 0.1
     B_HSLA_LIGHTNESS = 10  # 背景色亮度 (%)
     B_HSLA_ALPHA = 0.1
 
@@ -431,13 +425,13 @@ class Fcitx5ThemeGenerator:
 
     THEME_DIR = Path.home() / ".local/share/fcitx5/themes/noctalia"
     N = 128  # 9-patch 源图边长
-    BG_LIGHTNESS = 0.25  # 背景亮度 (与选择框同色相饱和度, 压低亮度)
-    HL_LIGHTNESS = (0.62, 0.85)  # 选择框亮度区间
+    BG_LIGHTNESS = 0.20  # 面板背景亮度 (与选择框同色相饱和度, 压低亮度)
+    HL_BG_LIGHTNESS = 0.16  # 选中区域背景亮度: 与面板同色相/饱和度, 但压得更暗
 
     CONF_TEMPLATE = """\
 # 由 generate.py 从 noctalia 壁纸取色自动生成, 手改会被覆盖。
 # 来源: {source}
-# 背景={bg} 文字={on_surface} 选择框={primary} 选中文字={secondary}
+# 背景={bg} 文字={on_surface} 选择框={highlight_bg} 选中文字={secondary}
 [Metadata]
 Name=noctalia
 Version=1.0
@@ -450,7 +444,7 @@ NormalColor={secondary}
 CandidateLabelColor={secondary}
 CandidateCommentColor={secondary}
 HighlightColor={secondary}
-HighlightBackgroundColor={primary}
+HighlightBackgroundColor={highlight_bg}
 HighlightCandidateColor={secondary}
 HighlightCandidateLabelColor={secondary}
 HighlightCandidateCommentColor={secondary}
@@ -539,7 +533,6 @@ Bottom=4
         for k in (
             "active_border_color",
             "foreground",
-            "active_tab_foreground",
             "color8",
             "color4",
         ):
@@ -555,14 +548,14 @@ Bottom=4
         )
         h, _, s = ColorMath.hex_to_hls(accent)
         bg = ColorMath.from_hls(h, self.BG_LIGHTNESS, s)
-        highlight = ColorMath.clamp_l(accent, *self.HL_LIGHTNESS)
+        # 选中区域背景: 与面板背景同色相/饱和度, 只把亮度压到更低
+        highlight_bg = ColorMath.from_hls(h, self.HL_BG_LIGHTNESS, s)
         return {
             "bg": bg,
             "on_surface": pal["foreground"],
-            "primary": highlight,
-            "on_primary": pal["active_tab_foreground"] or bg,
+            "highlight_bg": highlight_bg,
             "outline": pal["color8"] or accent,
-            "secondary": pal["color4"] or highlight,
+            "secondary": pal["color4"] or pal["foreground"],
             "menu_border": accent,
         }
 
@@ -624,7 +617,7 @@ Bottom=4
 
         self.theme_dir.mkdir(parents=True, exist_ok=True)
         self.gen_rounded(self.theme_dir / "panel.png", colors["bg"], 10)
-        self.gen_rounded(self.theme_dir / "highlight.png", colors["primary"], 8)
+        self.gen_rounded(self.theme_dir / "highlight.png", colors["highlight_bg"], 8)
         self.gen_bordered(
             self.theme_dir / "menu_panel.png",
             colors["menu_border"],
@@ -636,8 +629,8 @@ Bottom=4
         (self.theme_dir / "theme.conf").write_text(conf, encoding="utf-8")
 
         print(
-            f"fcitx5: bg={colors['bg']} highlight={colors['primary']} "
-            f"text={colors['on_surface']} selected_text={colors['secondary']}"
+            f"fcitx5: bg={colors['bg']} highlight_bg={colors['highlight_bg']} "
+            f"text={colors['secondary']}"
         )
         return True
 
@@ -662,7 +655,7 @@ class LookThemeSyncer:
     """把 kitty 主题 color2/color4 同步到 Look 配置, 并静默重启 lookapp。"""
 
     LOOK_CONFIG = Path.home() / ".look/config"
-    TINT_DARKEN = 0.4  # 背景压暗系数: 1.0 = color2 原色, 越小越暗
+    TINT_DARKEN = 0.2  # 背景压暗系数: 1.0 = color2 原色, 越小越暗
 
     def __init__(self, theme, config_path=None, restart=True):
         self.theme = theme
