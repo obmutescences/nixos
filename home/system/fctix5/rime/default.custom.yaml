@@ -1,0 +1,4 @@
+patch:
+  # 追加「小鹤双拼」；全拼 rime_ice 保留，F4 或 Ctrl+` 呼出方案选单切换
+  schema_list/+:
+    - schema: double_pinyin_flypy

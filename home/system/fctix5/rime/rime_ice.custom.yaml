@@ -1,0 +1,31 @@
+patch:
+  # ── 语法模型（万象 LTS）：等价于官方 grammar 配方 ──
+  grammar:
+    language: wanxiang-lts-zh-hans
+    collocation_max_length: 8
+    collocation_min_length: 2
+    collocation_penalty: -15
+    non_collocation_penalty: -5
+    weak_collocation_penalty: -100
+    rear_penalty: -10
+  translator/contextual_suggestions: false
+  translator/max_homophones: 8
+  translator/max_homographs: 8
+  # ── 整句多候选 + 常显拼音注释 ──
+  translator/max_sentences: 3
+  translator/keep_comments: true
+  # ── 反查带声调：等价于官方 reverse_tone 配方 ──
+  radical_reverse_lookup/dictionary: kMandarin
+
+  # ── 模糊音（平翘舌 + 前后鼻音 an/ang，双向；fuzz 会给派生拼写 ×0.5 降权）──
+  # ⚠️ 列表追加必须写成 patch 下的「节点/+」。写在 - patch/+: 里的话，
+  #    外层 merge 会把 + 剥掉，变成「覆盖」，上游 120 多条 algebra 规则会被清空（简拼全灭）。
+  speller/algebra/+:
+    - fuzz/^([zcs])h/$1/
+    - fuzz/^([zcs])([^h])/$1h$2/
+    - fuzz/ang$/an/
+    - fuzz/an$/ang/
+
+  # ── 中文优先：英文（melt_eng）权重最低（默认 1.1 → 0），并把抢位英文单词降到后面 ──
+  melt_eng/initial_quality: 0
+  reduce_english_filter/mode: all

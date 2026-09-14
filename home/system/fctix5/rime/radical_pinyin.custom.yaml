@@ -1,0 +1,4 @@
+patch:
+  # 小鹤双拼：部件拆字（uU 反查、` 辅码）的拼写规则跟着双拼走
+  speller/algebra:
+    __include: radical_pinyin.schema.yaml:/algebra_double_pinyin_flypy

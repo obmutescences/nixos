@@ -1,0 +1,5 @@
+patch:
+  # 小鹤双拼：英文与符号的派生拼写要跟着双拼走（等价于官方 config 配方的对应块）
+  # 节点 algebra_double_pinyin_flypy 定义在 melt_eng.schema.yaml，已含公共派生规则
+  speller/algebra:
+    __include: melt_eng.schema.yaml:/algebra_double_pinyin_flypy

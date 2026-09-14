@@ -1,0 +1,11 @@
+# Rime table
+# coding: utf-8
+#@/db_name	custom_phrase_double.txt
+#@/db_type	tabledb
+#
+# 小鹤双拼专用自定义短语（编码要写双拼编码，两个字母一个音节）
+# 格式：词汇<Tab>编码<Tab>权重
+# 例：想要「现在就打」置顶，输入即 xmzd，可写：现在就打	xmzd
+# 注意：不要直接照搬 custom_phrase.txt 里的全拼编码，双拼下含义不同。
+#
+# 此行之后不能写注释

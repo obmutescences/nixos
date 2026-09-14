@@ -1,0 +1,20 @@
+patch:
+  # ── 与 rime_ice 保持一致：语法模型 + 反查带声调 ──
+  grammar:
+    language: wanxiang-lts-zh-hans
+    collocation_max_length: 8
+    collocation_min_length: 2
+    collocation_penalty: -15
+    non_collocation_penalty: -5
+    weak_collocation_penalty: -100
+    rear_penalty: -10
+  translator/contextual_suggestions: false
+  translator/max_homophones: 8
+  translator/max_homographs: 8
+  # ── 整句多候选 + 常显拼音注释 ──
+  translator/max_sentences: 3
+  translator/keep_comments: true
+  radical_reverse_lookup/dictionary: kMandarin
+  # ── 中文优先：英文权重最低 ──
+  melt_eng/initial_quality: 0
+  reduce_english_filter/mode: all
