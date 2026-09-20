@@ -74,7 +74,7 @@ let
     ''
 	source ~/.zshrc
 	# exec ${pkgs.neovide}/bin/neovide
-	exec /home/zerone/.cache/target/release/neovide
+	exec /home/zerone/.local/bin/neovide
     '';
   keyboard-sound-alpacas = pkgs.writeShellScriptBin "keyboard-sound-alpacas"
     # bash
