@@ -51,7 +51,7 @@ in {
           @import url("noctalia.css");
         '';
 		font = {
-		  name = "Monaspace Radon NF";
+		  name = "Comic Code";
 		  size = 11;
 		};
       };

@@ -12,7 +12,7 @@
 		scrolling.history = 10000;
 		font = {
 			size = 11;
-			normal.family = "MonaspiceRn Nerd Font Mono";
+			normal.family = "Comic Code";
 			offset = {
 				x = 1;
 				y = 1;

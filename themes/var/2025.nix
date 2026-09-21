@@ -8,7 +8,7 @@
   border-size = 2;
   animation-speed = "fast"; # "fast" | "medium" | "slow"
   # font = "Monofur Nerd Font Mono";
-  font = "Monaspace Radon NF";
+  font = "Comic Code";
   fontSize = "11";
 
   bar = {

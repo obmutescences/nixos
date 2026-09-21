@@ -17,10 +17,11 @@
     enableDefaultPackages = false;
 
     fontconfig = {
+		# Monaspace Radon NF
       defaultFonts = {
-		monospace = [ "Monaspace Radon NF" "AaNLYDSYY (Non-Commercial Use)" ];
-        sansSerif = [ "Monaspace Radon NF" "AaNLYDSYY (Non-Commercial Use)" ] ;
-        serif = [ "Monaspace Radon NF" "AaNLYDSYY (Non-Commercial Use)" ];
+		monospace = [ "Comic Code" "AaNLYDSYY (Non-Commercial Use)" ];
+        sansSerif = [ "Comic Code" "AaNLYDSYY (Non-Commercial Use)" ] ;
+        serif = [ "Comic Code" "AaNLYDSYY (Non-Commercial Use)" ];
         # emoji = [ "Noto Color Emoji" ];
       };
     };

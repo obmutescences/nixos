@@ -8,10 +8,11 @@
 		idle = true;
 		theme = "dark";
 		font = {
-			# size = 15;
-			# normal = {
-			# 	family =  "Comic Shanns Mono";
-			# };
+			size = 11;
+			width = 1.1;
+			normal = {
+				family =  "Comic Code";
+			};
 			# size = 13;
 			# normal = ["UbuntuSansMono Nerd Font Mono"];
 
@@ -25,12 +26,12 @@
 			hinting = "full";
 			edging = "subpixelantialias";
 
-			size = 11;
-			width = 0.5;
-			normal = {
-				family =  "MonaspiceRn Nerd Font Mono";
-				style = "Light Italic";
-			};
+			# size = 11;
+			# width = 0.5;
+			# normal = {
+			# 	family =  "MonaspiceRn Nerd Font Mono";
+			# 	style = "Light Italic";
+			# };
 		 };
     };
   };
