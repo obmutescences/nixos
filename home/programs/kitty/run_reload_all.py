@@ -6,7 +6,7 @@
   2. NiriColorSyncer         把 kitty 主题 color2 同步到 mix.kdl / noctalia.kdl
   3. OmpThemeSyncer          把 .pi 的 vars 原样同步到 .omp 主题 JSON
   4. Fcitx5ThemeGenerator    按 kitty 主题重生成 fcitx5 主题 (PNG + theme.conf)
-  5. LookThemeSyncer         把 color2/color4 同步到 Look 配置并静默重启
+  5. LookThemeSyncer         把 color2/color4 同步到 Look 配置并 reload-config 热重载
 
 颜色源变更: 原脚本从 noctalia.kdl 的 active-color 取色; 现改为读取
 ~/.config/kitty/themes/noctalia.conf 的 color2 (与 fcitx5/look 同源)。
@@ -21,7 +21,7 @@
     python3 run_reload_all.py --color                # 只同步 niri 颜色
     python3 run_reload_all.py --omp                  # 只同步 .pi -> .omp
     python3 run_reload_all.py --fcitx5               # 只重建 fcitx5 主题
-    python3 run_reload_all.py --look [--no-restart]  # 只同步 Look (可选不重启)
+    python3 run_reload_all.py --look [--no-restart]  # 只同步 Look (可选不 reload)
 """
 
 import argparse
@@ -652,7 +652,7 @@ Bottom=4
 
 
 class LookThemeSyncer:
-    """把 kitty 主题 color2/color4 同步到 Look 配置, 并静默重启 lookapp。"""
+    """把 kitty 主题 color2/color4 同步到 Look 配置, 并 lookapp reload-config 热重载。"""
 
     LOOK_CONFIG = Path.home() / ".look/config"
     TINT_DARKEN = 0.2  # 背景压暗系数: 1.0 = color2 原色, 越小越暗
@@ -707,62 +707,36 @@ class LookThemeSyncer:
         )
         return True
 
-    def _dbus_ping(self):
-        return (
-            subprocess.run(
-                [
-                    "gdbus",
-                    "call",
-                    "--session",
-                    "--dest",
-                    "com.look.Desktop",
-                    "--object-path",
-                    "/com/look/Desktop",
-                    "--method",
-                    "org.freedesktop.DBus.Peer.Ping",
-                ],
-                check=False,
-                stdout=subprocess.DEVNULL,
-                stderr=subprocess.DEVNULL,
-            ).returncode
-            == 0
-        )
-
     def reload(self):
-        """隐藏式重启 lookapp: D-Bus 名字一注册就立刻 Toggle 隐藏, 不打断工作。"""
-        subprocess.run(["killall", "lookapp"], check=False)
-        time.sleep(0.8)  # 等 D-Bus 名字 com.look.Desktop 释放
-        subprocess.Popen(
-            ["setsid", "lookapp"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        up = False
-        for _ in range(100):  # 最多等 5s
-            if self._dbus_ping():
-                up = True
-                break
-            time.sleep(0.05)
-        if up:
-            subprocess.run(
-                [
-                    "gdbus",
-                    "call",
-                    "--session",
-                    "--dest",
-                    "com.look.Desktop",
-                    "--object-path",
-                    "/com/look/Desktop",
-                    "--method",
-                    "com.look.Desktop.Toggle",
-                ],
+        """官方热重载: lookapp reload-config 让运行中的 Look 重读配置, 不弹窗不重启。"""
+        try:
+            proc = subprocess.run(
+                ["lookapp", "reload-config"],
+                capture_output=True,
+                text=True,
                 check=False,
+            )
+        except OSError as e:
+            print(f"警告: 无法执行 lookapp reload-config: {e}", file=sys.stderr)
+            return
+
+        output = (proc.stdout or "") + (proc.stderr or "")
+        if "not running" in output:
+            # Look 未在运行: 配置已落盘, 官方提示下次启动生效; 这里直接拉起以立即应用
+            subprocess.Popen(
+                ["setsid", "lookapp"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
             )
-            print("look 已重启并隐藏（不打断工作）")
-        else:
-            print("警告: lookapp 未在 5s 内注册 D-Bus", file=sys.stderr)
+            print("look 未在运行, 已后台启动 lookapp (新配置随即生效)")
+            return
+        if proc.returncode != 0:
+            print(
+                f"警告: lookapp reload-config 退出码 {proc.returncode}",
+                file=sys.stderr,
+            )
+            return
+        print("look 配置已热重载 (lookapp reload-config)")
 
     def run(self):
         if self.update_config() and self.restart:
@@ -791,7 +765,9 @@ def main(argv=None):
         "--fcitx5", action="store_true", help="只重建 fcitx5 noctalia 主题"
     )
     parser.add_argument("--look", action="store_true", help="只同步 Look 主题")
-    parser.add_argument("--no-restart", action="store_true", help="Look 只改配置不重启")
+    parser.add_argument(
+        "--no-restart", action="store_true", help="Look 只改配置不调用 reload-config"
+    )
     args = parser.parse_args(argv)
 
     flags = (args.anim, args.color, args.omp, args.fcitx5, args.look)
