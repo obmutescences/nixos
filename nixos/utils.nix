@@ -2,6 +2,13 @@
 let
   myAlure = pkgs.callPackage ../home/programs/deps/alure.nix {};
   myBucklespring = pkgs.callPackage ../home/programs/buckle/default.nix { alure = myAlure; };
+  # sqlit-tui 的 MySQL/MariaDB 适配器 import 的是 pymysql，而 nixpkgs 里的 sqlit-tui
+  # 只带了 mysql-connector-python（sqlit 视其为“旧驱动”）。必须把 pymysql 加进
+  # sqlit 自己的 python 环境；单独装 python314Packages.pymysql 对它是不可见的
+  # （sqlit 的 wrapper 自带 site-packages 列表并设了 PYTHONNOUSERSITE=1）。
+  mySqlitTui = pkgs.sqlit-tui.overridePythonAttrs (old: {
+    dependencies = (old.dependencies or [ ]) ++ [ pkgs.python3Packages.pymysql ];
+  });
 in {
   environment.systemPackages = with pkgs; [
     fd
@@ -98,7 +105,7 @@ in {
 	stylua
 	lldb_20
 	# mysql cli tools
-	# mycli
+	mySqlitTui
 	# mysql backup tools
 	mydumper
 	# (callPackage ../home/programs/mydumper/default.nix {})
