@@ -9,7 +9,7 @@
 		theme = "dark";
 		font = {
 			size = 11;
-			width = 1.1;
+			width = 0.5;
 			normal = {
 				family =  "Comic Code";
 			};
