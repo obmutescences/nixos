@@ -47,6 +47,8 @@ visual_bell_color               none
 wayland_titlebar_color          system
 macos_titlebar_color            system
 
+custom_shaders cursor-trail-blaze
+
 # include dank-tabs.conf
 # include dank-theme.conf
 include themes/noctalia.conf
