@@ -1,0 +1,28 @@
+# Smooth cursor trail + typing fireworks on a CRT screen.
+#
+# Groups render in order, each one reading what the previous one wrote:
+#   1. cursor trail + firework burst, only while the trail is animating
+#   2. CRT curvature + scanlines, always on
+# The burst is drawn before the CRT warp so the warp bends it together with
+# the rest of the frame and it stays aligned with the warped cursor.
+# `crt` is one of the shaders shipped with kitty (kitty/shaders/custom/crt.slang),
+# no local copy needed.
+
+startgroup
+    animation_start cursor-trail-move
+    animation_stop 1200
+    animation_curve linear
+    animation_step 16
+    shaders smooth-cursor-fireworks
+endgroup
+
+startgroup
+    # static effect: redraw only when content or shader events change,
+    # never on a timer, so an idle terminal stays idle
+    animation_step 0
+    # CRT tunables, kitty's defaults shown. Uncomment to change:
+    # var float WARP = 0.25
+    # var float SCAN = 0.50
+    # var float4 TINT = float4(0, 0.8, 0.6, 1)   # alpha 1 applies the tint
+    shaders crt
+endgroup

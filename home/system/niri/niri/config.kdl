@@ -137,7 +137,7 @@ spawn-at-startup "noctalia"
 spawn-at-startup "sh" "/home/zerone/projects/soft/start-xflash.sh"
 spawn-at-startup "appimage-run" "/home/zerone/projects/soft/Keyboard_Dances.AppImage"
 spawn-at-startup "sh" "-c" "sleep 3 && /home/zerone/projects/soft/wechat-tray-notifier --log-file ~/.cache/wechat-tray-notifier.log"
-// spawn-at-startup "sh" "/home/zerone/projects/soft/clipboard-sync-watch.sh"
+spawn-at-startup "sh" "/home/zerone/projects/soft/clipboard-sync-watch-new.sh"
 spawn-at-startup "nsticky"
 spawn-at-startup "lookapp"
 prefer-no-csd
@@ -213,7 +213,6 @@ gestures {
 }
 
 xwayland-satellite {
-    // off
     path "xwayland-satellite"
 }
 
