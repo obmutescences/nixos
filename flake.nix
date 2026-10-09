@@ -90,7 +90,10 @@
     };
 
 	# inir quickshell
-	# inir.url = "github:snowarch/inir";
+	inir = {
+		url = "github:obmutescences/inir";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
 
 	noctalia = {
       url = "github:noctalia-dev/noctalia";

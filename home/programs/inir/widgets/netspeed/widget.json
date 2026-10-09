@@ -1,0 +1,34 @@
+{
+    "name": "Net Speed",
+    "icon": "network_check",
+    "version": "1.0",
+    "author": "zerone",
+    "description": "Live download / upload throughput, sampled from /proc/net/dev. Ships a desktop widget and a compact iRiS module for the Island's Desktop page.",
+    "category": "system",
+    "main": "NetSpeed.qml",
+    "iris": {
+        "main": "IrisNetSpeed.qml",
+        "slots": ["island.desktop"]
+    },
+    "defaultConfig": {
+        "placementStrategy": "free",
+        "widgetScale": 100,
+        "widgetOpacity": 100,
+        "colorMode": "auto",
+        "dim": 0,
+        "x": 260,
+        "y": 200,
+        "showDownload": true,
+        "showUpload": true,
+        "useBits": false,
+        "showTotals": false
+    },
+    "configKeys": {
+        "showDownload": { "type": "bool", "default": true,  "label": "Show download" },
+        "showUpload":   { "type": "bool", "default": true,  "label": "Show upload" },
+        "useBits":      { "type": "bool", "default": false, "label": "Bits instead of bytes (Mbps)" },
+        "showTotals":   { "type": "bool", "default": false, "label": "Show session totals" }
+    },
+    "resizableAxes": { "uniform": "widgetScale" },
+    "defaultSize": { "width": 200, "height": 84 }
+}

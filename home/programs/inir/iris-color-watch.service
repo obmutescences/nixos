@@ -1,0 +1,13 @@
+[Unit]
+Description=iNiR wallpaper colour watcher (runs iris_reload_all.py on palette changes)
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/etc/profiles/per-user/zerone/bin/python3 %h/.config/kitty/iris_watch.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=ydotoold — input injection daemon for iNiR clipboard paste
+
+[Service]
+Type=simple
+ExecStart=%h/.nix-profile/bin/ydotoold
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

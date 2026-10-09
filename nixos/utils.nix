@@ -33,6 +33,7 @@ in {
 	cliphist
     brightnessctl
 	glib
+	cava
 	# qt
 	adwaita-qt6
 	adwaita-qt
@@ -160,5 +161,9 @@ in {
 
 	# app launch
 	inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default
+	
+	# inir need
+	swayidle
+	ydotool
   ];
 }

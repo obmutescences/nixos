@@ -47,11 +47,10 @@ visual_bell_color               none
 wayland_titlebar_color          system
 macos_titlebar_color            system
 
-custom_shaders cursor-trail-blaze
+custom_shaders smooth-cursor-fireworks
 
-# include dank-tabs.conf
-# include dank-theme.conf
-include themes/noctalia.conf
+# include themes/noctalia.conf
+include current-theme.conf
 ";
   };
 }

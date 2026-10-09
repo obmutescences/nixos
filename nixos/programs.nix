@@ -36,6 +36,7 @@ in {
 
    imports = [
 	  inputs.noctalia-greeter.nixosModules.default
+	  inputs.inir.nixosModules.inir
    ];
 
 	# programs.noctalia-greeter = {
@@ -110,6 +111,13 @@ in {
     dev.enable = false;
     info.enable = false;
     nixos.enable = false;
+  };
+
+  # inir shell
+  programs.inir = {
+    enable = true;
+    service.compositor = "niri";
+    extraPackages = [ config.programs.niri.package ];
   };
 
   systemd.services.mouseless = {

@@ -260,6 +260,26 @@
         "type": "github"
       }
     },
+    "inir": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791531110,
+        "narHash": "sha256-kg4xyQnUTFNkP4wuhKkXKUO0LlPGaPY3AlQTftHnfwA=",
+        "owner": "obmutescences",
+        "repo": "inir",
+        "rev": "57701b4db713e972dce32708e250e062a303302d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obmutescences",
+        "repo": "inir",
+        "type": "github"
+      }
+    },
     "look": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -567,6 +587,7 @@
         "apple-fonts": "apple-fonts",
         "dms": "dms",
         "home-manager": "home-manager",
+        "inir": "inir",
         "look": "look",
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
