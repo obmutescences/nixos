@@ -5,8 +5,9 @@
   1. NiriAnimationSwitcher   轮换 niri 窗口动画 (config.kdl 末尾的 include)
   2. NiriColorSyncer         把 prime 同步到 mix.kdl / noctalia.kdl
   3. OmpThemeSyncer          按 palette.json 的 Material You 角色重写 .omp 主题 vars
-  4. Fcitx5ThemeGenerator    按 iNiR 配色重生成 fcitx5 主题 (PNG + theme.conf)
-  5. LookThemeSyncer         把 prime/second 同步到 Look 配置并 reload-config 热重载
+  4. KittyThemeSyncer        按 palette.json 重算 kitty theme.conf (含目录色)
+  5. Fcitx5ThemeGenerator    按 iNiR 配色重生成 fcitx5 主题 (PNG + theme.conf)
+  6. LookThemeSyncer         把 prime/second 同步到 Look 配置并 reload-config 热重载
 
 颜色源: iNiR 生成物 ~/.local/state/quickshell/user/generated/iris-surface.json
 的 roles (回退 palette.json; 环境变量 IRIS_PRIME / IRIS_SECOND 可覆盖)。
@@ -21,6 +22,7 @@
     python3 iris_reload_all.py --anim                # 只轮换动画
     python3 iris_reload_all.py --color               # 只同步 niri 颜色
     python3 iris_reload_all.py --omp                 # 只按 palette.json 重建 .omp 主题 vars
+    python3 iris_reload_all.py --kitty               # 只按 palette.json 重算 kitty theme.conf
     python3 iris_reload_all.py --fcitx5              # 只重建 fcitx5 主题
     python3 iris_reload_all.py --look [--no-restart] # 只同步 Look (可选不 reload)
 """
@@ -34,6 +36,7 @@ import re
 import struct
 import subprocess
 import sys
+import time
 import zlib
 from pathlib import Path
 
@@ -77,10 +80,12 @@ class IrisTheme:
         roles = surface_data.get("roles") or {}
         if newest == palette:
             prime = palette_data.get("primary")
-            second = palette_data.get("secondary")
+            second = palette_data.get("on_secondary_container")
         else:
             prime = roles.get("primary") or palette_data.get("primary")
-            second = roles.get("secondary") or palette_data.get("secondary")
+            second = roles.get("on_secondary_container") or palette_data.get(
+                "on_secondary_container"
+            )
 
         # 环境变量可覆盖 (由 iris_watch.py 注入, 或手动指定)
         prime = os.environ.get("IRIS_PRIME") or prime
@@ -137,6 +142,30 @@ class ColorMath:
         h, _, s = ColorMath.hex_to_hls(hex_color)
         s = min(1.0, s + 0.2)
         return f"hsla({h * 360:.0f}, {s * 100:.0f}%, {lightness}%, {alpha})"
+
+
+PALETTE = Path.home() / ".local/state/quickshell/user/generated/palette.json"
+_HEX_RE = re.compile(r"#[0-9a-fA-F]{6}")
+
+
+def load_palette(path=None):
+    """读取 Material You palette.json, 返回 dict; 失败返回 None。"""
+    path = Path(path or PALETTE).expanduser()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        print(f"警告: 读取 {path} 失败: {e}", file=sys.stderr)
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def pick_role(palette, roles):
+    """按候选顺序取第一个存在的角色色, 规范为小写 #rrggbb; 都不存在返回 None。"""
+    for role in roles:
+        val = palette.get(role)
+        if isinstance(val, str) and _HEX_RE.fullmatch(val):
+            return val.lower()
+    return None
 
 
 # ======================================================================
@@ -302,9 +331,9 @@ class NiriColorSyncer:
     DEFAULT_COLOR = "#161a22e6"
 
     HSLA_LIGHTNESS = 30  # 主色亮度 (%)
-    HSLA_ALPHA = 0.5
+    HSLA_ALPHA = 0.65
     B_HSLA_LIGHTNESS = 10  # 背景色亮度 (%)
-    B_HSLA_ALPHA = 0.5
+    B_HSLA_ALPHA = 0.65
 
     LABEL_LIGHTNESS = 10
 
@@ -451,28 +480,14 @@ class OmpThemeSyncer:
         return start, end
 
     def _load_palette(self):
-        try:
-            data = json.loads(self.palette.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as e:
-            print(f"警告: 读取 {self.palette} 失败: {e}", file=sys.stderr)
-            return None
-        return data if isinstance(data, dict) else None
-
-    @staticmethod
-    def _pick(palette, roles):
-        """按候选顺序取第一个存在的角色色, 规范为小写 #rrggbb。"""
-        for role in roles:
-            val = palette.get(role)
-            if isinstance(val, str) and re.fullmatch(r"#[0-9a-fA-F]{6}", val):
-                return val.lower()
-        return None
+        return load_palette(self.palette)
 
     def _build_vars(self, existing, palette):
         """保留 dst 现有 var 顺序, 覆盖 ROLE_MAP 命中的值。"""
         out = {}
         for key, old in existing.items():
             roles = self.ROLE_MAP.get(key)
-            new = self._pick(palette, roles) if roles else None
+            new = pick_role(palette, roles) if roles else None
             out[key] = new if new else old
         return out
 
@@ -511,7 +526,194 @@ class OmpThemeSyncer:
 
 
 # ======================================================================
-# 场景 4: fcitx5 主题重生成 (generate.py 逻辑内联)
+# 场景 4: palette.json -> kitty theme.conf 同步
+# ======================================================================
+
+
+class KittyThemeSyncer:
+    """把 palette.json 的 Material You 角色色同步到 kitty 的 theme.conf。
+
+    ii 壁纸主题系统生成的 theme.conf 各次变化很小, 且 ANSI 16 色 / 目录色不跟随主色。
+    这里只替换文件中已存在的配置项 (保留 ii 的注释与排版), 按 palette 角色重算:
+      基本色 (background/foreground/cursor/selection) <- surface / on_surface 系
+      边框与 URL <- primary
+      Tab 栏 <- primary / surface 系
+      16 色: 目录色 color4/color12 <- primary (跟随主色), 红槽 <- error(_fill),
+             绿槽 <- success, 黄槽 <- tertiary_fixed, 青槽 <- tertiary, 灰槽 <- outline 系。
+    """
+
+    CONF = Path.home() / ".config/kitty/theme.conf"
+
+    # `key  value` 行 (value 后可跟行尾注释), 保留 key 与 value 之间的对齐空白
+    _LINE_RE = re.compile(r"^(\s*)([A-Za-z_]\w*)(\s+)(\S+)(\s*(?:#.*)?)$")
+
+    # ii 生成 theme.conf 与本脚本存在竞态: ii 通常在 palette.json 之后约 1s 才写 theme.conf。
+    # 处理: 先等 ii 写完 (theme.conf mtime 晚于 palette.json) 再写入, 写后再守护一小段时间
+    # 防止 ii 补写覆盖, 最后 SIGUSR1 让 kitty 重读配置 (否则磁盘正确但界面仍是 ii 的旧色)。
+    II_WAIT_SECONDS = 6.0  # 等 ii 写完 theme.conf 的最长时间
+    SETTLE_SECONDS = 1.0  # theme.conf 静默多久视为写完
+    GUARD_SECONDS = 3.0  # 写后守护窗口: 期间被 ii 覆盖就重写
+    POLL_SECONDS = 0.25
+
+    def __init__(self, palette=None, conf=None):
+        self.palette = Path(palette or PALETTE).expanduser()
+        self.conf = Path(conf or self.CONF).expanduser()
+        # kitty 配置项 -> palette 角色候选 (按优先级, 首选在前)
+        self.ROLE_MAP = {
+            # 基本色
+            "background": ("surface", "background"),
+            "foreground": ("on_surface", "on_background"),
+            "selection_background": ("surface_container_highest", "primary_container"),
+            "selection_foreground": ("on_surface", "on_background"),
+            "cursor": ("on_surface", "on_background"),
+            "cursor_text_color": ("surface", "background"),
+            "url_color": ("primary", "tertiary"),
+            # 边框
+            "active_border_color": ("primary", "tertiary"),
+            "inactive_border_color": ("surface_container_high", "outline_variant"),
+            "bell_border_color": ("error_fill", "error"),
+            # Tab 栏
+            "active_tab_foreground": ("on_primary", "on_surface"),
+            "active_tab_background": ("primary", "tertiary"),
+            "inactive_tab_foreground": ("on_surface_variant", "outline"),
+            "inactive_tab_background": ("surface_container", "surface_container_low"),
+            "tab_bar_background": ("surface_container_lowest", "surface_dim"),
+            # 16 色 (普通): color4 是目录色, 跟随主色
+            "color0": ("surface_dim", "surface_container_lowest"),
+            "color1": ("error_fill", "error"),
+            "color2": ("success", "tertiary"),
+            "color3": ("tertiary_fixed", "tertiary_fixed_dim"),
+            "color4": ("primary", "tertiary"),
+            "color5": ("secondary", "secondary_fixed"),
+            "color6": ("tertiary", "success"),
+            "color7": ("on_surface_variant", "outline"),
+            # 16 色 (明亮)
+            "color8": ("outline_variant", "surface_container_highest"),
+            "color9": ("error", "error_fill"),
+            "color10": ("tertiary", "success"),
+            "color11": ("tertiary_fixed_dim", "tertiary_fixed"),
+            "color12": ("primary_fixed", "primary"),
+            "color13": ("secondary_fixed", "secondary_fixed_dim"),
+            "color14": ("primary_fixed_dim", "primary_fixed"),
+            "color15": ("on_surface", "on_background"),
+        }
+
+    def build_colors(self, palette):
+        """kitty key -> 颜色, 只保留能取到角色的项。"""
+        colors = {}
+        for key, roles in self.ROLE_MAP.items():
+            val = pick_role(palette, roles)
+            if val:
+                colors[key] = val
+        return colors
+
+    def _rewrite(self, text, colors):
+        out, hits = [], 0
+        for line in text.splitlines(keepends=True):
+            m = self._LINE_RE.match(line)
+            if m and m.group(2) in colors:
+                out.append(
+                    f"{m.group(1)}{m.group(2)}{m.group(3)}"
+                    f"{colors[m.group(2)]}{m.group(5)}"
+                )
+                hits += 1
+            else:
+                out.append(line)
+        return "".join(out), hits
+
+    def _wait_for_ii(self):
+        """等 ii 写完 theme.conf: 其 mtime 晚于 palette.json 且静默 SETTLE_SECONDS。
+
+        最多等 II_WAIT_SECONDS, 超时则照常写入 (不无限阻塞)。
+        """
+        try:
+            palette_mtime = self.palette.stat().st_mtime
+        except OSError:
+            return
+        deadline = time.time() + self.II_WAIT_SECONDS
+        while time.time() < deadline:
+            try:
+                conf_mtime = self.conf.stat().st_mtime
+            except OSError:
+                time.sleep(self.POLL_SECONDS)
+                continue
+            if (
+                conf_mtime > palette_mtime
+                and time.time() - conf_mtime >= self.SETTLE_SECONDS
+            ):
+                return
+            time.sleep(self.POLL_SECONDS)
+
+    def _guard(self, expected):
+        """写后守护 GUARD_SECONDS: ii 若覆盖 theme.conf, 立即重写回我们的颜色。"""
+        deadline = time.time() + self.GUARD_SECONDS
+        rewrites = 0
+        while time.time() < deadline:
+            time.sleep(self.POLL_SECONDS)
+            try:
+                cur = self.conf.read_text(encoding="utf-8")
+            except OSError:
+                continue
+            if cur != expected:
+                self.conf.write_text(expected, encoding="utf-8")
+                rewrites += 1
+        return rewrites
+
+    @staticmethod
+    def _reload_kitty():
+        """让运行中的 kitty 重读配置 (SIGUSR1), 与 ii applycolor.sh 的做法一致。"""
+        try:
+            subprocess.run(
+                ["pkill", "-USR1", "-x", "kitty"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        except OSError:
+            pass
+
+    def sync(self):
+        if not self.palette.exists() or not self.conf.exists():
+            print(
+                f"警告: {self.palette} 或 {self.conf} 不存在, 跳过 kitty 主题同步",
+                file=sys.stderr,
+            )
+            return False
+
+        palette = load_palette(self.palette)
+        if palette is None:
+            return False
+
+        colors = self.build_colors(palette)
+        if not colors:
+            print(
+                "警告: palette 未匹配到任何角色, 跳过 kitty 主题同步", file=sys.stderr
+            )
+            return False
+
+        # 1) 等 ii 先写完, 否则我们的写入会被 ii 后续覆盖
+        self._wait_for_ii()
+        # 2) 写入我们的颜色
+        text = self.conf.read_text(encoding="utf-8")
+        expected, hits = self._rewrite(text, colors)
+        self.conf.write_text(expected, encoding="utf-8")
+        # 3) 守护窗口: ii 若补写覆盖, 立即重写
+        rewrites = self._guard(expected)
+        # 4) 让 kitty 重读配置, 否则磁盘已改但界面仍是 ii 的旧色
+        self._reload_kitty()
+
+        msg = (
+            f"kitty: theme.conf 已按 {self.palette.name} 重算 "
+            f"({hits} 项, 目录色 color4={colors.get('color4')})"
+        )
+        if rewrites:
+            msg += f", 守护期内被 ii 覆盖 {rewrites} 次已重写"
+        print(msg)
+        return True
+
+
+# ======================================================================
+# 场景 5: fcitx5 主题重生成 (generate.py 逻辑内联)
 # ======================================================================
 
 
@@ -753,7 +955,7 @@ Bottom=4
 
 
 # ======================================================================
-# 场景 5: Look 主题同步 (sync_look_theme.py 逻辑内联)
+# 场景 6: Look 主题同步 (sync_look_theme.py 逻辑内联)
 # ======================================================================
 
 
@@ -868,6 +1070,9 @@ def main(argv=None):
         "--omp", action="store_true", help="按 palette.json 重建 .omp 主题 vars"
     )
     parser.add_argument(
+        "--kitty", action="store_true", help="按 palette.json 重算 kitty theme.conf"
+    )
+    parser.add_argument(
         "--fcitx5", action="store_true", help="只重建 fcitx5 noctalia 主题"
     )
     parser.add_argument("--look", action="store_true", help="只同步 Look 主题")
@@ -876,7 +1081,7 @@ def main(argv=None):
     )
     args = parser.parse_args(argv)
 
-    flags = (args.anim, args.color, args.omp, args.fcitx5, args.look)
+    flags = (args.anim, args.color, args.omp, args.kitty, args.fcitx5, args.look)
     run_all = not any(flags)
 
     if args.anim or run_all:
@@ -895,6 +1100,9 @@ def main(argv=None):
 
     if args.omp or run_all:
         OmpThemeSyncer().sync()
+
+    if args.kitty or run_all:
+        KittyThemeSyncer().sync()
 
     if args.fcitx5 or run_all:
         gen = Fcitx5ThemeGenerator(theme)

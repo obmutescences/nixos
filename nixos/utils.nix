@@ -146,7 +146,7 @@ in {
 	bubblewrap
 	
 	# noctalia shell
-	inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+	# inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
 
 	# remote control (wrap with xdotool lib so libxdo.so.4 is dlopen-able for X11 input)
 	(pkgs.symlinkJoin {
