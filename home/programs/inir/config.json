@@ -134,7 +134,7 @@
             "gradientCount": 8,
             "sensitivity": 100,
             "stereo": true,
-            "waveOpacity": 30
+            "waveOpacity": 55
         },
         "colorInvert": false,
         "customTheme": {
@@ -401,11 +401,11 @@
             "enable": true,
             "folder": "",
             "generateColors": false,
-            "intervalMinutes": 60
+            "intervalMinutes": 30
         },
         "backdrop": {
             "auroraOverlayOpacity": 0.38,
-            "blurRadius": 30,
+            "blurRadius": 0,
             "contrast": 0,
             "dim": 32,
             "enable": true,
@@ -498,7 +498,7 @@
             "dim": 0,
             "dynamicDim": 5,
             "enableAnimatedBlur": false,
-            "enableBlur": true,
+            "enableBlur": false,
             "ripple": {
                 "charging": true,
                 "enable": false,
@@ -528,14 +528,14 @@
         },
         "parallax": {
             "autoVertical": false,
-            "axis": "vertical",
+            "axis": "horizontal",
             "enable": false,
             "enableSidebar": true,
             "enableWorkspace": true,
             "panelShift": 0.22,
             "pauseDuringTransitions": true,
             "transitionSettleMs": 220,
-            "vertical": true,
+            "vertical": false,
             "widgetDepth": 1.38,
             "widgetsFactor": 1.38,
             "workspaceShift": 1.25,
@@ -557,7 +557,7 @@
             "type": "crossfade"
         },
         "videoPause": "covered",
-        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0560.png",
+        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0641.png",
         "wallpapersByMonitor": [],
         "widgets": {
             "adaptColorsToWallpaperPosition": false,
@@ -1527,7 +1527,7 @@
                 "useBlur": false,
                 "vizType": "wave",
                 "waveMode": "fill",
-                "waveOpacity": 55,
+                "waveOpacity": 60,
                 "widgetOpacity": 100,
                 "widgetScale": 100,
                 "x": 100,
@@ -2300,11 +2300,11 @@
             "accentForApps": true,
             "adaptive": 0,
             "afterglow": {
-                "atmosphere": 60,
-                "bloom": 50,
-                "chrome": 65,
+                "atmosphere": 25,
+                "bloom": 100,
+                "chrome": 80,
                 "grade": "dusk",
-                "signal": 35,
+                "signal": 0,
                 "wallpaper": true
             },
             "anime": {
@@ -2324,12 +2324,12 @@
             "fontFamily": "Comic Code",
             "glass": {
                 "blur": 100,
-                "edgeColour": "scene",
+                "edgeColour": "highlight",
                 "edgeLight": 100,
-                "edgeLine": 10,
+                "edgeLine": 20,
                 "edgeWidth": 1.5,
                 "mode": "wallpaper",
-                "tint": 42
+                "tint": 40
             },
             "highlight": "wallpaper",
             "icons": {
@@ -2458,7 +2458,7 @@
                 "placement": "auto",
                 "press": 100,
                 "rim": true,
-                "rimTint": "neutral",
+                "rimTint": "highlight",
                 "rimWidth": 1,
                 "shadow": 110,
                 "shape": 115,
@@ -2911,25 +2911,25 @@
             "sessionScreen": true
         },
         "notifications": {
-            "duration": 6000,
+            "duration": 10000,
             "fullscreen": true,
-            "width": 380
+            "width": 340
         },
         "orbit": {
             "askSpotlight": true,
-            "cardHeight": 440,
+            "cardHeight": 310,
             "closeOnGo": true,
             "dimMatches": 78,
-            "enable": false,
+            "enable": true,
             "hints": true,
             "hotCorner": true,
-            "hotCornerAt": "auto",
+            "hotCornerAt": "topRight",
             "hotCornerDelay": 140,
             "hotCornerSize": 12,
             "keys": "niri",
             "labels": "full",
             "opens": "island",
-            "peek": 56,
+            "peek": 60,
             "previewAge": 10,
             "previews": true,
             "recentCount": 5,
@@ -2938,10 +2938,10 @@
             "showMinimised": true,
             "showRecent": true,
             "stashRestore": "original",
-            "thumbSize": 88,
+            "thumbSize": 80,
             "titles": "hover",
             "wallpaper": true,
-            "width": 1100
+            "width": 760
         },
         "osd": {
             "duration": 1500,
@@ -3343,7 +3343,7 @@
         "screenList": [],
         "silent": false,
         "timeout": 7000,
-        "timeoutCritical": 0,
+        "timeoutCritical": 60000,
         "timeoutLow": 5000,
         "timeoutNormal": 7000,
         "useLegacyCounter": true
