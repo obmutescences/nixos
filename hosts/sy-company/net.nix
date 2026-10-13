@@ -15,4 +15,10 @@
 	};
 	networking.defaultGateway  = "192.168.1.1";
 	networking.nameservers  = [ "8.8.8.8" "1.1.1.1" ];
+	networking.networkmanager.settings.connectivity = {
+      enabled = true;
+      uri = "http://connect.rom.miui.com/generate_204";
+      response = "";    # 空 = 服务器返回 204/无内容即算在线
+      interval = 60;    # 默认 300s, 调短让开机后状态更快收敛
+    };
 }
