@@ -49,6 +49,8 @@ class IrisTheme:
     """iNiR 配色源 (prime/second), 保持旧 KittyTheme 的接口 (color(n) / get(key))。
 
     读取优先级: 环境变量 IRIS_PRIME / IRIS_SECOND (iris_watch.py 触发时注入)
+                -> second 取壁纸的第二显色 (iris-washi.json 的 highlights.wallpaper,
+                   highlight=accent 时它仍是第二色; 退回 iris-seeds.json.secondary)
                 -> iris-surface.json 与 palette.json 中较新的那份
                 -> 缺省兜底色。
     槽位映射: prime -> color2 / active_border_color (主色), second -> color4,
@@ -84,6 +86,9 @@ class IrisTheme:
         else:
             prime = roles.get("primary") or palette_data.get("primary")
             second = roles.get("tertiary") or palette_data.get("tertiary")
+
+        # second 用壁纸的第二显色: highlight=accent 时 palette / roles 的 tertiary 是 accent 的色相, 不是第二色。
+        second = second_from_wallpaper() or second
 
         # 环境变量可覆盖 (由 iris_watch.py 注入, 或手动指定)
         prime = os.environ.get("IRIS_PRIME") or prime
@@ -163,6 +168,36 @@ def pick_role(palette, roles):
         val = palette.get(role)
         if isinstance(val, str) and _HEX_RE.fullmatch(val):
             return val.lower()
+    return None
+
+
+def second_from_wallpaper(generated=None):
+    """壁纸的第二显色 (小写 #rrggbb), 与 iris.appearance.highlight 的设置无关。
+
+    先用求解器按当前纸张算好的 iris-washi.json -> schemes.<mode>.highlights.wallpaper
+    (highlight=accent 时它仍是壁纸的第二色, palette.json / roles 的 tertiary 则不是);
+    退回生成器记录的 iris-seeds.json.secondary; 都取不到返回 None。
+    """
+    gen = Path(generated or (Path.home() / ".local/state/quickshell/user/generated")).expanduser()
+    mode = "dark"
+    try:
+        mode = json.loads((gen / "theme-meta.json").read_text(encoding="utf-8")).get("mode") or "dark"
+    except (OSError, ValueError):
+        pass
+    try:
+        schemes = json.loads((gen / "iris-washi.json").read_text(encoding="utf-8")).get("schemes") or {}
+        for key in (mode, "dark"):
+            val = ((schemes.get(key) or {}).get("highlights") or {}).get("wallpaper")
+            if isinstance(val, str) and _HEX_RE.fullmatch(val.strip()):
+                return val.strip().lower()
+    except (OSError, ValueError):
+        pass
+    try:
+        val = json.loads((gen / "iris-seeds.json").read_text(encoding="utf-8")).get("secondary")
+        if isinstance(val, str) and _HEX_RE.fullmatch(val.strip()):
+            return val.strip().lower()
+    except (OSError, ValueError):
+        pass
     return None
 
 
