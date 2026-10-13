@@ -80,12 +80,10 @@ class IrisTheme:
         roles = surface_data.get("roles") or {}
         if newest == palette:
             prime = palette_data.get("primary")
-            second = palette_data.get("on_secondary_container")
+            second = palette_data.get("tertiary")
         else:
             prime = roles.get("primary") or palette_data.get("primary")
-            second = roles.get("on_secondary_container") or palette_data.get(
-                "on_secondary_container"
-            )
+            second = roles.get("tertiary") or palette_data.get("tertiary")
 
         # 环境变量可覆盖 (由 iris_watch.py 注入, 或手动指定)
         prime = os.environ.get("IRIS_PRIME") or prime
