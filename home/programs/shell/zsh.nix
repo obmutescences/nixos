@@ -10,11 +10,13 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    # rfig 自带历史建议，与 zsh-autosuggestions 争抢 POSTDISPLAY，必须二选一
+    autosuggestion.enable = false;
     syntaxHighlighting.enable = true;
     historySubstringSearch.enable = false;
 
-    initContent = lib.mkBefore ''
+    initContent = lib.mkMerge [
+      (lib.mkBefore ''
 	  # 在自动补全时忽略大小写
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 	  # 读取密钥环境变量
@@ -28,7 +30,14 @@
 	  # ---rust 项目开发所需,后续不用可删除
 	  export LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib"
 	  export BINDGEN_EXTRA_CLANG_ARGS="-isystem ${pkgs.llvmPackages.libclang.lib}/lib/clang/${pkgs.lib.versions.major (pkgs.lib.getVersion pkgs.clang)}/include"
-    '';
+      '')
+
+      # rfig: 终端自动补全。order 600 = compinit(570) 之后、syntax-highlighting(1200) 之前。
+      # 二进制与集成脚本由 rfig setup 写在 ~/.config/rfig/，不经 nix 管理。
+      (lib.mkOrder 600 ''
+        [ -r "$HOME/.config/rfig/rfig.zsh" ] && source "$HOME/.config/rfig/rfig.zsh"
+      '')
+    ];
 
     history = {
       ignoreDups = true;
