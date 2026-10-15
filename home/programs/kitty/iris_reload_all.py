@@ -178,14 +178,26 @@ def second_from_wallpaper(generated=None):
     (highlight=accent 时它仍是壁纸的第二色, palette.json / roles 的 tertiary 则不是);
     退回生成器记录的 iris-seeds.json.secondary; 都取不到返回 None。
     """
-    gen = Path(generated or (Path.home() / ".local/state/quickshell/user/generated")).expanduser()
+    gen = Path(
+        generated or (Path.home() / ".local/state/quickshell/user/generated")
+    ).expanduser()
     mode = "dark"
     try:
-        mode = json.loads((gen / "theme-meta.json").read_text(encoding="utf-8")).get("mode") or "dark"
+        mode = (
+            json.loads((gen / "theme-meta.json").read_text(encoding="utf-8")).get(
+                "mode"
+            )
+            or "dark"
+        )
     except (OSError, ValueError):
         pass
     try:
-        schemes = json.loads((gen / "iris-washi.json").read_text(encoding="utf-8")).get("schemes") or {}
+        schemes = (
+            json.loads((gen / "iris-washi.json").read_text(encoding="utf-8")).get(
+                "schemes"
+            )
+            or {}
+        )
         for key in (mode, "dark"):
             val = ((schemes.get(key) or {}).get("highlights") or {}).get("wallpaper")
             if isinstance(val, str) and _HEX_RE.fullmatch(val.strip()):
@@ -193,7 +205,9 @@ def second_from_wallpaper(generated=None):
     except (OSError, ValueError):
         pass
     try:
-        val = json.loads((gen / "iris-seeds.json").read_text(encoding="utf-8")).get("secondary")
+        val = json.loads((gen / "iris-seeds.json").read_text(encoding="utf-8")).get(
+            "secondary"
+        )
         if isinstance(val, str) and _HEX_RE.fullmatch(val.strip()):
             return val.strip().lower()
     except (OSError, ValueError):
@@ -363,10 +377,10 @@ class NiriColorSyncer:
     MIX_KDL = Path.home() / ".config/niri/mix.kdl"
     DEFAULT_COLOR = "#161a22e6"
 
-    HSLA_LIGHTNESS = 30  # 主色亮度 (%)
-    HSLA_ALPHA = 0.65
+    HSLA_LIGHTNESS = 45  # 主色亮度 (%)
+    HSLA_ALPHA = 0.3
     B_HSLA_LIGHTNESS = 10  # 背景色亮度 (%)
-    B_HSLA_ALPHA = 0.65
+    B_HSLA_ALPHA = 0.3
 
     LABEL_LIGHTNESS = 10
 
@@ -477,6 +491,9 @@ class OmpThemeSyncer:
 
     # omp vars key -> palette 角色候选 (按优先级, 首选在前)
     # 语义依据: tert 在 colors 里当作 success, err 当作 error, errorCont 当作 toolErrorBg。
+    # 主色强调 (colors 侧的引用, 改这里不动): accent 用于标题/工具标题/状态栏/主边框,
+    # accentDim (压暗主色) 用于普通边框与链接 URL, primaryCont 用于选中行与用户消息块,
+    # accent 还占住 thinkingMax (默认思考等级 max, 编辑器边框必须落在主色上)。
 
     def __init__(self, palette=None, dst=None):
         self.palette = Path(palette or self.PALETTE).expanduser()
@@ -486,19 +503,21 @@ class OmpThemeSyncer:
             "bgAlt": ("surface_container", "surface_container_high"),
             "bgAlt2": ("surface_container_low", "surface_container"),
             "fg": ("on_surface", "on_background"),
-            "fgMuted": ("on_surface_variant", "outline"),
+            "fgMuted": ("on_primary_fixed_variant", "on_primary_fixed"),
             "accent": ("primary", "tertiary"),
             "accentAlt": ("tertiary", "primary"),
-            "tert": ("success", "tertiary"),
+            # 压暗的主色: 边框 / 链接 URL 等需要「有色但不抢眼」的槽位
+            "accentDim": ("inverse_primary", "primary"),
+            "tert": ("tertiary", "tertiary"),
             "err": ("error", "error_fill"),
             "outline": ("outline", "outline_variant"),
-            "outlineVar": ("outline_variant", "outline"),
+            "outlineVar": ("primary_container", "secondary_container"),
             "primaryCont": ("primary_container", "surface_container_highest"),
             "errorCont": ("error_container", "primary_container"),
             "surfaceLow": ("surface_container_lowest", "surface_dim"),
             "surfaceLowest": ("surface_dim", "surface_container_lowest"),
-            "primaryFixed": ("primary_fixed", "primary_fixed_dim"),
-            "secondaryFixedDim": ("secondary_fixed_dim", "secondary_fixed"),
+            "primaryFixed": ("on_primary_fixed", "primary_fixed_dim"),
+            "secondaryFixedDim": ("primary_fixed", "primary_fixed_dim"),
         }
 
     @staticmethod
