@@ -113,7 +113,14 @@
 	look = {
 		url = "github:kunkka19xx/look?dir=apps/linows";
 	};
-	
+
+	# 按键音二进制：源码在 keyboard_dances 仓库的 nix_cli 分支（纯源码，无 flake.nix）
+	# 改了 nix_cli 分支后需要 nix flake update keyboard-dances 才会重新拉取
+	keyboard-dances = {
+		url = "github:obmutescences/keyboard_dances/nix_cli";
+		flake = false;
+	};
+
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

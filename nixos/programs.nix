@@ -2,6 +2,8 @@
 let 
   hostname = config.var.hostname;
   keyboardLayout = config.var.keyboardLayout;
+  # 预编译二进制 + config.yaml 都在 home/programs/mouseless/，见那里的 package.nix
+  mouseless = pkgs.callPackage ../home/programs/mouseless/package.nix { };
 in {
   networking.hostName = hostname;
   console.keyMap = keyboardLayout;
@@ -32,6 +34,22 @@ in {
 	libraries = with pkgs; [
 
 	];
+  };
+
+  # 按键音：home-manager 模块在 core/home.nix 里 import，这里统一启用/选配置
+  # 配置目录：home/programs/keyboard-dances/sounds/<profile>/{press,release}.{wav,ogg}
+  # 微信托盘通知：二进制由 home/programs/wechat-tray-notifier/package.nix 用 PyInstaller 构建
+  home-manager.users."${config.var.username}".programs = {
+	keyboard-dances = {
+		enable = true;
+		# profile = "nk-cream";
+		profile = "default";
+	};
+
+	wechat-tray-notifier.enable = true;
+
+	# X11 ↔ Wayland 剪贴板桥（预编译二进制在 home/programs/clipferry/clipferry）
+	clipferry.enable = true;
   };
 
    imports = [
@@ -127,7 +145,7 @@ in {
     
     serviceConfig = {
       Type = "simple";
-      ExecStart = "/home/zerone/.local/bin/mouseless --config /home/zerone/.config/mouseless/config.yaml";
+      ExecStart = "${mouseless}/bin/mouseless --config ${mouseless}/share/mouseless/config.yaml";
       
       # 运行用户：需要能访问输入设备（通常为 root 或 input 组）
       User = "root";  # 或 "your-username"

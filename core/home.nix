@@ -17,6 +17,9 @@
 	../home/programs/wl-kbptr
 	../home/programs/ghostty
 	../home/programs/dms
+	../home/programs/keyboard-dances
+	../home/programs/wechat-tray-notifier
+	../home/programs/clipferry
 
 
     # Scripts

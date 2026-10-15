@@ -280,6 +280,23 @@
         "type": "github"
       }
     },
+    "keyboard-dances": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792053937,
+        "narHash": "sha256-kaIGNsBaXyTJjPALYuG9JZwOSGMrUjvzmkdtWWg030k=",
+        "owner": "obmutescences",
+        "repo": "keyboard_dances",
+        "rev": "f016cb3380f16bed0cc457631445a26035b499b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obmutescences",
+        "ref": "nix_cli",
+        "repo": "keyboard_dances",
+        "type": "github"
+      }
+    },
     "look": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -588,6 +605,7 @@
         "dms": "dms",
         "home-manager": "home-manager",
         "inir": "inir",
+        "keyboard-dances": "keyboard-dances",
         "look": "look",
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
