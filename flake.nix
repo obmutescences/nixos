@@ -121,6 +121,14 @@
 		flake = false;
 	};
 
+	# neovide 二进制由 fork 仓库自带 flake 编译（packages.default /
+	# overlays.default，见 https://github.com/obmutescences/neovide/blob/main/flake.nix）。
+	# 改了 fork 并推送后：nix flake update neovide 再 rebuild。
+	neovide = {
+		url = "github:obmutescences/neovide";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

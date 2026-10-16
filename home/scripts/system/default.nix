@@ -69,12 +69,24 @@ let
       ${pkgs.hyprlock}/bin/hyprlock
     '';
    
+  # 启动 neovide。不要 source ~/.zshrc：那个文件是 zsh 语法 + 交互式插件
+  # （compinit / autosuggestions / zoxide / oh-my-posh），bash 里 source 会刷一屏
+  # 报错，而且里面绝大多数东西跟 neovide 无关。
+  # neovide 本体需要的 nvim/node/cargo 本来就在会话 PATH 里（PAM / environment.d），
+  # 这里只补 .zshrc 里额外加的三个目录，以及密钥文件。
   start-neovide = pkgs.writeShellScriptBin "start-neovide"
     # bash
     ''
-	source ~/.zshrc
-	# exec ${pkgs.neovide}/bin/neovide
-	exec /home/zerone/.local/bin/neovide
+	export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.npm/bin''${PATH:+:$PATH}"
+
+	# 密钥文件是纯 export KEY=value，bash 可以直接 source（内容不进 nix store）
+	if [ -r "$HOME/.env.secret" ]; then
+		set -a
+		. "$HOME/.env.secret"
+		set +a
+	fi
+
+	exec ${pkgs.neovide}/bin/neovide "$@"
     '';
   keyboard-sound-alpacas = pkgs.writeShellScriptBin "keyboard-sound-alpacas"
     # bash

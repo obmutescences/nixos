@@ -318,6 +318,26 @@
         "type": "github"
       }
     },
+    "neovide": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792119957,
+        "narHash": "sha256-/IjNhIFwUY8VFFe1Hiyxn7/axHlZ3QPzzOtP67kBqp4=",
+        "owner": "obmutescences",
+        "repo": "neovide",
+        "rev": "7398769fff59ba2ffdd3aaadb515a98e248616b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obmutescences",
+        "repo": "neovide",
+        "type": "github"
+      }
+    },
     "niri": {
       "inputs": {
         "niri-stable": "niri-stable",
@@ -607,6 +627,7 @@
         "inir": "inir",
         "keyboard-dances": "keyboard-dances",
         "look": "look",
+        "neovide": "neovide",
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

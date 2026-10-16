@@ -5,6 +5,11 @@ let
   # 预编译二进制 + config.yaml 都在 home/programs/mouseless/，见那里的 package.nix
   mouseless = pkgs.callPackage ../home/programs/mouseless/package.nix { };
 in {
+  # neovide 二进制来自 fork 仓库自带 flake 的 overlay：pkgs.neovide 换成
+  # fork 源码编译的版本，home-manager 的 programs.neovide（默认取 pkgs.neovide）
+  # 和 start-neovide 脚本里的 ${pkgs.neovide} 都指向同一份构建。
+  nixpkgs.overlays = [ inputs.neovide.overlays.default ];
+
   networking.hostName = hostname;
   console.keyMap = keyboardLayout;
 
