@@ -91,7 +91,7 @@
 
 	# inir quickshell
 	inir = {
-		url = "github:obmutescences/inir";
+		url = "github:obmutescences/inir/dev";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
