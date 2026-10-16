@@ -557,7 +557,7 @@
             "type": "crossfade"
         },
         "videoPause": "covered",
-        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0641.png",
+        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0015.png",
         "wallpapersByMonitor": [],
         "widgets": {
             "adaptColorsToWallpaperPosition": false,
@@ -2324,9 +2324,9 @@
             "fontFamily": "Comic Code",
             "glass": {
                 "blur": 100,
-                "edgeColour": "highlight",
+                "edgeColour": "accent",
                 "edgeLight": 100,
-                "edgeLine": 20,
+                "edgeLine": 40,
                 "edgeWidth": 1.5,
                 "mode": "wallpaper",
                 "tint": 40
@@ -2343,7 +2343,7 @@
             "motion": true,
             "motionDuration": 220,
             "numbersFontFamily": "Comic Code",
-            "preset": "round",
+            "preset": "soft",
             "previews": true,
             "saved": [],
             "scheme": "auto",
@@ -2500,7 +2500,7 @@
             "auxiliary": "tray",
             "blockStyle": "plain",
             "centerModules": [],
-            "clockAccent": "highlight",
+            "clockAccent": "accent",
             "clockScale": 100,
             "clockStyle": "dateTime",
             "composition": "cluster",
@@ -2513,8 +2513,7 @@
                 "profile",
                 "context",
                 "forecast",
-                "agenda",
-                "modules"
+                "agenda"
             ],
             "events": true,
             "fullCenter": [
@@ -2530,7 +2529,7 @@
                 "workspaces",
                 "window"
             ],
-            "height": 36,
+            "height": 32,
             "hoverDelay": 120,
             "hoverExpand": true,
             "layout": "island",
@@ -2556,10 +2555,13 @@
                 "settings"
             ],
             "notch": true,
-            "notchCurve": 100,
-            "padding": 100,
+            "notchCurve": 90,
+            "padding": 80,
             "pageWidth": 440,
-            "pieces": [],
+            "pieces": [
+                "usage",
+                "netspeed"
+            ],
             "piecesSide": "end",
             "position": "top",
             "reserveSpace": true,
@@ -2567,8 +2569,8 @@
             "rightModules": [
                 "custom:netspeed"
             ],
-            "satelliteGap": 8,
-            "satelliteScale": 100,
+            "satelliteGap": 3,
+            "satelliteScale": 85,
             "screenList": [],
             "scrollAction": "volume",
             "scrollBubbles": true,
@@ -2655,10 +2657,10 @@
                     "place": "right"
                 },
                 "sound": {
-                    "enable": false,
+                    "enable": true,
                     "fx": 0.5,
                     "fy": 0.5,
-                    "place": "right"
+                    "place": "top-right"
                 },
                 "tools": {
                     "enable": false,
@@ -2704,16 +2706,24 @@
                 },
                 "weather": {
                     "enable": false,
-                    "fx": 0.5,
-                    "fy": 0.5,
-                    "place": "right"
+                    "fx": 0.5129,
+                    "fy": 0.2854,
+                    "place": "free"
                 },
                 "workspaces": {
-                    "enable": true,
+                    "enable": false,
                     "fx": 0.647,
                     "fy": 0.113,
                     "opens": "card",
                     "place": "top-left"
+                },
+                "usage": {
+                    "enable": false,
+                    "place": "island"
+                },
+                "netspeed": {
+                    "enable": false,
+                    "place": "island"
                 }
             },
             "join": "notch",
@@ -2722,7 +2732,7 @@
                 "fy": 0.0076,
                 "place": "edge:top"
             },
-            "notchCurve": 100,
+            "notchCurve": 70,
             "opens": "card",
             "reserve": true,
             "right": {
@@ -2733,15 +2743,15 @@
             "scale": 108,
             "snap": true,
             "utility": {
-                "fx": 0.5,
-                "fy": 0.5,
+                "fx": 0.5822,
+                "fy": 0.2154,
                 "place": "top-right"
             }
         },
         "controlCenter": {
             "accent": "accent",
             "columns": 4,
-            "controls": "round",
+            "controls": "tiles",
             "labels": true,
             "levels": [
                 "brightness",
@@ -2753,22 +2763,18 @@
                 "media",
                 "darkMode",
                 "nightLight",
+                "levels",
+                "idle",
                 "snip",
                 "devices",
                 "record",
-                "notifications",
-                "network",
-                "bluetooth",
-                "volume",
-                "colorPicker",
-                "audio"
+                "notifications"
             ],
             "opens": "island",
             "platter": [
                 "network",
                 "bluetooth",
-                "focus",
-                "gameMode"
+                "focus"
             ],
             "preset": "iris",
             "sections": [
@@ -2889,7 +2895,7 @@
                 "vignette": 40
             },
             "type": {
-                "accent": "plain",
+                "accent": "accent",
                 "clockFont": "numbers",
                 "clockFormat": "24h",
                 "clockSize": 112,
@@ -2963,7 +2969,20 @@
             "width": 600
         },
         "pieces": {
-            "icons": []
+            "icons": [
+                {
+                    "glyph": "dashboard",
+                    "kind": "controls"
+                },
+                {
+                    "glyph": "notifications_active",
+                    "kind": "notifications"
+                },
+                {
+                    "kind": "bluetooth",
+                    "glyph": "bluetooth_connected"
+                }
+            ]
         },
         "player": {
             "artworkBackground": true,
@@ -3017,7 +3036,7 @@
             "enable": true,
             "music": "frame",
             "musicAppearance": "etched",
-            "musicColour": "wallpaper",
+            "musicColour": "spectrum",
             "musicEdges": "all",
             "musicLight": 100,
             "musicLightWidth": 4,
