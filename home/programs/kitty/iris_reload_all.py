@@ -8,6 +8,11 @@
   4. KittyThemeSyncer        按 palette.json 重算 kitty theme.conf (含目录色)
   5. Fcitx5ThemeGenerator    按 iNiR 配色重生成 fcitx5 主题 (PNG + theme.conf)
   6. LookThemeSyncer         把 prime/second 同步到 Look 配置并 reload-config 热重载
+  7. NoctaliaTemplateSyncer  按 palette.json 重渲染 noctalia 模板产物
+                             (btop / fastfetch / telegram / gtk3 / gtk4 / kde 配色;
+                              fastfetch 会合并进 config.jsonc, kde 会选中该配色)
+  8. FluentIconSyncer        按 palette.json 给 Fluent 图标主题的蓝文件夹改色
+                             (overlay 写 ~/.local/share/icons/Fluent, 不改主题名)
 
 颜色源: iNiR 生成物 ~/.local/state/quickshell/user/generated/iris-surface.json
 的 roles (回退 palette.json; 环境变量 IRIS_PRIME / IRIS_SECOND 可覆盖)。
@@ -25,6 +30,9 @@
     python3 iris_reload_all.py --kitty               # 只按 palette.json 重算 kitty theme.conf
     python3 iris_reload_all.py --fcitx5              # 只重建 fcitx5 主题
     python3 iris_reload_all.py --look [--no-restart] # 只同步 Look (可选不 reload)
+    python3 iris_reload_all.py --templates           # 只重渲染 noctalia 模板产物
+                                                     # (btop/fastfetch/telegram/gtk3/gtk4/kde)
+    python3 iris_reload_all.py --icons               # 只给 Fluent 图标主题的蓝文件夹改色
 """
 
 import argparse
@@ -33,6 +41,7 @@ import json
 import math
 import os
 import re
+import shutil
 import struct
 import subprocess
 import sys
@@ -1105,6 +1114,477 @@ class LookThemeSyncer:
 
 
 # ======================================================================
+# 场景 7: noctalia 模板产物同步 (btop / fastfetch / telegram)
+# ======================================================================
+
+
+class NoctaliaTemplateSyncer:
+    """按 palette.json 重渲染 noctalia 的模板产物:
+    btop / fastfetch / telegram / gtk3 / gtk4 / kde 配色。
+
+    这些文件原本由 noctalia 的模板处理器渲染 —— 模板里写的是
+    {{colors.<role>.default.hex}} 或 {{colors.<role>.default.rgb_csv}} 占位符。
+    noctalia 不再运行时它们不会跟随壁纸变化。
+    这里直接读 noctalia 安装的模板原文件, 用 palette.json 的角色替换占位符后写出:
+    结果与 noctalia 的输出逐字节同构 (注释、字面量、`{{...}}cc` 这类透明度后缀都原样
+    保留), 但不依赖 noctalia 进程。
+
+    角色语义: 占位符里的角色名就是 palette.json 的角色名。tertiary 是壁纸的第二副颜色
+    (btop 的 hi_fg 与各 *_end、fastfetch 的 percent.green 等高亮槽位都用它), secondary
+    是模板指定的次色槽位。这里不使用 iris-washi 的 highlights.wallpaper。
+
+    fastfetch: 模板产物只有 logo/display 两处颜色, 必须合并进 config.jsonc 才生效
+    (noctalia 的 apply.sh 就是这么做的, 并规避 fastfetch 2.66.0 的 logo 16 字节 SGR bug),
+    所以这里顺带合并, 只动 logo/display 两个子对象。
+    btop: 写完后给运行中的 btop 发 SIGUSR2 热重载 (与 noctalia apply.sh 一致)。
+    gtk3/gtk4: 产物是 ~/.config/gtk-{3,4}.0/noctalia.css, 靠 gtk.css 里的
+    `@import url("noctalia.css");` 生效 (libadwaita 不认 gtk-theme-name, 只吃这套命名色,
+    所以 nautilus 这类 GTK4 应用能跟随; GTK3 应用如 thunar 只跟随其中 theme_selected_*)。
+    gtk.css 由 home-manager 管理, 这里只检查 import 是否存在, 不修改。
+    kde: 产物 ~/.local/share/color-schemes/noctalia.colors (KDE 用 R,G,B 三元组),
+    写完后调 plasma-apply-colorscheme 让 dolphin 等 KDE 应用真正用上 (写 kdeglobals)。
+    telegram: 写完后需在 Telegram 设置里重选主题 (Telegram 不监听该文件), 脚本不代劳。
+
+    模板不存在或角色缺失 -> 跳过该文件并告警, 绝不写出带占位符的半成品。
+    """
+
+    PALETTE = Path.home() / ".local/state/quickshell/user/generated/palette.json"
+    PLACEHOLDER = re.compile(r"\{\{colors\.([a-z_0-9]+)\.default\.(hex|rgb_csv)\}\}")
+    COMMUNITY = Path.home() / ".local/state/noctalia/community-templates"
+    STORE_GLOB = "*-noctalia-*/share/noctalia/assets/templates"
+    FASTFETCH_CONF = Path.home() / ".config/fastfetch/config.jsonc"
+    GTK_IMPORT = "noctalia.css"
+
+    def __init__(self, palette=None):
+        self.palette = Path(palette or self.PALETTE).expanduser()
+
+    # ---- 模板定位 --------------------------------------------------------
+    @staticmethod
+    def _version_key(path):
+        m = re.search(r"-noctalia-(\d+(?:\.\d+)*)", str(path))
+        return tuple(int(x) for x in m.group(1).split(".")) if m else ()
+
+    @classmethod
+    def _builtin(cls, rel):
+        """noctalia 内置模板 (nix store, 路径带版本哈希): 按版本号取最新的一份。"""
+        found = list(Path("/nix/store").glob(f"{cls.STORE_GLOB}/{rel}"))
+        return sorted(found, key=cls._version_key, reverse=True)
+
+    def targets(self):
+        """(标签, 模板候选路径, 输出路径, 写后动作)。"""
+        home = Path.home()
+        return [
+            (
+                "btop",
+                self._builtin("btop/btop.theme"),
+                home / ".config/btop/themes/noctalia.theme",
+                "btop",
+            ),
+            (
+                "fastfetch",
+                [self.COMMUNITY / "fastfetch/fastfetch-colors.jsonc"],
+                home / ".config/fastfetch/themes/noctalia.jsonc",
+                "fastfetch",
+            ),
+            (
+                "telegram",
+                [self.COMMUNITY / "telegram/telegram.tdesktop-theme"],
+                home / ".config/telegram-desktop/themes/noctalia.tdesktop-theme",
+                None,
+            ),
+            (
+                "gtk3",
+                self._builtin("gtk/gtk3.css"),
+                home / ".config/gtk-3.0/noctalia.css",
+                "gtk",
+            ),
+            (
+                "gtk4",
+                self._builtin("gtk/gtk4.css"),
+                home / ".config/gtk-4.0/noctalia.css",
+                "gtk",
+            ),
+            (
+                "kde",
+                self._builtin("kde/kcolorscheme.colors"),
+                home / ".local/share/color-schemes/noctalia.colors",
+                "kde",
+            ),
+            (
+                "qt6ct",
+                self._builtin("qt/qtct.conf"),
+                home / ".config/qt6ct/colors/noctalia.conf",
+                "qt",
+            ),
+            (
+                "qt5ct",
+                self._builtin("qt/qtct.conf"),
+                home / ".config/qt5ct/colors/noctalia.conf",
+                "qt",
+            ),
+        ]
+
+    # ---- 渲染 ------------------------------------------------------------
+    def render(self, template, palette):
+        """替换 {{colors.<role>.default.hex|rgb_csv}} 占位符, 返回 (文本, 缺失角色集合)。"""
+        missing = set()
+
+        def sub(match):
+            role, kind = match.group(1), match.group(2)
+            val = palette.get(role)
+            if isinstance(val, str) and _HEX_RE.fullmatch(val.strip()):
+                rgb = val.strip().lower().lstrip("#")
+                if kind == "hex":
+                    return "#" + rgb
+                return ",".join(str(int(rgb[i : i + 2], 16)) for i in (0, 2, 4))
+            missing.add(role)
+            return match.group(0)
+
+        return self.PLACEHOLDER.sub(sub, template), missing
+
+    # ---- fastfetch 合并 --------------------------------------------------
+    @staticmethod
+    def _nudge_logo(hex_color):
+        """规避 fastfetch 2.66.0 的 logo 渲染 bug (noctalia apply.sh 同款):
+
+        logo.color 的 truecolor SGR 串恰好 16 字符 (R/G/B 全 >= 100) 时该色会被静默丢弃。
+        把最小的那个通道压到 99 即让 SGR 串短于 16 字符, 改动最小且仍是 24bit 真彩。
+        """
+        rgb = list(ColorMath.hexv(hex_color))
+        if min(rgb) >= 100:
+            rgb[min(range(3), key=lambda i: rgb[i])] = 99
+        return "#{:02x}{:02x}{:02x}".format(*rgb)
+
+    @classmethod
+    def _merge(cls, dst, src):
+        """递归合并 src 到 dst (jq 的 `*` 语义), 返回改动条数。"""
+        changed = 0
+        for key, val in src.items():
+            if isinstance(val, dict) and isinstance(dst.get(key), dict):
+                changed += cls._merge(dst[key], val)
+            elif dst.get(key) != val:
+                dst[key] = val
+                changed += 1
+        return changed
+
+    def _apply_fastfetch(self, theme_path):
+        """把主题文件的 logo/display 合并进 config.jsonc, 返回改动条数 (-1 = 跳过)。"""
+        conf_path = self.FASTFETCH_CONF
+        try:
+            theme = json.loads(theme_path.read_text(encoding="utf-8"))
+            conf = json.loads(conf_path.read_text(encoding="utf-8"))
+        except OSError as e:
+            print(f"警告: 读 {conf_path} 失败, 跳过 fastfetch 合并: {e}", file=sys.stderr)
+            return -1
+        except ValueError as e:
+            print(
+                f"警告: {conf_path} 不是严格 JSON (含注释?), 跳过 fastfetch 合并: {e}",
+                file=sys.stderr,
+            )
+            return -1
+        if not isinstance(theme, dict) or not isinstance(conf, dict):
+            print(f"警告: {conf_path} 顶层不是对象, 跳过 fastfetch 合并", file=sys.stderr)
+            return -1
+
+        patch = {}
+        for key in ("logo", "display"):
+            src = theme.get(key)
+            if isinstance(src, dict):
+                patch[key] = json.loads(json.dumps(src))  # 深拷贝, 不污染 theme
+        logo = patch.get("logo")
+        if isinstance(logo, dict):
+            colors = logo.get("color")
+            if isinstance(colors, dict):
+                for k, v in colors.items():
+                    if isinstance(v, str) and _HEX_RE.fullmatch(v):
+                        colors[k] = self._nudge_logo(v)
+
+        changed = self._merge(conf, patch)
+        if changed:
+            conf_path.write_text(
+                json.dumps(conf, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+            )
+        return changed
+
+    # ---- btop 热重载 -----------------------------------------------------
+    @staticmethod
+    def _reload_btop():
+        """btop 读主题不重载, SIGUSR2 让它重读 (noctalia apply.sh 的做法)。"""
+        try:
+            proc = subprocess.run(
+                ["pkill", "-SIGUSR2", "-x", "btop"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+        except OSError:
+            return False
+        return proc.returncode == 0
+
+    # ---- gtk / kde 落地 --------------------------------------------------
+    @staticmethod
+    def _check_gtk_import():
+        """gtk-{3,4}.0/gtk.css 里必须有 import noctalia.css, 否则产物不生效。
+
+        这两个 gtk.css 由 home-manager 管理 (只读 symlink), 所以只检查、不修改。
+        返回缺失 import 的文件路径列表。
+        """
+        bad = []
+        for ver in ("gtk-3.0", "gtk-4.0"):
+            css = Path.home() / ".config" / ver / "gtk.css"
+            try:
+                text = css.read_text(encoding="utf-8")
+            except OSError:
+                bad.append(str(css))
+                continue
+            if NoctaliaTemplateSyncer.GTK_IMPORT not in text:
+                bad.append(str(css))
+        return bad
+
+    @staticmethod
+    def _parse_kv(text):
+        """把 KDE ini 风格的文本解析成 {(section, key): value} (容忍 [A][B] 这类双头)。"""
+        out = {}
+        section = ""
+        for line in text.splitlines():
+            line = line.strip()
+            if line.startswith("[") and line.endswith("]"):
+                section = line
+            elif "=" in line and not line.startswith("#"):
+                key, _, val = line.partition("=")
+                out[(section, key.strip())] = val.strip()
+        return out
+
+    # KDE 会按 frameContrast 重新混合这一节, 不逐值复制 .colors 的内容, 故不参与比对
+    KDE_SKIP_SECTIONS = ("[Colors:Header][Inactive]",)
+
+    @classmethod
+    def _kde_stale(cls, scheme_path):
+        """kdeglobals 里已应用的配色是否与刚渲染的 .colors 不一致 (含根本没选中)。
+
+        只比对 kdeglobals 里确实存在的键 (如 [General] Name 不会写进 kdeglobals)。
+        """
+        try:
+            conf = cls._parse_kv((Path.home() / ".config/kdeglobals").read_text(encoding="utf-8"))
+            scheme = cls._parse_kv(scheme_path.read_text(encoding="utf-8"))
+        except OSError:
+            return True
+        if conf.get(("[General]", "ColorScheme")) != "noctalia":
+            return True
+        return any(
+            conf.get(key) not in (None, val)
+            for key, val in scheme.items()
+            if key[1] != "ColorScheme" and key[0] not in cls.KDE_SKIP_SECTIONS
+        )
+
+    @staticmethod
+    def _kde_forget():
+        """删掉 kdeglobals 的 ColorScheme*, 让 plasma-apply-colorscheme 重新展开配色。"""
+        path = Path.home() / ".config/kdeglobals"
+        try:
+            text = path.read_text(encoding="utf-8")
+        except OSError:
+            return
+        keep = [
+            line
+            for line in text.splitlines()
+            if not line.startswith(("ColorScheme=", "ColorSchemeHash="))
+        ]
+        path.write_text("\n".join(keep).rstrip("\n") + "\n", encoding="utf-8")
+
+    @classmethod
+    def _apply_kde(cls, scheme_path):
+        """让 KDE 应用真正用上 noctalia 配色 (noctalia 自己只放文件, 要手动选)。
+
+        plasma-apply-colorscheme 会把配色展开写进 ~/.config/kdeglobals (dolphin 读它),
+        无 Plasma 会话也能跑。但它只认 ColorScheme 名字, 名字没变就跳过展开,
+        所以配色变了要先把 ColorScheme* 删掉再调一次。返回备注 (无需动作返回 None)。
+        """
+        if not cls._kde_stale(scheme_path):
+            return None
+        cls._kde_forget()
+        try:
+            proc = subprocess.run(
+                ["plasma-apply-colorscheme", "noctalia"],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except OSError as e:
+            print(f"警告: 调用 plasma-apply-colorscheme 失败, 跳过 KDE 配色选中: {e}",
+                  file=sys.stderr)
+            return None
+        if proc.returncode != 0:
+            print(
+                f"警告: plasma-apply-colorscheme noctalia 返回 {proc.returncode}, "
+                f"跳过 KDE 配色选中: {(proc.stderr or proc.stdout).strip()}",
+                file=sys.stderr,
+            )
+            return None
+        return "已选中 KDE 配色 (kdeglobals)"
+
+    # ---- 入口 ------------------------------------------------------------
+    def sync(self):
+        palette = load_palette(self.palette)
+        if palette is None:
+            return False
+
+        done = 0
+        for label, templates, out_path, action in self.targets():
+            tpl = next((p for p in templates if p.exists()), None)
+            if tpl is None:
+                print(
+                    f"警告: 找不到 {label} 的 noctalia 模板 (查过 {len(templates)} 处), 跳过",
+                    file=sys.stderr,
+                )
+                continue
+
+            rendered, missing = self.render(tpl.read_text(encoding="utf-8"), palette)
+            if missing:
+                print(
+                    f"警告: {self.palette.name} 缺少角色 {sorted(missing)}, 跳过 {label}",
+                    file=sys.stderr,
+                )
+                continue
+
+            try:
+                old = out_path.read_text(encoding="utf-8")
+            except OSError:
+                old = None
+
+            written = old != rendered
+            if written:
+                out_path.parent.mkdir(parents=True, exist_ok=True)
+                out_path.write_text(rendered, encoding="utf-8")
+
+            notes = []
+            if action == "fastfetch":
+                changed = self._apply_fastfetch(out_path)
+                if changed > 0:
+                    notes.append(f"已合并进 {self.FASTFETCH_CONF.name} ({changed} 项)")
+            elif action == "btop" and written and self._reload_btop():
+                notes.append("btop 已热重载 (SIGUSR2)")
+            elif action == "gtk" and written:
+                bad = self._check_gtk_import()
+                if bad:
+                    notes.append("警告: 未 import noctalia.css -> " + ", ".join(bad))
+            elif action == "kde" and (note := self._apply_kde(out_path)):
+                notes.append(note)
+            elif action == "qt" and written:
+                notes.append("重启 Qt 应用 (dolphin 等) 后生效")
+
+            state = "已重渲染" if written else "无变化"
+            tail = f", {', '.join(notes)}" if notes else ""
+            print(f"{label}: {state}{tail} [{out_path}]")
+            done += 1
+        return done > 0
+
+
+class FluentIconSyncer:
+    """把 Fluent 图标主题里「蓝文件夹」换成 palette 色 (场景 8, --icons)。
+
+    现状: gtk-icon-theme-name=Fluent (home-manager 写在 settings.ini 里, 改不了),
+    Fluent 的 places 图标自带固定蓝 #198ee6 —— nautilus 的文件夹/侧栏图标都来自它。
+    内嵌的 base64 PNG 只是白色高光蒙版 (纯白 + 变化 alpha), 不含颜色, 所以改色 = 纯文本替换。
+
+    覆盖手法: GTK 的图标搜索路径把 $XDG_DATA_HOME/icons 排在 XDG_DATA_DIRS 之前,
+    所以在 ~/.local/share/icons/Fluent/ 放同名图标就能盖掉 nix store 里那一份,
+    既不用改主题名, 也不用重建 home-manager。overlay 里只放需要改色的 places 图标 +
+    index.theme 副本 (GTK 靠 index.theme 认这个目录), 其余图标继续走 store。
+
+    只处理含「饱和蓝」(S>=0.25 且 H 在 190-230°) 的图标: 中性灰白与品牌色 (git 橙、
+    github 黑) 原样保留。换色映射 = 取 palette 色的 H/S, 保留原图明度 (夹到 0.25-0.85),
+    这样深浅层次不变。想换别的槽位改 ROLE (primary / tertiary / secondary)。
+    """
+
+    THEME = "Fluent"
+    ROLE = "primary"
+    STORE_GLOB = "*-Fluent-icon-theme-*/share/icons"
+    ICON_DIR = Path.home() / ".local/share/icons"
+    STATE = Path.home() / ".cache/iris/fluent-icon-color"
+    BLUE_S_MIN, BLUE_H_MIN, BLUE_H_MAX = 0.25, 190.0, 230.0
+    L_MIN, L_MAX, S_MIN = 0.25, 0.85, 0.35
+    HEX6 = re.compile(r"#[0-9a-fA-F]{6}\b")
+
+    def __init__(self, palette=None):
+        self.palette = Path(palette or NoctaliaTemplateSyncer.PALETTE).expanduser()
+        self.overlay = self.ICON_DIR / self.THEME
+
+    @classmethod
+    def _store_theme(cls):
+        """nix store 里的 Fluent 主题目录 (名字带日期, 取最新的)。"""
+        found = [p for p in Path("/nix/store").glob(f"{cls.STORE_GLOB}/{cls.THEME}")]
+        return max(found, key=lambda p: p.parent.parent.name) if found else None
+
+    @classmethod
+    def _recolor(cls, text, target):
+        """把饱和蓝换成 target 的色相/饱和度, 保留原明度; 其他颜色不动。"""
+        tr, tg, tb = ColorMath.hexv(target)
+        th, _, ts = colorsys.rgb_to_hls(tr / 255, tg / 255, tb / 255)
+        ts = max(ts, cls.S_MIN)
+
+        def sub(match):
+            r, g, b = (int(match.group(0)[i : i + 2], 16) for i in (1, 3, 5))
+            hue, lum, sat = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+            if not (sat >= cls.BLUE_S_MIN and cls.BLUE_H_MIN <= hue * 360 <= cls.BLUE_H_MAX):
+                return match.group(0)
+            lum = min(max(lum, cls.L_MIN), cls.L_MAX)
+            nr, ng, nb = colorsys.hls_to_rgb(th, lum, ts)
+            return "#{:02x}{:02x}{:02x}".format(round(nr * 255), round(ng * 255), round(nb * 255))
+
+        return cls.HEX6.sub(sub, text)
+
+    def sync(self):
+        palette = load_palette(self.palette)
+        if palette is None:
+            return False
+        target = pick_role(palette, [self.ROLE])
+        if target is None:
+            print(f"警告: {self.palette.name} 缺少角色 {self.ROLE}, 跳过图标改色", file=sys.stderr)
+            return False
+        src = self._store_theme()
+        if src is None:
+            print(f"警告: nix store 里找不到 {self.THEME} 图标主题, 跳过图标改色", file=sys.stderr)
+            return False
+
+        marker = self.STATE
+        try:
+            done_before = marker.read_text(encoding="utf-8").strip()
+        except OSError:
+            done_before = None
+        if done_before == target and (self.overlay / "index.theme").exists():
+            print(f"{self.THEME} 图标: 无变化 [{self.overlay}]")
+            return True
+
+        if self.overlay.exists():
+            shutil.rmtree(self.overlay)
+        self.overlay.mkdir(parents=True)
+        shutil.copy2(src / "index.theme", self.overlay / "index.theme")
+
+        written = 0
+        for path in sorted(src.glob("*/places/*.svg")):
+            try:
+                text = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            recolored = self._recolor(text, target)
+            if recolored == text:
+                continue  # 不含饱和蓝 (中性灰/品牌色) -> 不覆盖, 继续用 store 的
+            out = self.overlay / path.relative_to(src)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(recolored, encoding="utf-8")
+            written += 1
+
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(target + "\n", encoding="utf-8")
+        print(
+            f"{self.THEME} 图标: 已重渲染 {written} 个 places 图标 -> {target} "
+            f"[{self.overlay}] (重启应用后生效)"
+        )
+        return written > 0
+
+
+# ======================================================================
 # 入口
 # ======================================================================
 
@@ -1129,11 +1609,31 @@ def main(argv=None):
     )
     parser.add_argument("--look", action="store_true", help="只同步 Look 主题")
     parser.add_argument(
+        "--templates",
+        action="store_true",
+        help="按 palette.json 重渲染 noctalia 模板产物 "
+        "(btop/fastfetch/telegram/gtk3/gtk4/kde/qt6ct/qt5ct)",
+    )
+    parser.add_argument(
+        "--icons",
+        action="store_true",
+        help="按 palette.json 给 Fluent 图标主题的蓝文件夹改色 (overlay 覆盖)",
+    )
+    parser.add_argument(
         "--no-restart", action="store_true", help="Look 只改配置不调用 reload-config"
     )
     args = parser.parse_args(argv)
 
-    flags = (args.anim, args.color, args.omp, args.kitty, args.fcitx5, args.look)
+    flags = (
+        args.anim,
+        args.color,
+        args.omp,
+        args.kitty,
+        args.fcitx5,
+        args.look,
+        args.templates,
+        args.icons,
+    )
     run_all = not any(flags)
 
     if args.anim or run_all:
@@ -1160,6 +1660,12 @@ def main(argv=None):
         gen = Fcitx5ThemeGenerator(theme)
         if gen.generate():
             gen.reload()
+
+    if args.templates or run_all:
+        NoctaliaTemplateSyncer().sync()
+
+    if args.icons or run_all:
+        FluentIconSyncer().sync()
 
     # if args.look or run_all:
     #     LookThemeSyncer(theme, restart=not args.no_restart).run()

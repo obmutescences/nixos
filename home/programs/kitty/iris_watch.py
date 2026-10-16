@@ -30,7 +30,7 @@ from pathlib import Path
 GENERATED = Path.home() / ".local/state/quickshell/user/generated"
 WATCHED = (GENERATED / "iris-surface.json", GENERATED / "colors.json")
 DEFAULT_TARGET = Path.home() / ".config/kitty/iris_reload_all.py"
-DEFAULT_ARGS = "--color --omp --kitty --fcitx5 --look"  # 默认不跑 --anim (动画轮换)
+DEFAULT_ARGS = "--color --omp --kitty --fcitx5 --look --templates --icons"  # 默认不跑 --anim (动画轮换)
 POLL_SECONDS = 1.0
 SETTLE_SECONDS = 2.5
 _HEX_RE = re.compile(r"#[0-9a-fA-F]{6}")
