@@ -19,13 +19,14 @@
       "text/x-dockerfile" = "nvim-kitty.desktop";
       "text/x-xml" = "nvim-kitty.desktop";
       "text/x-php" = "nvim-kitty.desktop";
-      # zathura 的 mupdf 插件支持 png/jpeg/svg/bmp/tiff，但不支持 webp/gif
-      "image/jpeg" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "image/jpg" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "image/png" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "image/svg+xml" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "image/bmp" = "org.pwmt.zathura-pdf-mupdf.desktop";
-      "image/tiff" = "org.pwmt.zathura-pdf-mupdf.desktop";
+      # 图片默认用 qimgv（.desktop 的 app id 就是 qimgv.desktop），
+      # 它不支持 svg/tiff 的 MimeType 声明，但 defaultApplications 指定 id 仍可直接启动
+      "image/jpeg" = "qimgv.desktop";
+      "image/jpg" = "qimgv.desktop";
+      "image/png" = "qimgv.desktop";
+      "image/svg+xml" = "qimgv.desktop";
+      "image/bmp" = "qimgv.desktop";
+      "image/tiff" = "qimgv.desktop";
       # webp/gif：zathura 不支持，走浏览器
       "image/webp" = "zen-beta.desktop";
       "image/gif" = "zen-beta.desktop";

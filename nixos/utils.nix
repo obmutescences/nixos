@@ -34,6 +34,8 @@ in {
     brightnessctl
 	glib
 	cava
+	# image viewer
+	qimgv
 	# qt
 	adwaita-qt6
 	adwaita-qt

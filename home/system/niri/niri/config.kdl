@@ -512,7 +512,6 @@ window-rule {
 window-rule {
 	match app-id=r#"wechat"#
 	open-focused false
-	opacity 0.7
 }
 
 window-rule {
@@ -539,6 +538,13 @@ window-rule {
 // 	open-floating true
 // 	open-focused true
 // }
+
+
+window-rule {
+	match app-id="qimgv"
+	open-floating true
+	open-focused true
+}
 
 
 window-rule {
@@ -889,4 +895,4 @@ sounds {
 include "mix.kdl"
 
 include "noctalia.kdl"
-include "./animations_config/fold-window.kdl"
+include "./animations_config/dither-glitch.kdl"
