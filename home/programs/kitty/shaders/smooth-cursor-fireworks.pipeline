@@ -1,28 +1,48 @@
-# Smooth cursor trail + typing fireworks on a CRT screen.
+# 光标拖尾：闪电 + 电火花，最后叠加 CRT 弯曲/扫描线。
 #
-# Groups render in order, each one reading what the previous one wrote:
-#   1. cursor trail + firework burst, only while the trail is animating
-#   2. CRT curvature + scanlines, always on
-# The burst is drawn before the CRT warp so the warp bends it together with
-# the rest of the frame and it stays aligned with the warped cursor.
-# `crt` is one of the shaders shipped with kitty (kitty/shaders/custom/crt.slang),
-# no local copy needed.
+# 需要 kitty >= 0.49 的 custom shaders，以及 kitty.conf 里 cursor_trail 开启。
+# 想让每次按键都出闪电，还需要 cursor_trail_start_threshold 0：kitty 默认会跳过
+# 1 格这种小幅移动，trail 数据根本不会更新，shader 也就收不到事件。
+#
+# 为什么要分三组：
+#   kitty 只在 trail 动画期间提供 cursor_trail_*，trail 一停就全部清零。
+#   第 1 组把最近两次移动写进 a，第 2 组转存到 persist，
+#   第 3 组从 persist 读出来继续画。存两次是为了快速打字时上一批粒子还能继续飞，
+#   不会每次按键都把粒子重置回光标位置。
+
+textures a persist
 
 startgroup
     animation_start cursor-trail-move
-    animation_stop 1200
-    animation_curve linear
+    # 电火花最长 0.90s，这里留一点余量
+    animation_stop 1000
     animation_step 16
+    viewport_pos 0 0
+    viewport_size 0.03 0.03
+    var int STAGE = 0
+    shaders smooth-cursor-fireworks
+    output_texture a
+endgroup
+
+startgroup
+    attach
+    animation_step 16
+    viewport_pos 0 0
+    viewport_size 0.03 0.03
+    var int STAGE = 1
+    shaders smooth-cursor-fireworks
+    output_texture persist
+endgroup
+
+startgroup
+    attach
+    animation_step 16
+    var int STAGE = 2
     shaders smooth-cursor-fireworks
 endgroup
 
 startgroup
-    # static effect: redraw only when content or shader events change,
-    # never on a timer, so an idle terminal stays idle
+    # CRT 常驻；上面的组动画时随整个 pipeline 一起重绘
     animation_step 0
-    # CRT tunables, kitty's defaults shown. Uncomment to change:
-    # var float WARP = 0.25
-    # var float SCAN = 0.50
-    # var float4 TINT = float4(0, 0.8, 0.6, 1)   # alpha 1 applies the tint
     shaders crt
 endgroup

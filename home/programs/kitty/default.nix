@@ -24,8 +24,9 @@
       cursor_shape = "Underline";
       cursor_underline_thickness = 3;
       window_padding_width = 10;
-	  cursor_trail = 3;
-	  cursor_trail_start_threshold = 4;
+	  cursor_trail = 1;
+	  # 0 = 每次光标移动都触发 trail，闪电 shader 才能响应逐字输入
+	  cursor_trail_start_threshold = 0;
 	  allow_remote_control = true;
     };
 	extraConfig = "
