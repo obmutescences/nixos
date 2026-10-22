@@ -55,7 +55,6 @@
       jq
       figlet
       just
-	  rye
 	  uv
 	  python314Packages.pip
 	  python314Packages.ipython
