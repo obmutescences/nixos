@@ -43,15 +43,12 @@ in {
 
   # 按键音：home-manager 模块在 core/home.nix 里 import，这里统一启用/选配置
   # 配置目录：home/programs/keyboard-dances/sounds/<profile>/{press,release}.{wav,ogg}
-  # 微信托盘通知：二进制由 home/programs/wechat-tray-notifier/package.nix 用 PyInstaller 构建
   home-manager.users."${config.var.username}".programs = {
 	keyboard-dances = {
 		enable = true;
 		# profile = "nk-cream";
 		profile = "default";
 	};
-
-	wechat-tray-notifier.enable = true;
 
 	# X11 ↔ Wayland 剪贴板桥（预编译二进制在 home/programs/clipferry/clipferry）
 	clipferry.enable = true;
