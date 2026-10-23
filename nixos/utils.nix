@@ -162,7 +162,7 @@ in {
 	})
 
 	# app launch
-	# inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default
+	inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default
 	
 	# inir need
 	swayidle

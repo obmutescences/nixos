@@ -300,20 +300,20 @@
     },
     "look": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "dir": "apps/linows",
-        "lastModified": 1792634162,
-        "narHash": "sha256-6QYKvdn+Y+BCqumURsvMPQcmm0jD80AodyoFwcGFOC8=",
+        "lastModified": 1792679950,
+        "narHash": "sha256-uo+xBNEpzL4LvirPdYlhyIzb/xkC/LR5DI48+usHdag=",
         "owner": "kunkka19xx",
         "repo": "look",
-        "rev": "9d81e5c98d78f03740b7e1225870c17af379e429",
+        "rev": "111dc1c0709237f679918f94393b5325bf98147e",
         "type": "github"
       },
       "original": {
-        "dir": "apps/linows",
         "owner": "kunkka19xx",
         "repo": "look",
         "type": "github"
@@ -421,11 +421,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1790822859,
-        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
         "type": "github"
       },
       "original": {
@@ -452,22 +452,6 @@
       }
     },
     "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1792502884,
-        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
       "locked": {
         "lastModified": 1790149054,
         "narHash": "sha256-FfjXg6mAzKQBCY+7V9keGWOXG4DV2Eym/qA987lFl8A=",
@@ -631,7 +615,7 @@
         "neovide": "neovide",
         "niri": "niri",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
         "nsticky": "nsticky",
@@ -806,7 +790,7 @@
     },
     "treefmt-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1791885023,

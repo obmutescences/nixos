@@ -111,7 +111,8 @@
 	};
 
 	look = {
-		url = "github:kunkka19xx/look?dir=apps/linows";
+		url = "github:kunkka19xx/look";
+		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
 	# 按键音二进制：源码在 keyboard_dances 仓库的 nix_cli 分支（纯源码，无 flake.nix）

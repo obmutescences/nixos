@@ -135,6 +135,7 @@ spawn-at-startup "dbus-update-activation-environment" "--systemd" "--all"
 spawn-at-startup "fcitx5" "-d" "--replace"
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
 // spawn-at-startup "noctalia"
+spawn-at-startup "lookapp"
 spawn-at-startup "sh" "/home/zerone/projects/soft/start-xflash.sh"
 spawn-at-startup "nsticky"
 prefer-no-csd
@@ -356,7 +357,7 @@ window-rule {
   }
 
   popups {
-	opacity 0.7
+	opacity 1.0
 	geometry-corner-radius 12
 
 	background-effect {
@@ -622,9 +623,10 @@ binds {
         // spawn "menu"
 		// spawn "dms" "ipc" "call" "spotlight" "toggle"
 		// spawn-sh "noctalia msg panel-toggle launcher";
-		// spawn "gdbus" "call" "--session" "--dest" "com.look.Desktop" "--object-path" "/com/look/Desktop" "--method" "com.look.Desktop.Toggle";
-		spawn "inir" "overview" "toggle"
+		spawn "gdbus" "call" "--session" "--dest" "com.look.Desktop" "--object-path" "/com/look/Desktop" "--method" "com.look.Desktop.Toggle";
+		// spawn "inir" "overview" "toggle"
     }
+	Alt+Space allow-inhibiting=false { spawn "gdbus" "call" "--session" "--dest" "com.look.Desktop" "--object-path" "/com/look/Desktop" "--method" "com.look.Desktop.Toggle"; }
     Mod+ALT+Right repeat=false {
         // spawn "next-wallpaper"
 		// spawn "dms" "ipc" "call" "wallpaper" "next"
@@ -906,4 +908,4 @@ sounds {
 include "mix.kdl"
 
 include "noctalia.kdl"
-include "./animations_config/dither-glitch.kdl"
+include "./animations_config/incinerate.kdl"
