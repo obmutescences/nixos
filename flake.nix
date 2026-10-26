@@ -130,6 +130,11 @@
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
+	loaf = { 
+		url = "github:m-uvex/loaf-fm";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

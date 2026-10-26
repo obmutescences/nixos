@@ -167,5 +167,8 @@ in {
 	# inir need
 	swayidle
 	ydotool
+
+	# file manager
+	inputs.loaf.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }
