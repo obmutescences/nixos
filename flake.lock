@@ -326,11 +326,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1792119957,
-        "narHash": "sha256-/IjNhIFwUY8VFFe1Hiyxn7/axHlZ3QPzzOtP67kBqp4=",
+        "lastModified": 1792982624,
+        "narHash": "sha256-29NBfmPTw4qAemP2s5tZzVzoC7T8487CeRqBWLFuunc=",
         "owner": "obmutescences",
         "repo": "neovide",
-        "rev": "7398769fff59ba2ffdd3aaadb515a98e248616b9",
+        "rev": "7a045fb118e84ffded09c8647f5dee6b3facea20",
         "type": "github"
       },
       "original": {
