@@ -1,0 +1,36 @@
+{
+    "name": "Holiday Countdown",
+    "icon": "celebration",
+    "version": "1.0",
+    "author": "zerone",
+    "description": "Countdown to the next Chinese festivals and custom anniversaries (solar or lunar). Anniversaries live in anniversaries.json next to this widget.",
+    "category": "system",
+    "main": "HolidayCountdown.qml",
+    "defaultConfig": {
+        "enable": true,
+        "placementStrategy": "free",
+        "widgetScale": 100,
+        "widgetOpacity": 100,
+        "colorMode": "auto",
+        "dim": 0,
+        "contentWidth": 340,
+        "contentHeight": 230,
+        "showBackground": true,
+        "useBlur": false,
+        "showBorder": true,
+        "backgroundOpacity": 0.14,
+        "borderWidth": 1,
+        "borderOpacity": 0.16,
+        "cornerRadius": -1,
+        "x": 420,
+        "y": 180
+    },
+    "resizableAxes": {
+        "width": "contentWidth",
+        "height": "contentHeight"
+    },
+    "defaultSize": {
+        "width": 340,
+        "height": 230
+    }
+}

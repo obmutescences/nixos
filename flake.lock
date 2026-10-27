@@ -285,11 +285,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793086157,
-        "narHash": "sha256-l6yjUH+oIZs+YRBC287pHJZwCidjroS+2b3+rHiZJVc=",
+        "lastModified": 1793096298,
+        "narHash": "sha256-doSDfFkDfjU2RM/hjg1y6Sc9fJ0ETKcE0jPJKybicdg=",
         "owner": "obmutescences",
         "repo": "inir",
-        "rev": "ed4b93356950f19c9acb05e7a62287b54dac141a",
+        "rev": "5d84da65de65782f87ea16505ee31a67eca973fa",
         "type": "github"
       },
       "original": {

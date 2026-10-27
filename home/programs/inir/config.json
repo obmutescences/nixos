@@ -393,7 +393,7 @@
         "protection": {
             "enable": true,
             "maxAllowed": 100,
-            "maxAllowedIncrease": 10
+            "maxAllowedIncrease": 24
         }
     },
     "background": {
@@ -557,7 +557,7 @@
             "type": "crossfade"
         },
         "videoPause": "covered",
-        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0015.png",
+        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0291.png",
         "wallpapersByMonitor": [],
         "widgets": {
             "adaptColorsToWallpaperPosition": false,
@@ -776,7 +776,7 @@
                 "contentWidth": 240,
                 "cornerRadius": -1,
                 "dim": 0,
-                "enable": true,
+                "enable": false,
                 "fontScale": 100,
                 "hourLabels": true,
                 "locked": false,
@@ -1140,20 +1140,25 @@
                             "x": 120,
                             "y": 420
                         },
+                        "custom.holiday-countdown": {
+                            "placementStrategy": "free",
+                            "x": 56,
+                            "y": 978
+                        },
                         "custom.lunar-calendar": {
                             "highlightHolidays": true,
                             "placementStrategy": "free",
                             "showSolarTerm": true,
                             "widgetOpacity": 100,
-                            "x": 2124,
-                            "y": 108
+                            "x": 2137,
+                            "y": 106
                         },
                         "custom.netspeed": {
                             "locked": false,
                             "placementStrategy": "free",
                             "widgetOpacity": 100,
-                            "x": 247,
-                            "y": 820
+                            "x": 258,
+                            "y": 814
                         },
                         "dateBadge": {
                             "placementStrategy": "free",
@@ -1240,6 +1245,7 @@
                             "contentHeight": 416,
                             "contentWidth": 1200,
                             "placementStrategy": "free",
+                            "widgetOpacity": 100,
                             "x": 684,
                             "y": 972
                         },
@@ -1527,7 +1533,7 @@
                 "useBlur": false,
                 "vizType": "wave",
                 "waveMode": "fill",
-                "waveOpacity": 60,
+                "waveOpacity": 95,
                 "widgetOpacity": 100,
                 "widgetScale": 100,
                 "x": 100,
@@ -1650,6 +1656,25 @@
                     "events": "",
                     "highlightHolidays": true,
                     "showSolarTerm": true,
+                    "showBackground": true,
+                    "showBorder": true,
+                    "useBlur": false
+                },
+                "holiday-countdown": {
+                    "enable": true,
+                    "placementStrategy": "free",
+                    "x": 420,
+                    "y": 180,
+                    "widgetScale": 100,
+                    "widgetOpacity": 100,
+                    "colorMode": "auto",
+                    "dim": 0,
+                    "backgroundOpacity": 0.14,
+                    "borderWidth": 1,
+                    "borderOpacity": 0.16,
+                    "cornerRadius": -1,
+                    "contentWidth": 360,
+                    "contentHeight": 176,
                     "showBackground": true,
                     "showBorder": true,
                     "useBlur": false
@@ -2497,12 +2522,12 @@
         },
         "bar": {
             "autoHide": false,
-            "auxiliary": "tray",
+            "auxiliary": "none",
             "blockStyle": "plain",
             "centerModules": [],
             "clockAccent": "accent",
             "clockScale": 100,
-            "clockStyle": "dateTime",
+            "clockStyle": "time",
             "composition": "cluster",
             "desktopBanner": "wallpaper",
             "desktopBannerBlur": 0,
@@ -2529,7 +2554,7 @@
                 "workspaces",
                 "window"
             ],
-            "height": 32,
+            "height": 20,
             "hoverDelay": 120,
             "hoverExpand": true,
             "layout": "island",
@@ -2544,24 +2569,18 @@
             ],
             "navFrame": "auto",
             "navItems": [
-                "media",
-                "activity",
                 "desktop",
                 "tray",
-                "tools",
-                "focus",
-                "today",
-                "controls",
-                "settings"
+                "settings",
+                "media",
+                "activity",
+                "controls"
             ],
             "notch": true,
             "notchCurve": 90,
             "padding": 80,
             "pageWidth": 440,
-            "pieces": [
-                "usage",
-                "netspeed"
-            ],
+            "pieces": [],
             "piecesSide": "end",
             "position": "top",
             "reserveSpace": true,
@@ -2576,7 +2595,8 @@
             "scrollBubbles": true,
             "shape": "auto",
             "strip": "clear",
-            "trailing": "none"
+            "trailing": "none",
+            "mediaBubble": false
         },
         "bubbles": {
             "apps": [],
@@ -2657,10 +2677,10 @@
                     "place": "right"
                 },
                 "sound": {
-                    "enable": true,
-                    "fx": 0.5,
-                    "fy": 0.5,
-                    "place": "top-right"
+                    "enable": false,
+                    "fx": 0.7287,
+                    "fy": 0.1327,
+                    "place": "free"
                 },
                 "tools": {
                     "enable": false,
@@ -2728,9 +2748,9 @@
             },
             "join": "notch",
             "left": {
-                "fx": 0.5547,
-                "fy": 0.0076,
-                "place": "edge:top"
+                "fx": 0.7419,
+                "fy": 0.2336,
+                "place": "island"
             },
             "notchCurve": 70,
             "opens": "card",
@@ -2789,7 +2809,7 @@
                 "record:2x1"
             ],
             "sliders": "neutral",
-            "width": 360
+            "width": 340
         },
         "desktopMenu": {
             "items": [
@@ -2954,8 +2974,8 @@
             "figure": true,
             "fullscreen": "show",
             "keyboard": true,
-            "levels": "yours",
-            "media": "yours",
+            "levels": "every",
+            "media": "every",
             "offset": 18,
             "position": "bottom",
             "style": "capsule",
@@ -2964,7 +2984,7 @@
         "palette": {
             "clipboardResults": 8,
             "maxResults": 14,
-            "opens": "floating",
+            "opens": "island",
             "showHints": true,
             "width": 600
         },
@@ -3042,7 +3062,7 @@
             "musicLightWidth": 4,
             "musicSensitivity": 250,
             "musicSpeed": 150,
-            "musicStrength": 150,
+            "musicStrength": 200,
             "radius": 30,
             "thickness": 8
         },
@@ -4067,8 +4087,8 @@
             "batteryCritical": "",
             "batteryFull": "",
             "batteryLow": "",
-            "notification": "",
-            "notificationCritical": "",
+            "notification": "/home/zerone/.local/share/sounds/message-new-instant.oga",
+            "notificationCritical": "/home/zerone/.local/share/sounds/dialog-warning.oga",
             "pomodoroDone": "",
             "powerPlug": "",
             "powerUnplug": "",
@@ -4078,7 +4098,7 @@
         "pomodoro": false,
         "theme": "freedesktop",
         "timer": false,
-        "volume": 0.5
+        "volume": 0.6
     },
     "time": {
         "dateFormat": "ddd, dd/MM",
@@ -4405,5 +4425,8 @@
         "side": "right",
         "style": "auto",
         "triggerWidth": 6
+    },
+    "centerPanel": {
+        "animation": "drop"
     }
 }

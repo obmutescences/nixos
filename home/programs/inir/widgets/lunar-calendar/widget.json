@@ -1,0 +1,41 @@
+{
+    "name": "Lunar Calendar",
+    "icon": "calendar_month",
+    "version": "1.0",
+    "author": "zerone",
+    "description": "Chinese lunar calendar: lunar dates, solar terms, statutory holidays (休) and make-up workdays (补班). Lunar data from ccal, holiday data from holiday-cn.",
+    "category": "system",
+    "main": "LunarCalendar.qml",
+    "defaultConfig": {
+        "placementStrategy": "free",
+        "widgetScale": 100,
+        "widgetOpacity": 100,
+        "colorMode": "auto",
+        "dim": 0,
+        "contentWidth": 380,
+        "contentHeight": 520,
+        "showBackground": true,
+        "useBlur": false,
+        "showBorder": true,
+        "backgroundOpacity": 0.14,
+        "borderWidth": 1,
+        "borderOpacity": 0.16,
+        "cornerRadius": -1,
+        "x": 360,
+        "y": 140,
+        "showSolarTerm": true,
+        "highlightHolidays": true,
+        "events": ""
+    },
+    "configKeys": {
+        "showSolarTerm": { "type": "bool", "default": true, "label": "Show solar terms" },
+        "highlightHolidays": { "type": "bool", "default": true, "label": "Highlight holidays" },
+        "events": {
+            "type": "string",
+            "default": "",
+            "label": "Custom events — one per line: 'G MM-DD text' (solar) or 'L MM-DD text' (lunar)"
+        }
+    },
+    "resizableAxes": { "width": "contentWidth", "height": "contentHeight" },
+    "defaultSize": { "width": 380, "height": 520 }
+}
