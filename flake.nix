@@ -135,6 +135,11 @@
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
+	ccal = {
+		url = "github:obmutescences/ccal";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {

@@ -123,7 +123,7 @@ in {
 	obs-studio
 
 	# Chinese calendar viewer
-	ccal
+	inputs.ccal.packages.${pkgs.stdenv.hostPlatform.system}.default
 
 	# go
 	go_1_27

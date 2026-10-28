@@ -34,6 +34,5 @@
       "udev.log_priority=3"
     ];
     consoleLogLevel = 0;
-    initrd.verbose = false;
   };
 }
