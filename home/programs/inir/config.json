@@ -557,7 +557,7 @@
             "type": "crossfade"
         },
         "videoPause": "covered",
-        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0291.png",
+        "wallpaperPath": "/home/zerone/Pictures/Wallpapers/0255.png",
         "wallpapersByMonitor": [],
         "widgets": {
             "adaptColorsToWallpaperPosition": false,
@@ -4427,6 +4427,13 @@
         "triggerWidth": 6
     },
     "centerPanel": {
-        "animation": "drop"
+        "animation": "aperture"
+    },
+    "windowsPicker": {
+        "gather": "wave",
+        "panel": "late",
+        "cardSize": "auto",
+        "appearance": "random",
+        "letters": "asdfcerxq"
     }
 }

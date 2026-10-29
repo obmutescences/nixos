@@ -560,6 +560,13 @@ window-rule {
 
 
 window-rule {
+	match app-id="loaf"
+	open-floating true
+	open-focused true
+}
+
+
+window-rule {
   match app-id="dev.noctalia.Noctalia"
   open-floating true
   default-column-width { fixed 1080; }
@@ -608,25 +615,31 @@ binds {
 		// spawn "ghostty"
     }
     Mod+E repeat=false {
-        spawn "nautilus" "-w"
+        // spawn "nautilus" "-w"
+		spawn "loaf"
     }
     Mod+F repeat=false {
         spawn "zen-beta"
     }
-    Mod+X repeat=false {
-        spawn "powermenu"
-    }
+	Alt {
+	    release { 
+			spawn "inir" "ipc" "centerPanel" "toggle"
+		}
+	}
+		//   Mod+X repeat=false {
+		//       // spawn "powermenu"
+		// spawn "inir" "ipc" "centerPanel" "toggle"
+		//   }
     Mod+N repeat=false {
         spawn "start-neovide"
     }
-    Mod+SPACE repeat=false {
+    Mod+SPACE repeat=false allow-inhibiting=false {
         // spawn "menu"
 		// spawn "dms" "ipc" "call" "spotlight" "toggle"
 		// spawn-sh "noctalia msg panel-toggle launcher";
 		spawn "gdbus" "call" "--session" "--dest" "com.look.Desktop" "--object-path" "/com/look/Desktop" "--method" "com.look.Desktop.Toggle";
 		// spawn "inir" "overview" "toggle"
     }
-	Alt+Space allow-inhibiting=false { spawn "gdbus" "call" "--session" "--dest" "com.look.Desktop" "--object-path" "/com/look/Desktop" "--method" "com.look.Desktop.Toggle"; }
     Mod+ALT+Right repeat=false {
         // spawn "next-wallpaper"
 		// spawn "dms" "ipc" "call" "wallpaper" "next"
@@ -651,8 +664,7 @@ binds {
 		spawn "inir" "lock" "activate"
     }
 	Mod+Tab repeat=false {
-		// toggle-overview
-		toggle-window-picker
+		spawn "inir" "windowsPicker" "toggle"
 	}
     Mod+K repeat=false {
         spawn "wl-kbptr"
