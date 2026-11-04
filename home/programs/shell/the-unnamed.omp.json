@@ -5,7 +5,7 @@
       "alignment": "left",
       "segments": [
         {
-          "foreground": "green",
+          "foreground": "blue",
           "properties": {
             "style": "folder"
           },
@@ -14,7 +14,7 @@
           "type": "path"
         },
         {
-          "foreground": "lightGreen",
+          "foreground": "blue",
           "powerline_symbol": "\ue0b0",
           "properties": {
             "branch_icon": "\uf126 ",
