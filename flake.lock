@@ -533,11 +533,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793158243,
-        "narHash": "sha256-krvMCWdwTEw0eMHm+YJajLSvlha4tDdieEZBumxBoZ8=",
+        "lastModified": 1793323748,
+        "narHash": "sha256-VEgcl32h2oXdPNJ23K/WAbTkHLvSmAnn1cKfhFCeL9Q=",
         "owner": "noctalia-dev",
         "repo": "noctalia",
-        "rev": "490d327d7ecc2dc350649b78dca2143e93209f3d",
+        "rev": "1da2ac39231fbd351bbed0ce47a7050aef2df558",
         "type": "github"
       },
       "original": {
@@ -621,6 +621,49 @@
         "url": "https://devimages-cdn.apple.com/design/resources/download/NY.dmg"
       }
     },
+    "pleamar": {
+      "inputs": {
+        "nixpkgs": [
+          "pleamar-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793618781,
+        "narHash": "sha256-G4D4WHJ0ciCGmkeqr4M1oer5rjsTUXQhAY2qJ5GP6AA=",
+        "owner": "k4ditano",
+        "repo": "pleamar",
+        "rev": "0fdca2de2b8a6e61da7679c16be54f16fe42d4e9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "k4ditano",
+        "repo": "pleamar",
+        "type": "github"
+      }
+    },
+    "pleamar-shell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pleamar": "pleamar",
+        "skwdWall": "skwdWall"
+      },
+      "locked": {
+        "lastModified": 1793763994,
+        "narHash": "sha256-TtIAtc/WTvRmphGultWRRankd7rva5bwBDv+ZSbNNmg=",
+        "owner": "obmutescences",
+        "repo": "pleamar-shell",
+        "rev": "3bf8419d88c6697e57920704d280c4108a7ae1ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "obmutescences",
+        "repo": "pleamar-shell",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -681,6 +724,7 @@
         "noctalia-greeter": "noctalia-greeter",
         "nsticky": "nsticky",
         "nur": "nur",
+        "pleamar-shell": "pleamar-shell",
         "quickshell": "quickshell",
         "qylock": "qylock",
         "rust-overlay": "rust-overlay_2",
@@ -832,6 +876,28 @@
       "original": {
         "type": "file",
         "url": "https://devimages-cdn.apple.com/design/resources/download/SF-Pro.dmg"
+      }
+    },
+    "skwdWall": {
+      "inputs": {
+        "nixpkgs": [
+          "pleamar-shell",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792102654,
+        "narHash": "sha256-dNISNxw7+ehLeaA+XBJzUjV24ik6Oibce6C0RxzzZns=",
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "rev": "d9142ad9e23bf33390e3fea38a5ce45a6fc286da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "ref": "nix",
+        "repo": "skwd-wall",
+        "type": "github"
       }
     },
     "systems": {

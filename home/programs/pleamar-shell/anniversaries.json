@@ -1,0 +1,13 @@
+{
+  "anniversaries": [
+    { "name": "情人节", "calendar": "solar", "month": 2, "day": 14 },
+    { "name": "七夕", "calendar": "lunar", "month": 7, "day": 7 },
+    { "name": "圣诞节", "calendar": "solar", "month": 12, "day": 25 },
+    { "name": "Dear", "calendar": "lunar", "month": 9, "day": 24 },
+    { "name": "恬恬", "calendar": "lunar", "month": 10, "day": 30 },
+    { "name": "纪念日", "calendar": "solar", "month": 3, "day": 17 },
+    { "name": "爸", "calendar": "lunar", "month": 4, "day": 12 },
+    { "name": "妈", "calendar": "lunar", "month": 6, "day": 5 },
+    { "name": "520", "calendar": "solar", "month": 5, "day": 20 }
+  ]
+}

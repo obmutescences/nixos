@@ -339,6 +339,12 @@ layer-rule {
 }
 
 
+layer-rule {
+    match namespace="skwd-paper"
+    place-within-backdrop true
+}
+
+
 window-rule {
   opacity 0.7
   background-effect {
@@ -347,12 +353,12 @@ window-rule {
    noise 0.0
    saturation 1.5
    liquid-glass {
-			refraction-strength 20
-			power-factor 10      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
-			refraction-power 1.5   // 现在真正生效
-			bevel-width 2       // 边缘带加宽 2.5 倍，效果面积明显变大
-			fringing 0.4
-			interior-warp 0.3
+	   refraction-strength 20
+	   power-factor 10      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
+	   refraction-power 1.5   // 现在真正生效
+	   bevel-width 2       // 边缘带加宽 2.5 倍，效果面积明显变大
+	   fringing 0.4
+	   interior-warp 0.3
     }
   }
 
@@ -406,7 +412,7 @@ window-rule {
 			offset x=0 y=0
 			draw-behind-window true
 			// color "#6784e4"
-			inactive-color "#6784e4"
+			// inactive-color "#6784e4"
 		}
 }
 // Work around WezTerm's initial configure bug by setting an empty default-column-width.
@@ -592,7 +598,7 @@ window-rule {
 
 window-rule {
     match app-id="^lookapp$"
-	opacity 0.7
+	opacity 0.1
     open-floating true
     focus-ring { off; }
     shadow { off; }
@@ -623,7 +629,8 @@ binds {
     }
 	Alt {
 	    release { 
-			spawn "inir" "ipc" "centerPanel" "toggle"
+			// spawn "inir" "ipc" "centerPanel" "toggle"
+			spawn "pleamar-ipc" "center" "toggle"
 		}
 	}
 		//   Mod+X repeat=false {
@@ -657,14 +664,19 @@ binds {
 	Mod+Ctrl+P repeat=false {
 		spawn "flameshot" "gui"
 	}
-    Mod+L repeat=false {
+    Mod+L allow-when-locked=true repeat=false {
 		// spawn "dms" "ipc" "call" "lock" "lock"
 		// spawn "qylock-lock" "clockwork/orbital"
 		// spawn "noctalia" "msg" "session" "lock"
-		spawn "inir" "lock" "activate"
+		// spawn "inir" "lock" "activate"
+		spawn "pleamar-ipc" "lock"
+    }
+    Mod+S repeat=false {
+		spawn "pleamar-ipc" "picker"
     }
 	Mod+Tab repeat=false {
-		spawn "inir" "windowsPicker" "toggle"
+		// spawn "inir" "windowsPicker" "toggle"
+		spawn "pleamar-ipc" "windows" "toggle"
 	}
     Mod+K repeat=false {
         spawn "wl-kbptr"
@@ -689,26 +701,22 @@ binds {
     Alt+P repeat=false {
 		// spawn "dms" "ipc" "call" "clipboardPlus" "togglePanel"
 		// spawn "noctalia" "msg" "panel-toggle" "clipboard"
-		spawn "inir" "clipboard" "toggle"
+		// spawn "inir" "clipboard" "toggle"
+		spawn "lookapp" "clipboard"
     }
 
     XF86AudioRaiseVolume allow-when-locked=true {
-        // spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
-		// spawn "dms" "ipc" "call" "audio" "increment" "1"
-		spawn-sh "noctalia msg volume-up"
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        // spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"
-		// spawn "dms" "ipc" "call" "audio" "decrement" "1"
-		spawn-sh "noctalia msg volume-down"
+        spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"
     }
-	XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
-    // XF86AudioMute allow-when-locked=true {
-    //     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
-    // }
-    // XF86AudioMicMute allow-when-locked=true {
-    //     spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
-    // }
+    XF86AudioMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"
+    }
+    XF86AudioMicMute allow-when-locked=true {
+        spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"
+    }
     Mod+Left {
         focus-column-left
     }
@@ -920,4 +928,4 @@ sounds {
 include "mix.kdl"
 
 include "noctalia.kdl"
-include "./animations_config/incinerate.kdl"
+include "./animations_config/ribbons.kdl"

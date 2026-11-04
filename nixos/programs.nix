@@ -57,6 +57,7 @@ in {
    imports = [
 	  inputs.noctalia-greeter.nixosModules.default
 	  inputs.inir.nixosModules.inir
+	  inputs.pleamar-shell.nixosModules.default
    ];
 
 	# programs.noctalia-greeter = {
@@ -135,9 +136,14 @@ in {
 
   # inir shell
   programs.inir = {
-    enable = true;
+    enable = false;
     service.compositor = "niri";
     extraPackages = [ config.programs.niri.package ];
+  };
+
+  services.pleamar-shell = {
+	enable = true;
+	layout = "island"; # 或 "frame"
   };
 
   systemd.services.mouseless = {

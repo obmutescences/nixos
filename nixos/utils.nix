@@ -170,5 +170,9 @@ in {
 
 	# file manager
 	inputs.loaf.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+	# pleamar-shell
+	inputs.pleamar-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
+
   ];
 }

@@ -1,0 +1,14 @@
+[Unit]
+Description=Pleamar wallpaper colour watcher (refreshes Kitty, omp, fcitx5, Look, Telegram and niri)
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/etc/profiles/per-user/zerone/bin/python3 %h/.config/kitty/pleamar_watch.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

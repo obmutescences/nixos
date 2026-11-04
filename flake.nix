@@ -140,6 +140,13 @@
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
+	# pleamar-shell
+	pleamar-shell = {
+		url = "github:obmutescences/pleamar-shell";
+		inputs.nixpkgs.follows = "nixpkgs";
+	};
+
+
    };
 
   outputs = inputs@{ nixpkgs, qylock, ... }: {
