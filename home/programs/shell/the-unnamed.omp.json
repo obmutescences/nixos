@@ -5,7 +5,7 @@
       "alignment": "left",
       "segments": [
         {
-          "foreground": "#83C092",
+          "foreground": "green",
           "properties": {
             "style": "folder"
           },
@@ -14,7 +14,7 @@
           "type": "path"
         },
         {
-          "foreground": "#9ACE65",
+          "foreground": "lightGreen",
           "powerline_symbol": "\ue0b0",
           "properties": {
             "branch_icon": "\uf126 ",
@@ -27,30 +27,30 @@
           "type": "git"
         },
         {
-          "foreground": "#DBBC7F",
+          "foreground": "yellow",
           "style": "plain",
-          "template": "<#A8BAC5>is</> \uf487 {{.Version}} ",
+          "template": "<white>is</> \uf487 {{.Version}} ",
           "type": "project"
         },
         {
-          "foreground": "#D699B6",
+          "foreground": "magenta",
           "properties": {
             "fetch_version": true
           },
           "style": "plain",
-          "template": "<#A8BAC5>via</> \ue718 {{ .Full }} ",
+          "template": "<white>via</> \ue718 {{ .Full }} ",
           "type": "node"
         },
         {
-          "foreground": "#E69875",
+          "foreground": "lightYellow",
           "style": "plain",
-          "template": "<#A8BAC5>and</> \ue71e {{.Full}} ",
+          "template": "<white>and</> \ue71e {{.Full}} ",
           "type": "npm"
         },
         {
-          "foreground": "#7FBBB3",
+          "foreground": "cyan",
           "style": "plain",
-          "template": "<#A8BAC5>via</> \ue63c {{.Full}} ",
+          "template": "<white>via</> \ue63c {{.Full}} ",
           "type": "python",
           "properties": {
             "fetch_version": true,
@@ -58,18 +58,18 @@
           }
         },
         {
-          "foreground": "#A7C080",
+          "foreground": "lightGreen",
           "style": "plain",
-          "template": "<#A8BAC5>via</> \ue626 {{.Full}} ",
+          "template": "<white>via</> \ue626 {{.Full}} ",
           "type": "go",
           "properties": {
             "fetch_version": true
           }
         },
         {
-          "foreground": "#E69875",
+          "foreground": "lightYellow",
           "style": "plain",
-          "template": "<#A8BAC5>via</> \ue7a8 {{.Full}} ",
+          "template": "<white>via</> \ue7a8 {{.Full}} ",
           "type": "rust",
           "properties": {
             "fetch_version": true
@@ -83,7 +83,7 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#DBBC7F",
+          "foreground": "yellow",
           "style": "plain",
           "template": "\u276f ",
           "type": "text"

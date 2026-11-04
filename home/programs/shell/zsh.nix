@@ -11,7 +11,19 @@
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      #  ANSI colour names, not hex: kitty owns the palette and applies it
+      #  when the theme is reloaded.  "blue" is kitty's color4 (the accent
+      #  used by directories), so valid commands follow the same theme slot.
+      styles = {
+        arg0 = "fg=blue";
+        autodirectory = "fg=blue,underline";
+        precommand = "fg=blue,underline";
+        suffix-alias = "fg=blue,underline";
+        global-alias = "fg=blue";
+      };
+    };
     historySubstringSearch.enable = false;
 
     initContent = lib.mkMerge [
