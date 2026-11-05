@@ -675,8 +675,7 @@ binds {
 		spawn "pleamar-ipc" "picker"
     }
 	Mod+Tab repeat=false {
-		// spawn "inir" "windowsPicker" "toggle"
-		spawn "pleamar-ipc" "windows" "toggle"
+		toggle-window-picker;
 	}
     Mod+K repeat=false {
         spawn "wl-kbptr"

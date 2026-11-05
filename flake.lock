@@ -443,11 +443,11 @@
     "niri-unstable": {
       "flake": false,
       "locked": {
-        "lastModified": 1793180812,
-        "narHash": "sha256-K4zN708h8nID38hm10lAjhva36xVfpFD/kdouOPLvd4=",
+        "lastModified": 1793874307,
+        "narHash": "sha256-So+y1ITT5ekGv9NsAje8EfHUE6s/LjgQl90NOpNquY8=",
         "owner": "obmutescences",
         "repo": "niri",
-        "rev": "0eea0b95c86cf6f841bfae7ad50a393bd10dbca4",
+        "rev": "3fa778844fda5e9aec06a105c1c44827d5fb499f",
         "type": "github"
       },
       "original": {
