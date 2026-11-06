@@ -40,7 +40,8 @@ FCITX_THEME_DIR = Path.home() / ".local/share/fcitx5/themes/noctalia"
 NIRI_MIX = Path.home() / ".config/niri/mix.kdl"
 NIRI_NOCTALIA = Path.home() / ".config/niri/noctalia.kdl"
 TELEGRAM_TEMPLATE = (
-    Path.home() / ".local/state/noctalia/community-templates/telegram/telegram.tdesktop-theme"
+    Path.home()
+    / ".local/state/noctalia/community-templates/telegram/telegram.tdesktop-theme"
 )
 TELEGRAM_THEME = Path.home() / ".config/telegram-desktop/themes/noctalia.tdesktop-theme"
 NOCTALIA_COMMUNITY = Path.home() / ".local/state/noctalia/community-templates"
@@ -81,8 +82,8 @@ def rgb(value: str) -> tuple[float, float, float]:
 
 
 def hexof(values: tuple[float, float, float]) -> str:
-    return "#%02x%02x%02x" % tuple(
-        max(0, min(255, round(channel * 255))) for channel in values
+    return "#{:02x}{:02x}{:02x}".format(
+        *tuple(max(0, min(255, round(channel * 255))) for channel in values)
     )
 
 
@@ -336,7 +337,7 @@ def sync_omp(palette: dict, colors: dict[str, str], omp_theme: Path) -> bool:
     try:
         data = json.loads(omp_theme.read_text(encoding="utf-8"))
         if not isinstance(data, dict) or not isinstance(data.get("vars"), dict):
-            raise ValueError("omp theme has no vars object")
+            raise TypeError("omp theme has no vars object")
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         log(f"cannot update {omp_theme}: {exc}")
         return False
@@ -360,7 +361,6 @@ def sync_omp(palette: dict, colors: dict[str, str], omp_theme: Path) -> bool:
     omp_theme.write_text(content, encoding="utf-8")
     log(f"{omp_theme} refreshed ({updated if content != old else 0} vars changed)")
     return True
-
 
 
 def write_if_changed(path: Path, content: str) -> bool:
@@ -532,7 +532,7 @@ def _nudge_logo(value: str) -> str:
     channels = [int(body[index : index + 2], 16) for index in (0, 2, 4)]
     if min(channels) >= 100:
         channels[channels.index(min(channels))] = 99
-    return "#%02x%02x%02x" % tuple(channels)
+    return "#{:02x}{:02x}{:02x}".format(*tuple(channels))
 
 
 def _merge_json(dst: dict, src: dict) -> int:
@@ -655,10 +655,7 @@ def _apply_kde(scheme_path: Path) -> str | None:
         check=False,
     )
     if proc.returncode != 0:
-        log(
-            "plasma-apply-colorscheme failed: "
-            f"{(proc.stderr or proc.stdout).strip()}"
-        )
+        log(f"plasma-apply-colorscheme failed: {(proc.stderr or proc.stdout).strip()}")
         return None
     return "KDE colour scheme applied"
 
@@ -827,12 +824,18 @@ def _hexv(value: str) -> tuple[int, int, int]:
 
 def _from_hls(h: float, lightness: float, saturation: float) -> str:
     r, g, b = colorsys.hls_to_rgb(h, lightness, saturation)
-    return "#%02X%02X%02X" % tuple(round(v * 255) for v in (r, g, b))
+    return "#{:02X}{:02X}{:02X}".format(*tuple(round(v * 255) for v in (r, g, b)))
 
 
 def _hsla(value: str, lightness: int, alpha: float) -> str:
     h, _, s = colorsys.rgb_to_hls(*rgb(value))
     return f"hsla({h * 360:.0f}, {min(1.0, s + 0.2) * 100:.0f}%, {lightness}%, {alpha})"
+
+
+def _hsla_exact(value: str, alpha: float = 0.8) -> str:
+    """Same colour as hsla(), so niri can composite a per-colour alpha."""
+    h, lightness, s = colorsys.rgb_to_hls(*rgb(value))
+    return f"hsla({h * 360:.0f}, {s * 100:.0f}%, {lightness * 100:.0f}%, {alpha:g})"
 
 
 def _png_chunk(kind: bytes, data: bytes) -> bytes:
@@ -853,7 +856,9 @@ def _write_png(path: Path, width: int, height: int, rgba: bytearray) -> None:
     )
 
 
-def _rrect_sdf(px: float, py: float, cx: float, cy: float, hw: float, hh: float, r: float) -> float:
+def _rrect_sdf(
+    px: float, py: float, cx: float, cy: float, hw: float, hh: float, r: float
+) -> float:
     qx = abs(px - cx) - (hw - r)
     qy = abs(py - cy) - (hh - r)
     ax, ay = max(qx, 0.0), max(qy, 0.0)
@@ -871,14 +876,18 @@ def _fcitx_rounded(path: Path, color: str, radius: float) -> None:
     buf = bytearray(n * n * 4)
     for y in range(n):
         for x in range(n):
-            alpha = _coverage(_rrect_sdf(x + 0.5, y + 0.5, center, center, center, center, radius))
+            alpha = _coverage(
+                _rrect_sdf(x + 0.5, y + 0.5, center, center, center, center, radius)
+            )
             at = (y * n + x) * 4
             buf[at], buf[at + 1], buf[at + 2] = cr, cg, cb
             buf[at + 3] = round(alpha * 255)
     _write_png(path, n, n, buf)
 
 
-def _fcitx_bordered(path: Path, border_color: str, fill_color: str, radius: float, border: float) -> None:
+def _fcitx_bordered(
+    path: Path, border_color: str, fill_color: str, radius: float, border: float
+) -> None:
     n = 128
     br, bg_, bb = _hexv(border_color)
     fr, fg, fb = _hexv(fill_color)
@@ -888,8 +897,12 @@ def _fcitx_bordered(path: Path, border_color: str, fill_color: str, radius: floa
     buf = bytearray(n * n * 4)
     for y in range(n):
         for x in range(n):
-            a_out = _coverage(_rrect_sdf(x + 0.5, y + 0.5, center, center, center, center, radius))
-            a_in = _coverage(_rrect_sdf(x + 0.5, y + 0.5, center, center, hw_in, hw_in, r_in))
+            a_out = _coverage(
+                _rrect_sdf(x + 0.5, y + 0.5, center, center, center, center, radius)
+            )
+            a_in = _coverage(
+                _rrect_sdf(x + 0.5, y + 0.5, center, center, hw_in, hw_in, r_in)
+            )
             a = a_in + a_out * (1.0 - a_in)
             at = (y * n + x) * 4
             if a > 0:
@@ -921,13 +934,36 @@ def reload_fcitx() -> None:
     #  theme name otherwise waits for the next fcitx start.  Reload that one
     #  addon explicitly, leaving the daemon itself owned by niri.
     for command in (
-        ["gdbus", "call", "--session", "--dest", "org.fcitx.Fcitx5",
-         "--object-path", "/controller", "--method",
-         "org.fcitx.Fcitx.Controller1.ReloadAddonConfig", "classicui"],
-        ["busctl", "--user", "call", "org.fcitx.Fcitx5", "/controller",
-         "org.fcitx.Fcitx.Controller1", "ReloadAddonConfig", "s", "classicui"],
-        ["qdbus", "org.fcitx.Fcitx5", "/controller",
-         "org.fcitx.Fcitx.Controller1.ReloadAddonConfig", "classicui"],
+        [
+            "gdbus",
+            "call",
+            "--session",
+            "--dest",
+            "org.fcitx.Fcitx5",
+            "--object-path",
+            "/controller",
+            "--method",
+            "org.fcitx.Fcitx.Controller1.ReloadAddonConfig",
+            "classicui",
+        ],
+        [
+            "busctl",
+            "--user",
+            "call",
+            "org.fcitx.Fcitx5",
+            "/controller",
+            "org.fcitx.Fcitx.Controller1",
+            "ReloadAddonConfig",
+            "s",
+            "classicui",
+        ],
+        [
+            "qdbus",
+            "org.fcitx.Fcitx5",
+            "/controller",
+            "org.fcitx.Fcitx.Controller1.ReloadAddonConfig",
+            "classicui",
+        ],
     ):
         if shutil.which(command[0]):
             subprocess.run(
@@ -1099,11 +1135,12 @@ def kdl_rewrite(
 
 
 NIRI_MIX_RULES = [
-    # Glass tint: end/rim use the primary role, start/sheen the secondary role.
-    (("background-effect", "tint"), "from", "secondary"),
-    (("background-effect", "tint"), "to", "active"),
-    (("background-effect", "liquid-glass"), "rim-color", "active"),
-    (("background-effect", "liquid-glass"), "sheen-color", "secondary"),
+    # Glass tint: the four effect colours are written as hsla() so the tint
+    # and rim can carry their own alpha instead of relying on raw hex.
+    (("background-effect", "tint"), "from", "secondary_hsla"),
+    (("background-effect", "tint"), "to", "primary_hsla"),
+    (("background-effect", "liquid-glass"), "rim-color", "primary_hsla"),
+    (("background-effect", "liquid-glass"), "sheen-color", "secondary_hsla"),
     (("layout", "shadow"), "color", "active"),
     (("window-rule", "shadow"), "inactive-color", "hsla"),
     (("window-picker", "label"), "text-color", "active"),
@@ -1157,9 +1194,16 @@ def sync_niri(colors: dict[str, str], reload: bool = True) -> bool:
         "hsla": _hsla(primary, 45, 0.3),
         "b_hsla": _hsla(primary, 10, 0.3),
         "label_hsla": _hsla(primary, 10, 0.3),
+        # background-effect: same palette colours in hsla() notation, so the
+        # alpha of the tint and of the glass rim can be tuned independently.
+        "primary_hsla": _hsla_exact(primary),
+        "secondary_hsla": _hsla_exact(secondary),
     }
     changed = False
-    for path, rules in ((NIRI_MIX, NIRI_MIX_RULES), (NIRI_NOCTALIA, NIRI_NOCTALIA_RULES)):
+    for path, rules in (
+        (NIRI_MIX, NIRI_MIX_RULES),
+        (NIRI_NOCTALIA, NIRI_NOCTALIA_RULES),
+    ):
         try:
             text = path.read_text(encoding="utf-8")
         except OSError as exc:
@@ -1212,7 +1256,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--omp", action="store_true", help="refresh the omp noctalia theme"
     )
-    parser.add_argument("--fcitx5", action="store_true", help="refresh the fcitx5 theme")
+    parser.add_argument(
+        "--fcitx5", action="store_true", help="refresh the fcitx5 theme"
+    )
     parser.add_argument("--look", action="store_true", help="refresh the Look launcher")
     parser.add_argument(
         "--telegram", action="store_true", help="refresh the Telegram theme file"
@@ -1233,7 +1279,9 @@ def main(argv: list[str] | None = None) -> int:
         "--kde", action="store_true", help="refresh the KDE colour scheme"
     )
     parser.add_argument("--qt", action="store_true", help="refresh the Qt colour files")
-    parser.add_argument("--niri", action="store_true", help="refresh niri window colours")
+    parser.add_argument(
+        "--niri", action="store_true", help="refresh niri window colours"
+    )
     parser.add_argument("--palette", type=Path, default=PALETTE)
     parser.add_argument("--theme", type=Path, default=THEME)
     parser.add_argument("--omp-theme", type=Path, default=OMP_THEME)
@@ -1255,7 +1303,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         palette = json.loads(palette_path.read_text(encoding="utf-8"))
         if not isinstance(palette, dict):
-            raise ValueError("palette root is not an object")
+            raise TypeError("palette root is not an object")
         colors = build_theme(palette)
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"warning: cannot read {palette_path}: {exc}", file=sys.stderr)

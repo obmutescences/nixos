@@ -29,7 +29,7 @@ layout {
         softness 20
         spread 10
         offset x=0 y=5
-		color "#31f6b9"
+		color "#dfb049"
     }
 
 	struts {
@@ -79,8 +79,8 @@ window-rule {
 			softness 0
 			spread 0
 			offset x=0 y=0
-			draw-behind-window true
-			inactive-color "hsla(161, 100%, 45%, 0.3)"
+			draw-behind-window false
+			inactive-color "hsla(41, 90%, 45%, 0.3)"
 	}
 }
 
@@ -91,26 +91,26 @@ window-rule {
 
     background-effect {
         tint {
-            from "#87b8eccc"
-            to "#31f6b9"
-            angle 10
+            from "hsla(74, 86%, 64%, 0.8)"
+            to "hsla(41, 70%, 58%, 0.8)"
+            angle 1
             mode "linear" // linear | radial
             opacity 0.4
-            linear-size 0.3    // solid start color along 20% of the axis
-            linear-depth 0.7   // start color alpha multiplier (0..1)
+            linear-size 0.1    // solid start color along 20% of the axis
+            linear-depth 0.8   // start color alpha multiplier (0..1)
             radial-size 0.4   // solid center color out to 35% of the radius
-            radial-depth 0.5   // center color alpha multiplier (0..1)
+            radial-depth 0.9   // center color alpha multiplier (0..1)
         }
 
         liquid-glass {
             // 0 keeps the existing relative bevel-width tuning.
-            bevel-px 40
-            rim-color "#31f6b9"
+            bevel-px 20
+            rim-color "hsla(41, 70%, 58%, 0.8)"
             rim-strength 1.0
             edge-lighting 10.0
-            inner-shadow 1.0
-            sheen-color "#87b8eccc"
-            sheen-strength 0.3
+            inner-shadow 0.7
+            sheen-color "hsla(74, 86%, 64%, 0.8)"
+            sheen-strength 0.0
         }
     }
 }
@@ -127,9 +127,9 @@ window-picker {
 		letters "ASDFXCREWQ"
         font "Comic Code"
         size 15
-        text-color "#31f6b9"
-        background-color "hsla(161, 100%, 10%, 0.3)"
-        border-color "#31f6b9"
+        text-color "#dfb049"
+        background-color "hsla(41, 90%, 10%, 0.3)"
+        border-color "#dfb049"
         padding-x 14
         padding-y 7
         gap 12
@@ -170,9 +170,9 @@ window-picker {
             title-size 13.5
             app-id-size 16
             workspace-size 10
-            title-color "#31f6b9"
-            app-id-color "#4d94dbd0"
-            workspace-color "#4d94dbd0"
+            title-color "#dfb049"
+            app-id-color "#cef254d0"
+            workspace-color "#cef254d0"
             padding-x 5
             padding-y 10
             height 58
@@ -193,12 +193,12 @@ window-picker {
     }
 
 	selection {
-		focused-color "#4d94db"
-		hover-color "#4d94db"
+		focused-color "#cef254"
+		hover-color "#cef254"
 		glow true      // false 关闭光晕
     }
 }
 
 overview {
-	backdrop-color "hsla(161, 100%, 10%, 0.3)"
+	backdrop-color "hsla(41, 90%, 10%, 0.3)"
 }

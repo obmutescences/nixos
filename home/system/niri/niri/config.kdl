@@ -217,10 +217,10 @@ xwayland-satellite {
 
 blur {
 	passes 3
-	offset 1
+	offset 4
 	noise 0.0
 	// ignore-alpha 0.1
-	saturation 1.2
+	saturation 1.0
 }
 
 layer-rule{
