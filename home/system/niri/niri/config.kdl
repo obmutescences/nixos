@@ -217,7 +217,7 @@ xwayland-satellite {
 
 blur {
 	passes 3
-	offset 3
+	offset 1
 	noise 0.0
 	// ignore-alpha 0.1
 	saturation 1.2
@@ -348,7 +348,7 @@ layer-rule {
 window-rule {
   opacity 0.7
   background-effect {
-   xray false
+   xray true
    blur true
    noise 0.0
    saturation 1.5
@@ -357,8 +357,8 @@ window-rule {
 	   power-factor 10      // 适当调低 → 曲率过渡更宽更柔（范围 1~10）
 	   refraction-power 1.5   // 现在真正生效
 	   bevel-width 2       // 边缘带加宽 2.5 倍，效果面积明显变大
-	   fringing 0.4
-	   interior-warp 0.3
+	   fringing 0.1
+	   interior-warp 2.0
     }
   }
 

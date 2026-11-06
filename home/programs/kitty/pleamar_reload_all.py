@@ -1099,6 +1099,11 @@ def kdl_rewrite(
 
 
 NIRI_MIX_RULES = [
+    # Glass tint: end/rim use the primary role, start/sheen the secondary role.
+    (("background-effect", "tint"), "from", "secondary"),
+    (("background-effect", "tint"), "to", "active"),
+    (("background-effect", "liquid-glass"), "rim-color", "active"),
+    (("background-effect", "liquid-glass"), "sheen-color", "secondary"),
     (("layout", "shadow"), "color", "active"),
     (("window-rule", "shadow"), "inactive-color", "hsla"),
     (("window-picker", "label"), "text-color", "active"),
