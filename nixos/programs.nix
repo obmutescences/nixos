@@ -143,7 +143,7 @@ in {
 
   services.pleamar-shell = {
 	enable = true;
-	layout = "island"; # 或 "frame"
+	layout = "notches";
   };
 
   systemd.services.mouseless = {

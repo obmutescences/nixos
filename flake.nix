@@ -140,9 +140,9 @@
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
-	# pleamar-shell
+	# pleamar-shell — 0.8-exp branch
 	pleamar-shell = {
-		url = "github:obmutescences/pleamar-shell";
+		url = "github:obmutescences/pleamar-shell?ref=feat/pleamar-0.8-exp";
 		inputs.nixpkgs.follows = "nixpkgs";
 	};
 
