@@ -49,7 +49,8 @@ in {
 	busybox
 	# net proxy
     dae
-	clash-verge-rev
+	# 临时编译不了
+	# clash-verge-rev
 	# wallerpaper
 	# inputs.swww.packages.${pkgs.stdenv.hostPlatform.system}.swww
 	# office
@@ -117,7 +118,8 @@ in {
 	# ---dev---
 
 	# sql cli tools
-	rainfrog
+	# 临时编译不了
+	# rainfrog
 
 	# recording and streaming
 	obs-studio
@@ -162,7 +164,12 @@ in {
 	})
 
 	# app launch
-	inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default
+	# 上游 0.7.5 的 packaging/nix/package.nix 漏了 sqlite：rusqlite 0.40 的
+	# libsqlite3-sys 链系统库，只靠 flake devShell 里的 sqlite 才能过。
+	# Nix 构建里没有它 → rust-lld: unable to find library -lsqlite3。
+	(inputs.look.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs (old: {
+	  buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
+	}))
 	
 	# inir need
 	swayidle
