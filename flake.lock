@@ -674,11 +674,11 @@
         "skwdWall": "skwdWall"
       },
       "locked": {
-        "lastModified": 1794448216,
-        "narHash": "sha256-ks/3d9vXpC7COUxAkUkFkBVc3MPLtdTnUM+NzwdG4bY=",
+        "lastModified": 1794470321,
+        "narHash": "sha256-qlLk+5UOwEpvlog6m3A0N+sl4mKrkZKgqkKXDd71D0w=",
         "owner": "obmutescences",
         "repo": "pleamar-shell",
-        "rev": "2a4e97b46ebc956676732a92850a65090d9cfa5f",
+        "rev": "d55d12f3381169e1e6b22ad0d5519b8f3c4f4baa",
         "type": "github"
       },
       "original": {
