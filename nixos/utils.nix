@@ -181,5 +181,7 @@ in {
 	# pleamar-shell
 	inputs.pleamar-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
 
+	# nix cli tools
+	nh
   ];
 }

@@ -52,9 +52,6 @@ custom_shaders smooth-cursor-fireworks
 
 # include themes/noctalia.conf
 include current-theme.conf
-
-# 背景不需要颜色的时候添加这行
-background_opacity 0.0
 ";
   };
 }
