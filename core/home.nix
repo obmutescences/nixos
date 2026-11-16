@@ -19,6 +19,7 @@
 	../home/programs/dms
 	../home/programs/keyboard-dances
 	../home/programs/clipferry
+	../home/programs/zen
 
 
     # Scripts
@@ -67,7 +68,6 @@
 	  delta
 
       firefox
-	  inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
 	  google-chrome
 
       # Temp

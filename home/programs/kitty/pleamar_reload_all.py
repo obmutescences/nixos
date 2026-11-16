@@ -7,6 +7,9 @@ Pleamar writes its palette to:
 The primary/secondary roles are used for the cursor, selection, borders,
 tabs, URL colour and the blue/magenta ANSI slots.  Other ANSI slots keep
 conventional red/green/yellow/cyan colours so terminal semantics survive.
+After Kitty's colour file is written, its `foreground` is replaced with the
+value of its own `color12` (bright primary) so terminal text follows the
+accent instead of the palette's on-surface ink.
 
 Run manually:
     pleamar_reload_all.py              # refresh Kitty, omp, fcitx5, Look, niri, templates
@@ -55,6 +58,11 @@ QT6_THEME = Path.home() / ".config/qt6ct/colors/noctalia.conf"
 QT5_THEME = Path.home() / ".config/qt5ct/colors/noctalia.conf"
 HEX_RE = re.compile(r"^#[0-9a-fA-F]{6}$")
 PLACEHOLDER_RE = re.compile(r"\{\{colors\.([a-z_0-9]+)\.default\.(hex|rgb_csv)\}\}")
+# A colour key line in theme.conf: optional indent, key, gap, hex value,
+# optional trailing whitespace/newline kept verbatim by the replacement.
+KITTY_COLOR_LINE_RE = re.compile(
+    r"^(\s*)(foreground|color12)(\s+)(#[0-9a-fA-F]{6})(\s*)$"
+)
 
 # ANSI slots whose exact hues matter for shell/tool semantics.  Pleamar's
 # palette does not define them, so use readable defaults unless a future
@@ -832,7 +840,7 @@ def _hsla(value: str, lightness: int, alpha: float) -> str:
     return f"hsla({h * 360:.0f}, {min(1.0, s + 0.2) * 100:.0f}%, {lightness}%, {alpha})"
 
 
-def _hsla_exact(value: str, alpha: float = 0.8) -> str:
+def _hsla_exact(value: str, alpha: float = 0.0) -> str:
     """Same colour as hsla(), so niri can composite a per-colour alpha."""
     h, lightness, s = colorsys.rgb_to_hls(*rgb(value))
     return f"hsla({h * 360:.0f}, {s * 100:.0f}%, {lightness * 100:.0f}%, {alpha:g})"
@@ -1249,6 +1257,47 @@ def write_theme(theme_path: Path, content: str) -> bool:
     return True
 
 
+def kitty_foreground_from_color12(theme_path: Path) -> bool:
+    """Copy the colour file's own `color12` into its `foreground` key.
+
+    Kitty has no "use another key" syntax, so the value is copied after the
+    file is written.  The file is re-read from disk so the pass also works on
+    a theme.conf produced by another generator.  Only the value is replaced:
+    key, alignment and any trailing whitespace stay untouched.
+    """
+    try:
+        lines = theme_path.read_text(encoding="utf-8").splitlines(keepends=True)
+    except OSError as exc:
+        log(f"cannot read {theme_path}: {exc}")
+        return False
+
+    matches = [KITTY_COLOR_LINE_RE.match(line) for line in lines]
+    values: dict[str, str] = {}
+    for match in matches:
+        if match:
+            values.setdefault(match.group(2), match.group(4).lower())
+
+    bright = values.get("color12")
+    if bright is None:
+        log(f"{theme_path} has no color12; Kitty foreground left unchanged")
+        return False
+    if values.get("foreground") == bright:
+        return False
+
+    changed = False
+    for index, match in enumerate(matches):
+        if match and match.group(2) == "foreground":
+            lines[index] = (
+                f"{match.group(1)}foreground{match.group(3)}{bright}{match.group(5)}"
+            )
+            changed = True
+    if not changed:
+        log(f"{theme_path} has no foreground line; nothing to replace")
+        return False
+    theme_path.write_text("".join(lines), encoding="utf-8")
+    return True
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Sync Kitty colours from Pleamar")
     parser.add_argument("--all", action="store_true", help="refresh every target")
@@ -1368,6 +1417,10 @@ def main(argv: list[str] | None = None) -> int:
     if do_kitty:
         content = render(colors, palette_path)
         changed = write_theme(theme_path, content)
+        # Must run before the reload: Kitty reads the file when signalled, so
+        # the foreground copy has to be on disk first.
+        if kitty_foreground_from_color12(theme_path):
+            log(f"foreground replaced with color12 {colors['color12']}")
         if not args.no_reload:
             reload_kitty()
         log(
