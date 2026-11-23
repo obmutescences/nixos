@@ -651,11 +651,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794435266,
-        "narHash": "sha256-x5uGo86CWG7/pi7+bxNBwtwE4qRlmd0pKzyHlClTbWw=",
+        "lastModified": 1795412569,
+        "narHash": "sha256-zKN0vuoKKkWjN6QikxYgQnUpSbqbxIzqQ9ILRH1/EWA=",
         "owner": "k4ditano",
         "repo": "pleamar",
-        "rev": "338ffd7a3c8aa527574ec9b091ac919fc7fded5c",
+        "rev": "13302388c7457a3fbd997ea2cce9be1cf6dc541d",
         "type": "github"
       },
       "original": {
@@ -674,11 +674,11 @@
         "skwdWall": "skwdWall"
       },
       "locked": {
-        "lastModified": 1794879557,
-        "narHash": "sha256-xLpE8hp1/qObbLkc5KM7Wg4OGnoeVDBuEdgR5T8zG1Y=",
+        "lastModified": 1795429787,
+        "narHash": "sha256-i4JzZPuMAQTX0lhgynGGyd/F+tfB6VTRHNnTsafPHLA=",
         "owner": "obmutescences",
         "repo": "pleamar-shell",
-        "rev": "2814d12fc9c6d943e53469512a5c1d92d1d537e6",
+        "rev": "7ae9f461f4bbe979d9f1d4cf441ae53e17f7f83d",
         "type": "github"
       },
       "original": {
