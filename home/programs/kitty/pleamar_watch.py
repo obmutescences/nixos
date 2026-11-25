@@ -82,17 +82,17 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    palette = args.palette.expanduser()
+    source = args.palette.expanduser()
     target = args.target.expanduser()
     target_args = args.args.split()
 
     if args.print_only:
-        primary, secondary = read_colors(palette)
-        print(f"primary={primary} secondary={secondary} source={palette}")
+        primary, secondary = read_colors(source)
+        print(f"primary={primary} secondary={secondary} source={source}")
         return 0 if primary else 1
 
-    if not palette.exists():
-        log(f"等待 {palette} 出现")
+    if not source.exists():
+        log(f"等待 {source} 出现")
 
     if args.once:
         return run_target(target, target_args)
@@ -100,19 +100,19 @@ def main(argv: list[str] | None = None) -> int:
     # Apply the palette already on disk at startup.  Kitty may have started
     # before this service, so theme.conf and the running instances both need
     # to catch up.
-    if palette.exists():
+    if source.exists():
         run_target(target, target_args)
 
-    log(f"监听: {palette}")
-    last = mtime_ns(palette)
+    log(f"监听: {source}")
+    last = mtime_ns(source)
     while True:
         time.sleep(POLL_SECONDS)
-        current = mtime_ns(palette)
+        current = mtime_ns(source)
         if current == last:
             continue
         log("检测到 palette.json 变化")
         time.sleep(SETTLE_SECONDS)
-        last = mtime_ns(palette)
+        last = mtime_ns(source)
         run_target(target, target_args)
 
 

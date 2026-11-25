@@ -33,6 +33,7 @@ import struct
 import subprocess
 import sys
 import zlib
+from functools import lru_cache
 from pathlib import Path
 
 PALETTE = Path.home() / ".config/pleamar-shell/palette.json"
@@ -139,7 +140,7 @@ def role(palette: dict, *keys: str) -> str | None:
 def build_theme(palette: dict) -> dict[str, str]:
     primary = role(palette, "primary", "aqua", "mint")
     if not primary:
-        raise ValueError("palette.json has no primary/aqua colour")
+        raise ValueError("palette has no primary/aqua colour")
 
     secondary = role(palette, "secondary", "azure", "tertiary") or primary
     tertiary = role(palette, "tertiary", "secondary") or secondary
@@ -471,20 +472,58 @@ def render_template(template: str, roles: dict[str, str]) -> tuple[str, set[str]
 # ---------------------------------------------------------------------------
 
 
+@lru_cache(maxsize=None)
 def _version_key(path: Path) -> tuple[int, ...]:
-    match = re.search(r"-noctalia-(\d+(?:\.\d+)*)", str(path))
-    if not match:
-        return ()
-    return tuple(int(part) for part in match.group(1).split("."))
+    """Package version of the store path holding a template.
+
+    Installed packages carry it in the directory name (-noctalia-5.6.0,
+    -pleamar-shell-0.1.0); a flake-input source checkout only has a VERSION
+    file at its root.
+    """
+    for parent in path.parents:
+        if parent == Path("/nix/store"):
+            break
+        match = re.search(r"-(\d+(?:\.\d+)*)$", parent.name)
+        if match:
+            return tuple(int(part) for part in match.group(1).split("."))
+        try:
+            version = (parent / "VERSION").read_text(encoding="utf-8").strip()
+        except OSError:
+            continue
+        if re.fullmatch(r"\d+(?:\.\d+)*", version):
+            return tuple(int(part) for part in version.split("."))
+    return ()
+
+
+@lru_cache(maxsize=1)
+def _template_roots() -> tuple[Path, ...]:
+    """Every assets/templates tree shipped on this machine, newest last.
+
+    Pleamar replaced the noctalia shell package, which no longer exists in
+    the store, so the installed-package glob finds nothing.  The noctalia
+    flake input's source checkout still carries the same templates, and the
+    pleamar-shell package would be used if it ever ships them again.
+    """
+    patterns = (
+        "*-pleamar-shell-*/share/pleamar-shell/assets/templates",
+        "*-noctalia-*/share/noctalia/assets/templates",
+        "*-source/assets/templates",
+    )
+    roots: list[Path] = []
+    for pattern in patterns:
+        roots.extend(
+            root
+            for root in Path("/nix/store").glob(pattern)
+            if (root / "builtin.toml").is_file()
+        )
+    return tuple(sorted(roots, key=_version_key, reverse=True))
 
 
 def _builtin_templates(relative: str) -> list[Path]:
-    """Find the newest noctalia template installed in the Nix store."""
-    found = list(
-        Path("/nix/store").glob(
-            f"*-noctalia-*/share/noctalia/assets/templates/{relative}"
-        )
-    )
+    """Find the newest copy of a builtin template shipped on this machine."""
+    found = [
+        root / relative for root in _template_roots() if (root / relative).is_file()
+    ]
     return sorted(found, key=_version_key, reverse=True)
 
 
