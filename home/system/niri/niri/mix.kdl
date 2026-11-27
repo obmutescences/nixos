@@ -25,15 +25,15 @@ layout {
     shadow {
 		// on
 		off
-        draw-behind-window true
+        draw-behind-window false
         softness 20
         spread 10
         offset x=0 y=5
-		color "#dfb049"
+		color "#5994cf"
     }
 
 	struts {
-		top 35
+		top 25
 		right 0
 		bottom 0
 		left 0
@@ -41,46 +41,215 @@ layout {
 
 
 	focus-animation {
-	// Uncomment this line to enable focus animation.
-	on
-
-	// Animation configuration for the focus animation.
-	// Supports easing (duration-ms + curve) or spring.
-	// duration-ms 200
-
-	// < 1.0
-	spring damping-ratio=0.5 stiffness=1400 epsilon=0.0001
-
-	// > 1.0
-	// spring damping-ratio=0.5 stiffness=900 epsilon=0.0001
-
-	scale {
-		// Uncomment this line to enable scale flash.
+		// 开启聚焦窗口动画（取消注释 on 启用，写 off 关闭）
 		on
 
-		// Scale factor to flash to when window gains focus.
-		// 1.0 is normal size, < 1.0 is shrinking, > 1.0 is expanding.
-		// flash-scale 1.7
-		flash-scale 0.75
+		// [新增] 驱动模式：
+		// - "impulse"（默认推荐）：单段物理冲量弹簧，从 1.0 瞬间下探精确命中 flash-scale 再自然弹回，零速度断层、零顿挫
+		// - "two-phase"：经典两段式（先缩/入场，再弹回）
+		mode "impulse"
 
-		// Disable focus animation when there's only one window.
+		// [新增] 一键动效风格预设（会批量设置下方推荐组合，下方单独写的参数会继续覆盖预设）：
+		// 可选："pulse"（经典脉冲）| "jelly"（果冻面积守恒）| "tilt"（3D触觉按压）| "nudge"（纯方向微推）| "glow"（极简纯光效）| pop 向外弹起放大 + 轻抬升 | "lift"：纯垂直悬浮抬升
+		preset "tilt"
+
+		// 物理曲线设置：现在支持 spring 与 duration-ms 同时使用！
+		// - 只写 spring：按弹簧自身自然物理时长完成
+		// - 同时写 spring + duration-ms：完整保留弹簧回弹过冲手感，同时把总完成时间精确缩放到指定毫秒数
+		// - 只写 duration-ms + curve：普通缓动（curve 支持 linear | ease-in-quad | ease-out-quad | ease-out-cubic | ease-in-out-cubic | ease-out-expo | ease-out-back | cubic-bezier x1 y1 x2 y2）
+		// spring damping-ratio=0.8 stiffness=1400 epsilon=0.0001
+		duration-ms 300
+		curve "ease-out-cubic"
+
+		// [新增] 仅 two-phase 模式下可选：单独指定第一段（收缩/入场）的时长与曲线
+		// in-duration-ms 55
+		// in-curve "ease-out-quad"
+
+		// [新增] 触发边界保护开关与防抖
+		// 仅剩单个窗口时是否禁用（已修复：同时统计平铺 + 悬浮窗口总数）
 		disable-on-solo false
-
+		// 悬浮窗口是否禁用聚焦动画
 		disable-on-floating true
+		// 全屏窗口（视频/游戏）切回时是否禁用，避免缩进露黑边（默认 true）
+		disable-on-fullscreen true
+		// 最大化窗口是否禁用（默认 false）
+		disable-on-maximized false
+		// 新窗口首次打开获焦时是否跳过，避免与窗口打开动画打架（默认 true）
+		disable-on-open true
+		// 切换工作区导致的获焦是否跳过，避免与工作区缩放/3D切换叠加发晕（默认 false）
+		disable-on-workspace-switch false
+		// 快速连按方向键切换焦点时的防抖间隔（ms，默认 35；0 关闭）
+		debounce-ms 35
+
+		// [新增] 光影与平滑过渡通道
+		// 获焦瞬间窗口表面亮度微提增益（范围 0..0.5，0 关闭，推荐 0.05..0.10）
+		brightness-pulse 0.1
+		// 窗口规则 opacity（例如下方非焦点 0.7 <-> 焦点 1.0）的平滑过渡时长（ms；0 为瞬切，推荐 160..220）
+		opacity-transition-ms 220
+		// 获焦瞬间轻微向上悬浮抬升距离（逻辑像素，范围 -64..64；0 关闭，推荐 3..6）
+		lift 64.0
+
+		// 通道 1：缩放 / 果冻挤压拉伸（与下方 nudge/tilt/glow 可自由混搭）
+		scale {
+			// 开启缩放形变
+			on
+
+			// 获焦瞬间的目标缩放比例（1.0 正常，< 1.0 向内收缩再弹回，> 1.0 向外鼓起再弹回）
+			// flash-scale 1.7
+			flash-scale 0.5
+
+			// [新增] 面积守恒果冻挤压拉伸系数（范围 0..1；0 = 纯等比缩放，0.35..0.6 = Q弹果冻感且不缩小文字）
+			jelly 0.5
+
+			// 兼容旧位置开关（与外层 disable-on-* 等效）
+			disable-on-solo false
+			disable-on-floating true
 		}
+
+		// // [新增] 通道 2：方向感知动量微推（顺着键盘/焦点切换方向轻推再回弹；关闭 scale/tilt 时可零 FBO 运行）
+		// nudge {
+		// 	on
+		// 	// 最大推动距离（逻辑像素，范围 0..120，推荐 8..16）
+		// 	distance 16.0
+		// }
+		//
+		// [新增] 通道 3：3D 透视微倾斜 / 鼠标点击位置真实按压倾斜（专用 tile_focus 着色器，带 1px 抗锯齿）
+		tilt {
+			on
+			// 最大 3D 倾斜角度（度，范围 0..25，推荐 3.0..6.0）
+			angle 20.0
+			// 鼠标点击窗口获焦时，按点击所在的角落产生真实物理下压倾斜（true 开启 / false 仅跟随切换方向）
+			pointer-press true
+		}
+
+		// [新增] 通道 4：焦点边缘光晕 / 外扩涟漪脉冲（非常适合关闭 focus-ring 时做优雅的聚焦提示）
+		glow {
+			off
+			// 光效形态："ripple"（从窗口边缘向外扩散并淡出的光环）| "pulse"（贴边柔和呼吸辉光）
+			style "pulse"
+			// 光晕颜色（支持十六进制含透明通道或 hsla）
+			color "#31f6b9cc"
+			// 扩散半径（逻辑像素，范围 0..128，推荐 12..22）
+			spread 16.0
+			// 光效强度（范围 0..2，推荐 0.7..1.2）
+			strength 0.85
+		}
+	}
+
+	// [从 config.kdl 迁移并升级] 工作区切换镜头下探（缩放呼吸感）
+	workspace-dip {
+		// 开启工作区下探缩放
+		on
+
+		// [新增] 驱动模式：
+		// - "sync"（兼容旧行为）：跟随工作区切换进度（现已支持触控板手势实时跟手 + 非对称曲线防过冲二次下沉）
+		// - "velocity"（推荐）：速度耦合物理弹簧镜头，手势/单切/连续狂切统一丝滑，自动谷底巡航不抽搐
+		// - "impulse"：独立单段物理冲量弹簧，零折点
+		mode "sync"
+
+		// 最大下探缩放幅度（范围 0..1；例如 0.06 表示最深缩至 0.94，0.65 表示最深缩至 0.35）
+		strength 0.65
+
+		// 独立动画时长（ms）与缓动曲线（也可换用 spring，且现已支持 spring + duration-ms 共存）
+		duration-ms 240
+		// 可选：linear | ease-in-quad | ease-out-quad | ease-out-cubic | ease-in-out-cubic | ease-out-expo | ease-out-back | cubic-bezier x1 y1 x2 y2
+		curve "ease-out-cubic"
+		// spring damping-ratio=0.65 stiffness=480 epsilon=0.0001
+
+		// [新增] 一次跨越多工作区时自动加大景深的系数（范围 0..2；0 关闭，推荐 0.2..0.35）
+		distance-boost 0.2
+		// [新增] 连续快速切换工作区时保持在谷底滑行，避免反复从 1.0 重启抽搐（默认 true）
+		cruise-hold true
+		// [新增] sync 模式下钟形曲线的谷底峰值位置（范围 0.05..0.95；0.5 = 经典对称 sin，0.35 = 匹配 Spring 速度峰值）
+		peak-position 0.5
+
+		// [新增] 视觉润色（静止回到 1.0 时自动归零，零常驻性能开销）
+		// 缩放下探时工作区动态长出的圆角半径（逻辑像素，范围 0..128）
+		corner-radius 120.0
+		// 缩放时显示的工作区浮空阴影透明度（范围 0..1；复用 overview.workspace-shadow 样式）
+		shadow-opacity 1
+		// 缩放露出底层背景时的轻微压暗力度（范围 0..1）
+		backdrop-dim 0.3
+		// 希区柯克反向景深视差：工作区向内缩时，底层壁纸轻微放大（范围 0.5..1.5；1.0 关闭，推荐 1.03..1.06）
+		backdrop-parallax 1.3
+	}
+
+	// [从 config.kdl 迁移并升级] 工作区切换 3D 空间动效（双引擎：轻量 2.5D + 真 3D 透视着色器）
+	workspace-switch-3d {
+		// 开启 3D 工作区切换
+		on
+
+		// [新增] 3D 切换风格：
+		// - Engine A（零 FBO 轻量模式）：
+		//   "depth"（经典缩放压扁）| "parallax"（铰链防撕裂 + 壁纸/平铺/悬浮三层视差 + 远景压暗）
+		// - Engine B（真 3D 透视着色器，仅切换瞬间按需离屏，静止 0 FPS / 0 FBO）：
+		//   "carousel"（垂直 3D 滚筒轮盘，推荐）| "cube"（无缝 90° 垂直 3D 立方体）| "cards"（VisionOS 层叠景深卡片）| "tilt-slide"（速度耦合陀螺仪滑轨）| "fold"（对称折页翻书）
+		style "tilt-slide"
+
+		// 远处工作区基础缩放比例（范围 0..1；1.0 不缩放，越小退得越远）
+		depth 0.1
+
+		// （Engine A）远处工作区额外垂直压扁系数（范围 0..1；1.0 不压扁）
+		squash 0.1
+
+		// 达到最大效果所需距离，单位为屏高（范围 0..10000；1.0 表示距中心 1 屏高即达满效果）
+		radius 1.0
+
+		// 过渡曲线指数（范围 0..10000；1.0 线性，越大越集中在屏幕边缘）
+		curve-power 1.0
+
+		// [新增]（Engine A）缩放锚点："hinge"（上工作区锚底边、下工作区锚顶边，彻底消除中间撕裂黑洞）| "center"（旧中心锚点）
+		pivot "hinge"
+		// [新增]（Engine A）壁纸 / 平铺窗 / 悬浮窗三层深度视差强度（范围 0..1；0 关闭，推荐 0.15..0.25）
+		parallax 0.15
+		// [新增] 切换时自动压缩两工作区之间的空白间隙（范围 0..1；0 保持原 10% 屏高间隙，推荐 0.4..0.7）
+		gap-compression 0.45
+
+		// [新增]（Engine B 真 3D 参数）最大 X 轴 3D 倾斜角（度，范围 0..85；carousel/cards/tilt-slide/fold 生效，推荐 24..40）
+		angle 40.0
+		// [新增]（Engine B 真 3D 参数）虚拟相机视野角 FOV（度，范围 15..110；越大近大远小透视越强烈，推荐 42..55）
+		fov 80.0
+		// [新增]（仅 style "cube"）立方体朝向："outside"（外壁翻转）| "inside"（内壁环绕）
+		cube-side "outside"
+		// [新增]（仅 style "tilt-slide"）切换瞬时速度映射到 3D 倾角的灵敏度（范围 0..5，默认 1.0）
+		velocity-tilt 0.8
+
+		// [新增] 空间光影与细节润色（Engine A / B 通用）
+		// 退远/侧倾工作区的景深压暗力度（范围 0..1，推荐 0.25..0.40）
+		dim 1.0
+		// 远景工作区的透明度衰减（范围 0..1；0 保持完全不透明）
+		fade 0.3
+		// （Engine B）3D 翻转瞬间掠过工作区表面的斜向玻璃高光强度（范围 0..1，推荐 0.10..0.18）
+		sheen 0.5
+		// （Engine B）切换过程中的动态工作区圆角（逻辑像素，范围 0..128；落位自动无缝归零）
+		corner-radius 120.0
+		// （Engine A）切换态工作区投影透明度（范围 0..1）
+		shadow-opacity 0.5
+		// 跨工作区移动/拖拽中的窗口是否保持前景 1.0 比例不被压扁（默认 true）
+		exempt-moving-windows true
+		// 到顶/到底触发橡皮筋边界回弹时，是否联动轻微 3D 反折阻尼倾斜（默认 true）
+		bounce-3d true
 	}
 }
 
+// [新增示例] 也可在任意 window-rule 中按应用单独覆写或关闭 focus-animation：
+// window-rule {
+//     match app-id="mpv"
+//     focus-animation {
+//         off
+//     }
+// }
+
 window-rule {
     match is-active=false
-    opacity 0.7
+    opacity 0.75
 	shadow {
 			on
 			softness 0
 			spread 0
 			offset x=0 y=0
 			draw-behind-window false
-			inactive-color "hsla(41, 90%, 45%, 0.3)"
+			inactive-color "hsla(210, 75%, 45%, 0.3)"
 	}
 }
 
@@ -90,26 +259,68 @@ window-rule {
     draw-border-with-background false
 
     background-effect {
-        tint {
-            from "hsla(74, 86%, 64%, 0.8)"
-            to "hsla(41, 70%, 58%, 0.8)"
-            angle 1
-            mode "linear" // linear | radial
-            opacity 0.4
-            linear-size 0.1    // solid start color along 20% of the axis
-            linear-depth 0.8   // start color alpha multiplier (0..1)
-            radial-size 0.4   // solid center color out to 35% of the radius
-            radial-depth 0.9   // center color alpha multiplier (0..1)
-        }
+        // [新增] 逐规则覆盖全局 blur { passes; offset }（XRay 与 Non-XRay 均已支持！）
+        // - blur-passes: 模糊迭代轮数（越大越糊；设为 0 则直接关闭该窗口的模糊、背景完全清晰）
+        // - blur-offset: 每次模糊采样扩散半径（越大越柔和；设为 0 同样关闭模糊）
+        // 你可以试试 0/0（纯清晰玻璃）、2/1.5（轻磨砂）、6/5.0（重度磨砂）对比差异
+        // blur-passes 2
+        // blur-offset 4.0
+
+        // tint {
+        //     from "hsla(140, 50%, 58%, 0)"
+        //     to "hsla(1, 92%, 58%, 0)"
+        //     angle 1
+        //     mode "linear" // linear | radial
+        //     // opacity 0.4
+        //     opacity 0.0
+        //     linear-size 0.1    // solid start color along 20% of the axis
+        //     linear-depth 0.8   // start color alpha multiplier (0..1)
+        //     radial-size 0.4    // solid center color out to 35% of the radius
+        //     radial-depth 0.9   // center color alpha multiplier (0..1)
+        //     // [新增] 在感知均匀的 Oklab 色彩空间插值渐变，避免 sRGB 中间段发灰 (默认 true)
+        //     oklab true
+        // }
 
         liquid-glass {
-            // 0 keeps the existing relative bevel-width tuning.
-            bevel-px 20
-            rim-color "hsla(41, 70%, 58%, 0.8)"
-            rim-strength 1.0
-            edge-lighting 10.0
-            inner-shadow 0.7
-            sheen-color "hsla(74, 86%, 64%, 0.8)"
+            // [新增] 一键玻璃材质预设：liquid | frosted | crystal | acrylic | obsidian
+            // 注意：下方各项微调参数默认注释掉，以便直接切换 preset 即可看到完整预设差异；
+            // 如需基于某个 preset 微调单项，取消对应行注释即可覆写该项！
+            preset "liquid"
+
+            // [新增] 开启解析圆角 SDF + Snell 物理折射（false 回退旧版简易折射）
+            physical-refraction true
+            // [新增] 物理折射率 IOR（范围 1..3；水 ~1.33，玻璃 ~1.45-1.52，水晶 ~1.62）
+            ior 3.0
+            // [新增] 光学玻璃厚度，单位逻辑像素（范围 0..256）
+            thickness 250.0
+            // [新增] 倒角边缘清晰度（范围 0..1；0=全均匀模糊，1=倒角折射清晰未模糊背景）
+            bevel-clarity 0
+            // [新增] 物理 Cauchy 光谱色散（范围 0..1；0 时回退使用旧版 fringing）
+            dispersion 0.1
+            // [新增] 根据背景明暗自动调节通透度与边缘高光对比度
+            adaptive-contrast true
+            // [新增] 指针靠近玻璃倒角时的近场交互辉光（范围 0..2；0 关闭）
+            cursor-glow 2
+            // [新增] 窗口获得焦点时的一次性 280ms 斜向玻璃扫光（范围 0..2；0 关闭）
+            focus-shimmer 2
+
+            // 以下为原有可微调参数（取消注释会覆盖上方 preset 的对应项）
+			// 主要修改这两个来修改四边玻璃效果明显度
+            bevel-width 0.3
+            refraction-power 1.0
+
+            refraction-strength 10.0
+            power-factor 2
+			// 背景被玻璃放大效果度
+		    interior-warp 1.2
+            glow-weight 0.9
+            bevel-px 0
+            fringing 0.9
+            // rim-color "hsla(219, 55%, 58%, 0)"
+            rim-strength 0.5
+            edge-lighting 3.0
+            inner-shadow 0.2
+            sheen-color "#5994cf"
             sheen-strength 0.0
         }
     }
@@ -118,23 +329,34 @@ window-rule {
 
 window-picker {
     // Maximum portion of the active output used by the centered window grid.
-    area-width 0.8
-    area-height 0.8
-    max-scale 0.25
+    area-width 0.9
+    area-height 0.9
+    max-scale 0.20
     gap 30
 
+    // [新增] 排版模式："grid"（经典网格）| "justified"（等高行紧密排版，混排横竖屏更美观）
+    layout "justified"
+    // [新增] 窗口分组："none" | "workspace" | "output"
+    group-by "workspace"
+    // [新增] 打开时的默认窗口范围："all" | "workspace" | "output"（支持 Ctrl+Tab 或点击 HUD 实时切换）
+    scope "all"
+    // [新增] 显示顶部 Liquid Glass HUD 栏（范围切换、实时计数、`/` 搜索框、聚焦标题、快捷键提示）
+    show-hud true
+    // [新增] 左键点击空白背景关闭 Picker
+    click-backdrop-to-close true
+
     label {
-		letters "ASDFXCREWQ"
+        letters "ASDFXCREWQ"
         font "Comic Code"
         size 15
-        text-color "#dfb049"
-        background-color "hsla(41, 90%, 10%, 0.3)"
-        border-color "#dfb049"
+        text-color "#5994cf"
+        background-color "hsla(210, 75%, 10%, 0.3)"
+        border-color "#5994cf"
         padding-x 14
         padding-y 7
         gap 12
         corner-radius 12
-        // letters "ASDFGHJKL" // if fewer than windows, two-letter random labels
+        // letters "ASDFGHJKL" // 不足时自动切换为确定性两字母组合
     }
 
     // These effects apply to the desktop as a whole; previews and labels stay sharp.
@@ -145,60 +367,81 @@ window-picker {
 
         blur {
             on
-            passes 2
+            passes 3
             offset 2
         }
     }
 
-	animation-ms-open 220
-	animation-ms-close 210
+    // 打开 / 关闭总完成时间（ms）；现在对 spring 弹簧模式和 curve 缓动模式均精确生效
+    // （当下方 animation {} 中未写 duration-ms 时生效）
+    animation-ms-open 250
+    animation-ms-close 140
 
-	stagger-ms 800
+    // 卡片入场错峰间隔（ms）；自动约束在总打开时长的 45% 内，确保所有卡片准时完成
+    stagger-ms 80
     animation {
-        duration-ms 200
-        curve "ease-out-quad"            // linear | ease-out-quad | ease-out-expo
+        // 弹簧物理动画（保留真实回弹过冲曲线，同时支持按下方 duration-ms 或外层 animation-ms-* 精确缩放总时长）
+        // 若不写 duration-ms 且不写外层 animation-ms-*，则使用弹簧自身自然物理时长
+        spring damping-ratio=0.7 stiffness=700 epsilon=0.0001
+
+        // 同时控制打开与关闭总时长（ms，优先级高于外层 animation-ms-open / animation-ms-close；对 spring 和 curve 均生效）
+        // duration-ms 400
+        // curve "ease-out-quad"                 // linear | ease-out-quad | ease-out-cubic | ease-out-expo
+        // [新增] 自定义贝塞尔曲线：
+        // curve "cubic-bezier" 0.22 1.0 0.36 1.0
+        // [新增] 关闭开关动画：
+        // off
     }
 
     // New card layout: window preview fills the card width, app metadata sits
     // below it inside the same rounded glass background.
     card {
-        corner-radius 20
-        shadow true
+        corner-radius 18
+        shadow false
+        // [新增] 鼠标悬停卡片时的微 3D 视差倾斜与随动玻璃扫光
+        tilt true
+        // [新增] 在卡片信息条左侧显示 XDG 应用图标（缺失时自动生成磨砂首字母徽章）
+        show-icons false
+        // [新增] 卡片 1px 定向玻璃高光描边色
+        // glass-border "#31f6b9"
 
         info {
             font "Comic Code"
             title-size 13.5
             app-id-size 16
             workspace-size 10
-            title-color "#dfb049"
-            app-id-color "#cef254d0"
-            workspace-color "#cef254d0"
+            title-color "#5994cf"
+            app-id-color "#5ec994"
+            workspace-color "#5ec994d0"
             padding-x 5
             padding-y 10
             height 58
         }
 
-        // Per-card blur. Lower passes or turn off at 4K if it costs too much.
+        // 保留向后兼容（新架构已改用零 FBO 的 picker_glass 着色器渲染卡片玻璃质感）
         blur {
             on
-            passes 4
-            offset 4
+            passes 1
+            offset 2
         }
     }
 
-    // pop | slide | drop | burst | vortex | flip | cascade | orbit | wave | zoom | cycle
-    // cycle walks the ten styles in order, one per card, continuing across openings.
+    // [新增] "hero"：真共享元素过渡（从窗口当前屏幕位置飞入，选中后键鼠均飞回目标真实位置）
+    // 可选值：hero | pop | slide | drop | burst | vortex | flip | cascade | orbit | wave | zoom | cycle
+    // (原值: "cycle")
     motion {
         style "cycle"
     }
 
-	selection {
-		focused-color "#cef254"
-		hover-color "#cef254"
-		glow true      // false 关闭光晕
+    selection {
+        focused-color "#5ec994"
+        hover-color "#5ec994"
+        glow true         // false 关闭光晕
+        // [新增] 静止时是否持续呼吸脉冲（false = 动效收敛后 0 FPS 零功耗静默；true = 持续呼吸）
+        glow-pulse true
     }
 }
 
 overview {
-	backdrop-color "hsla(41, 90%, 10%, 0.3)"
+	backdrop-color "hsla(210, 75%, 10%, 0.3)"
 }

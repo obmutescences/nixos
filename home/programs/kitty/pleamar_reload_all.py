@@ -33,7 +33,7 @@ import struct
 import subprocess
 import sys
 import zlib
-from functools import lru_cache
+from functools import cache, lru_cache
 from pathlib import Path
 
 PALETTE = Path.home() / ".config/pleamar-shell/palette.json"
@@ -472,7 +472,7 @@ def render_template(template: str, roles: dict[str, str]) -> tuple[str, set[str]
 # ---------------------------------------------------------------------------
 
 
-@lru_cache(maxsize=None)
+@cache
 def _version_key(path: Path) -> tuple[int, ...]:
     """Package version of the store path holding a template.
 
@@ -1193,8 +1193,9 @@ NIRI_MIX_RULES = [
     (("window-picker", "label"), "text-color", "active"),
     (("window-picker", "label"), "background-color", "label_hsla"),
     (("window-picker", "label"), "border-color", "active"),
+    (("window-picker", "card"), "glass-border", "active"),
     (("window-picker", "card", "info"), "title-color", "active"),
-    (("window-picker", "card", "info"), "app-id-color", "secondary_alpha"),
+    (("window-picker", "card", "info"), "app-id-color", "secondary"),
     (("window-picker", "card", "info"), "workspace-color", "secondary_alpha"),
     (("window-picker", "selection"), "focused-color", "secondary"),
     (("window-picker", "selection"), "hover-color", "secondary"),
